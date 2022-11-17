@@ -1,6 +1,10 @@
 import "./PaymentForm.css";
+import { useState } from 'react';
+import { Modal } from "../Modal/Modal";
+
 
 export const PaymentForm = ({ addNewPayment }) => {
+    const [modalActive, setModalActive] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,16 +24,8 @@ export const PaymentForm = ({ addNewPayment }) => {
         <>
             <div className="content-wrapper">
                 <form onSubmit={handleSubmit} className="payment-input-form">
-                    <div className="form-top">
-                        <input type="text" name="payment" placeholder="Введите сумму" className="expenses_input" />
-                        <input type="text" name="category" placeholder="Введите категорию" className="expenses_input" />
-                    </div>
-                    {/* <div className="calendar_input">
-                        <input type="date" name="date" />
-                    </div> */}
-                    <div className="form-bottom">
-                        <button className="add_spend_button">Добавить трату</button>
-                    </div>
+                    <button className="add_spend_button" onClick={() => setModalActive(true)}>Добавить трату</button>
+                    <Modal active={modalActive} setActive={setModalActive} />
                     <div className="filter-form">
                         <p className="filter-label">Фильтры:</p>
                         <button className="filter-btn">День</button>
@@ -42,7 +38,7 @@ export const PaymentForm = ({ addNewPayment }) => {
                     <p className="balance-label">Баланс</p>
                     <p className="white-text">143 607,31</p>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

@@ -1,3 +1,56 @@
+.expenses {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    margin-left: 26%;
+
+}
+
+.expenses-item {
+    width: 795px;
+    height: 90px;
+    background: #D9D9D9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 16px 49px 16px 42px;
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exp-name {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: #604B4B;
+    margin: 0px;
+}
+
+.exp-category {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+    color: #968383;
+    margin: 0px;
+}
+
+.exp-sum {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    text-transform: uppercase;
+    color: #423A3A;
+}
+
+
+
+
+
+
+
+
+
 .expenses-list {
     background-color: #718cb5;
     width: 1200px;

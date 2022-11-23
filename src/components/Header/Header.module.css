@@ -15,3 +15,11 @@
     text-decoration: none;
     text-transform: uppercase;
 }
+
+.link:hover {
+    color: #FF5555 !important;
+}
+
+.link:active {
+    transform: translateY(1px);
+}

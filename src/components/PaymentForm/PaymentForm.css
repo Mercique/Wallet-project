@@ -1,8 +1,6 @@
 .content-wrapper {
     display: flex;
     justify-content: space-between;
-    width: 1200px;
-    margin-left: 20%;
 }
 
 
@@ -46,6 +44,7 @@
     text-transform: uppercase;
     color: #FF5555;
     margin: 0px;
+    padding-bottom: 7px;
 }
 
 .white-text {

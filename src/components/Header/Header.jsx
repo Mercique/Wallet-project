@@ -11,7 +11,7 @@ export function Header() {
         <Nav.Link
           style={({ isActive }) => ({ color: isActive ? "#FF5555" : "white" })}
           className="header__link"
-          to="/"
+          to="/category"
           as={NavLink}
         >
           категории
@@ -19,7 +19,7 @@ export function Header() {
         <Nav.Link
           style={({ isActive }) => ({ color: isActive ? "#FF5555" : "white" })}
           className="header__link"
-          to="/operations"
+          to="/"
           as={NavLink}
         >
           операции

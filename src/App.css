@@ -1,14 +1,28 @@
 .App {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  font-size: 14px;
+  line-height: 17px;
   color: #fff;
-  background: linear-gradient(180deg, #4369A3 77.54%, #D3D6DA 99.97%, #DCDCDD 99.98%, #BCBCBC 99.99%);
+  background: linear-gradient(
+    180deg,
+    #4369a3 77.54%,
+    #d3d6da 99.97%,
+    #dcdcdd 99.98%,
+    #bcbcbc 99.99%
+  );
 }
 
 .center {
   padding-left: calc(50% - 600px);
   padding-right: calc(50% - 600px);
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper-top {
+  flex-grow: 1;
+  position: relative;
 }

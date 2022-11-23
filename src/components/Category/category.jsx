@@ -16,9 +16,9 @@ export const Category = () => {
 
   return (
     <div className="category">
-      {category.map((item) => (
+      {/* {category.map((item) => (
         <CategoryItem img={item.img} category={item.category} key={item.id} />
-      ))}
+      ))} */}
     </div>
   );
 };

@@ -10,7 +10,30 @@ import { Header } from "./components/Header/Header";
 import { Modal } from "./components/Modal/Modal";
 
 function App() {
-  const [paymentList, setPaymentList] = useState([]);
+  // тестовый массив данных, пока нет API
+  const testObj = [{
+    id: Math.floor(Math.random() * 100000),
+    name: 'textName1',
+    date: 'testDate1',
+    category: 'testCategory1',
+    value: 'testValue1'
+  },
+  {
+    id: Math.floor(Math.random() * 100000),
+    name: 'textName2',
+    date: 'testDate2',
+    category: 'testCategory2',
+    value: 'testValue2'
+  }, 
+  {
+    id: Math.floor(Math.random() * 100000),
+    name: 'textName3',
+    date: 'testDate2',
+    category: 'testCategory3',
+    value: 'testValue3'
+  }]
+
+  const [paymentList, setPaymentList] = useState(testObj);
   const [modalActive, setModalActive] = useState(false);
 
   const addNewPayment = (newPayment) => {
@@ -26,7 +49,7 @@ function App() {
           element={
             <>
               <PaymentForm addNewPayment={addNewPayment} />
-              <Modal active={modalActive} setActive={setModalActive} />
+              <Modal active={modalActive} setActive={setModalActive}/>
               <Category />
               <PaymentList paymentList={paymentList} />
             </>

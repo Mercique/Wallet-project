@@ -1,19 +1,8 @@
-.App {
-  font-size: 14px;
-  line-height: 17px;
-  color: #fff;
-  background: linear-gradient(
-    180deg,
-    #4369a3 77.54%,
-    #d3d6da 99.97%,
-    #dcdcdd 99.98%,
-    #bcbcbc 99.99%
-  );
-}
-
-.center {
-  padding-left: calc(50% - 600px);
-  padding-right: calc(50% - 600px);
+@media (min-width: 1024px) {
+    .center {
+        min-width: 1024px;
+        margin: 0 auto;
+    }
 }
 
 .wrapper {

@@ -1,5 +1,4 @@
 .header {
-    background-color: #4369A3;
     min-height: 80px;
     display: flex;
     align-items: center;
@@ -7,12 +6,12 @@
     border-bottom: 1px solid #FFFFFF;
 }
 
-.header__wrp {
+.wrp {
     display: flex;
     column-gap: 30px;
 }
 
-.header__link {
+.link {
     text-decoration: none;
     text-transform: uppercase;
 }

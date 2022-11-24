@@ -11,68 +11,52 @@ import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 
 function App() {
-  // тестовый массив данных, пока нет API
-  const testObj = [{
-    id: 1,
-    name: 'Магазин',
-    date: '2022-11-12',
-    category: 'Одежда',
-    value: 5000,
-    img: '/images/exp-1.png'
-  },
-  {
-    id: 2,
-    name: 'Интернет',
-    date: '2022-10-12',
-    category: 'ЖКХ, связь. интернет',
-    value: 499,
-    img: '/images/exp-2.png'
-  }, 
-  {
-    id: 3,
-    name: 'Процент по вкладу',
-    date: '2022-11-13',
-    category: 'Пополнение',
-    value: 15300,
-    img: '/images/exp-3.png'
-  },
-  {
-    id: 4,
-    name: 'Оплата обучения',
-    date: '2022-11-16',
-    category: 'Образование',
-    value: 157000,
-    img: '/images/exp-4.png'
-  },
-  {
-    id: 5,
-    name: 'Аптека',
-    date: '2022-11-20',
-    category: 'Медицина',
-    value: 1230,
-    img: '/images/exp-5.png'
-  }]
+  const urlCategory = "http://wallet-backend/api/category";
+  const urlPayments = "http://wallet-backend/api/spending";
 
-  const categoryList = [
-    {id: 1, name: "Одежда", img: "/images/exp-1.png" },
-    {id: 2, name: "ЖКХ, связь, интернет", img: "/images/exp-2.png" },
-    {id: 3, name: "Пополнение", img: "/images/exp-3.png" },
-    {id: 4, name: "Образование", img: "/images/exp-4.png" },
-    {id: 5, name: "Медицина", img: "/images/exp-5.png" },
-  ];
-
-  const [paymentList, setPaymentList] = useState(testObj);
+  const [categoryList, setCategoryList] = useState([]);
+  const [paymentList, setPaymentList] = useState([]);
   // const [modalActive, setModalActive] = useState(false);
-  const [balance, setBalance] = useState(500000 - paymentList.reduce((prev, cur) => prev + cur.value, 0));
+  const [balance, setBalance] = useState(500000);
 
   const addNewPayment = (newPayment) => {
+    const postPayment = {
+      sum: newPayment.value,
+      category_id: newPayment.category_id,
+      created_at: newPayment.date
+    }
+
+    fetch(urlPayments, {
+      method: "POST",
+      body: JSON.stringify(postPayment),
+      headers: {
+        "Content-type": "application/json",
+      }
+    }).then((res) => res.json())
+      .then((data) => setPaymentList((prevPayment) => [...prevPayment, {
+        sum: data.sum,
+        CategoryId: data.category_id,
+        CategoryName: newPayment.category,
+        CategoryImgName: newPayment.img,
+        created_at: data.created_at
+      }]));
+
     setBalance(balance - newPayment.value);
-    setPaymentList((prevPayment) => [...prevPayment, newPayment]);
+  };
+
+  const getAPI = (url, f) => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        f(data);
+        console.log(data);
+      });
   };
 
   useEffect(() => {
-    console.log(paymentList);
-  }, [paymentList]);
+    getAPI(urlCategory, setCategoryList);
+    getAPI(urlPayments, setPaymentList);
+  }, []);
 
   return (
     <div className="App">

@@ -15,17 +15,17 @@ export const PaymentList = ({ paymentList }) => {
           <div key={idx} className={styles.expItem}>
             <div className={styles.expLeft}>
               <div className={styles.expIcon}>
-                <img src={payment.img} alt="" />
+                <img src={`/images/${payment.CategoryImgName}`} alt="" />
               </div>
               <div className={styles.expTexts}>
                 {/* изменить стилистику Date */}
                 {/* <p className={styles.expName}>{payment.date}</p> */}
-                <p className={styles.expName}>{payment.name}</p>
-                <p className={styles.expCategory}>{payment.category}</p>
+                <p className={styles.expName}>НАЗВАНИЕ ТРАТЫ</p>
+                <p className={styles.expCategory}>{payment.CategoryName}</p>
               </div>
             </div>
             <div className={styles.expRight}>
-              <p className={styles.expSum}>- {payment.value.toLocaleString()},00</p>
+              <p className={styles.expSum}>- {payment.sum.toLocaleString()},00</p>
               <button type="button" className={styles.expBtnEdit}><img src="/images/Edit.png" alt="" /></button>
             </div>
           </div>

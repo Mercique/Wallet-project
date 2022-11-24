@@ -33,14 +33,15 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(category);
+
     addNewPayment({
       id: paymentList.length + 1,
       name: name,
       date: date ? date : getCurrentDate(),
       category: category.name || categoryList[0].name,
+      category_id: category.id || 1,
       value: +value,
-      img: category.img || categoryList[0].img
+      img: category.img_name || categoryList[0].img_name
     })
     resetForm(e)
   }

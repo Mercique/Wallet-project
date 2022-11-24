@@ -1,11 +1,15 @@
 import "./PaymentForm.css";
 import { useState } from "react";
 
-export const PaymentForm = ({ addNewPayment }) => {  
+export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance }) => {  
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
   const [date, setDate] = useState("");
-  const [category, setCategory] = useState("Одежда");
+  const [category, setCategory] = useState([]);
+
+  const handleCategoryChange = (e) => {
+    setCategory(categoryList[e.target.value]);
+  };
 
   const getCurrentDate = () => {
     const today = new Date();
@@ -25,18 +29,18 @@ export const PaymentForm = ({ addNewPayment }) => {
     setName('');
     setValue('');
     setDate('');
-    setCategory('Одежда');
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(category);
     addNewPayment({
-      id: '',
+      id: paymentList.length + 1,
       name: name,
       date: date ? date : getCurrentDate(),
-      category: category,
-      value: value,
-      img: ''
+      category: category.name || categoryList[0].name,
+      value: +value,
+      img: category.img || categoryList[0].img
     })
     resetForm(e)
   }
@@ -53,17 +57,11 @@ export const PaymentForm = ({ addNewPayment }) => {
             <select
               className="expenses_input"
               name="category"
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
+              onChange={handleCategoryChange}
             >
-              <option id="0">Одежда</option>
-              <option id="1">Транспорт</option>
-              <option id="2">Кафе и рестораны</option>
-              <option id="3">Супермаркеты</option>
-              <option id="4">ЖКХ, связь, интернет</option>
-              <option id="5">Медицина</option>
-              <option id="6">Образование</option>
-              <option id="7">Прочие расходы</option>
+              { categoryList.map((category, idx) => (
+                <option value={idx} key={idx}>{category.name}</option>
+              )) }
             </select>
             <input className="expenses_input" type="date" name="date" onChange={(event) => setDate(event.target.value)}/>
           </div>
@@ -73,7 +71,7 @@ export const PaymentForm = ({ addNewPayment }) => {
         </form>
         <div className="balance">
           <p className="balance-label">Баланс</p>
-          <p className="white-text">143 607,31</p>
+          <p className="white-text">{balance.toLocaleString()},00</p>
         </div>
       </div>
     </>

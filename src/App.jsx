@@ -63,8 +63,10 @@ function App() {
 
   const [paymentList, setPaymentList] = useState(testObj);
   // const [modalActive, setModalActive] = useState(false);
+  const [balance, setBalance] = useState(500000 - paymentList.reduce((prev, cur) => prev + cur.value, 0));
 
   const addNewPayment = (newPayment) => {
+    setBalance(balance - newPayment.value);
     setPaymentList((prevPayment) => [...prevPayment, newPayment]);
   };
 
@@ -81,7 +83,7 @@ function App() {
             <Route path="/category" element={<Category />} />
             <Route path="/" element={
                 <div className="operations">
-                  <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} />
+                  <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} balance={balance} />
                   {/* <Modal active={modalActive} setActive={setModalActive}/> */}
                   {/* <Category /> */}
                   <PaymentList paymentList={paymentList} />

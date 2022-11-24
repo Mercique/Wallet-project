@@ -1,59 +1,73 @@
 .expenses {
+    width: 584px;
+    height: 478px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     margin-top: 32px;
-    overflow-y: scroll;
-    gap: 30px;
+    overflow-y: auto;
 }
 
 .expItem {
     width: 554px;
-    height: 70px;
-    background: #D9D9D9;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    padding: 16px 49px 16px 42px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 7px 0 7px;
+    margin-bottom: 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: #D9D9D9;
 }
 
-.expLeft {}
+.expItem:first-of-type {
+    margin-bottom: 5px;
+}
+
+.expLeft {
+    display: flex;
+    gap: 22px;
+    padding-left: 22px;
+}
+
 .expIcon {}
 .expTexts {}
-.expRight {}
+
+.expRight {
+    display: flex;
+    gap: 25px;
+    padding-right: 24px;
+}
 
 .expName {
     font-weight: 600;
-    font-size: 24px;
-    line-height: 33px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
     color: #604B4B;
     margin: 0px;
 }
 
 .expCategory {
     font-weight: 600;
-    font-size: 18px;
-    line-height: 25px;
+    font-size: 13px;
+    line-height: 18px;
     color: #968383;
     margin: 0px;
 }
 
 .expSum {
     font-weight: 400;
-    font-size: 24px;
-    line-height: 36px;
+    font-size: 16px;
+    line-height: 24px;
     text-transform: uppercase;
     color: #423A3A;
 }
 
-
-
-
-
-
-
-
+.expBtnEdit {
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+}
 
 .expenses-list {
     background-color: #718cb5;

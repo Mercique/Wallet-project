@@ -29,12 +29,13 @@ export function Header() {
       <Logo />
       <Nav className={styles.wrp}>
         {navList &&
-            navList.map(navItem => (
+            navList.map((navItem, idx) => (
             <Nav.Link
                 style={({ isActive }) => ({ color: isActive ? "#FF5555" : "white" })}
                 className={styles.link}
                 to={navItem.route}
                 as={NavLink}
+                key={idx}
             >
                 {navItem.name}
             </Nav.Link>

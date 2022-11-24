@@ -1,23 +1,24 @@
 import "./Modal.css";
 import { useState } from "react";
 
-export const Modal = ({ active, setActive, addNewPayment }) => {
-  const [category, setCategory] = useState("");
+export const Modal = ({ active, setActive, addNewPayment, paymentList, categoryList }) => {
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
   const [date, setDate] = useState("");
+  const [category, setCategory] = useState([]);
 
-  const handleCategoryChange = (category) => {
-    setCategory(category);
+  const handleCategoryChange = (e) => {
+    setCategory(categoryList[e.target.value]);
   };
 
   const addPayment = () => {
     addNewPayment({
-      id: Math.floor(Math.random() * 100000),
-      name: name,
-      date: date,
-      category: category,
-      value: value
+      id: paymentList.length + 1,
+      name: name || "Пусто",
+      date: date || "2022-11-24",
+      category: category.name || "Одежда",
+      value: +value || 0,
+      img: category.img || "/images/exp-1.png"
     })
   }
 
@@ -50,18 +51,12 @@ export const Modal = ({ active, setActive, addNewPayment }) => {
         />
         <select
           name="category"
-          value={category}
           className="expenses_input"
-          onChange={(event) => handleCategoryChange(event.target.value)}
+          onChange={handleCategoryChange}
         >
-          <option id="0">Одежда</option>
-          <option id="1">Транспорт</option>
-          <option id="2">Кафе и рестораны</option>
-          <option id="3">Супермаркеты</option>
-          <option id="4">ЖКХ, связь, интернет</option>
-          <option id="5">Медицина</option>
-          <option id="6">Образование</option>
-          <option id="7">Прочие расходы</option>
+          { categoryList.map((item, idx) => (
+            <option value={idx} key={idx}>{item.name}</option>
+          )) }
         </select>
         <button onClick={addPayment} className="input-button">Добавить трату</button>
       </div>

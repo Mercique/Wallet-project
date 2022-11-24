@@ -2,7 +2,7 @@ import "./PaymentForm.css";
 import { useState } from "react";
 import { Modal } from "../Modal/Modal";
 
-export const PaymentForm = ({addNewPayment}) => {
+export const PaymentForm = ({addNewPayment, paymentList, categoryList}) => {
   const [modalActive, setModalActive] = useState(false);
 
   const handleSubmit = (e) => {
@@ -19,7 +19,7 @@ export const PaymentForm = ({addNewPayment}) => {
           >
             Добавить трату
           </button>
-          <Modal active={modalActive} setActive={setModalActive} addNewPayment={addNewPayment} />
+          <Modal active={modalActive} setActive={setModalActive} addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} />
           <div className="filter-form">
             <p className="filter-label">Фильтры:</p>
             <button className="filter-btn">День</button>

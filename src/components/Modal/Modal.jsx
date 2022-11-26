@@ -1,7 +1,7 @@
 import "./Modal.css";
 import { useState } from "react";
 
-export const Modal = ({ active, setActive, addNewPayment, paymentList, categoryList }) => {
+export const Modal = ({ active, setActive, categoryList }) => {
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
   const [date, setDate] = useState("");
@@ -11,23 +11,31 @@ export const Modal = ({ active, setActive, addNewPayment, paymentList, categoryL
     setCategory(categoryList[e.target.value]);
   };
 
-  const addPayment = () => {
-    addNewPayment({
-      id: paymentList.length + 1,
-      name: name || "Пусто",
-      date: date || "2022-11-24",
-      category: category.name || "Одежда",
-      value: +value || 0,
-      img: category.img || "/images/exp-1.png"
-    })
-  }
+  // const addPayment = () => {
+  //   addNewPayment({
+  //     id: paymentList.length + 1,
+  //     name: name || "Пусто",
+  //     date: date || "2022-11-24",
+  //     category: category.name || "Одежда",
+  //     value: +value || 0,
+  //     img: category.img || "/images/exp-1.png"
+  //   })
+  // }
+
+  const editPayment = () => {
+    console.log("click");
+    setActive(false);
+  };
+
+  const deletePayment = () => {
+    console.log("delete");
+    setActive(false);
+  };
 
   return (
-    <div
-      className={active ? "modal active" : "modal"}
-      onClick={() => setActive(false)}
-    >
+    <div className={active ? "modal active" : "modal"} onClick={() => setActive(false)}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <h1>Изменить трату</h1>
         <input
           type="text"
           name="name"
@@ -58,7 +66,10 @@ export const Modal = ({ active, setActive, addNewPayment, paymentList, categoryL
             <option value={idx} key={idx}>{item.name}</option>
           )) }
         </select>
-        <button onClick={addPayment} className="input-button">Добавить трату</button>
+        <div className="modalBtns">
+          <button onClick={editPayment} className="input-button edit">Изменить</button>
+          <button onClick={deletePayment} className="input-button delete" style={{color: "red"}}>Удалить</button>
+        </div>
       </div>
     </div>
   );

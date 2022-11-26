@@ -34,11 +34,9 @@ function App() {
       }
     }).then((res) => res.json())
       .then((data) => setPaymentList((prevPayment) => [...prevPayment, {
-        sum: data.sum,
-        CategoryId: data.category_id,
+        ...data,
         CategoryName: newPayment.category,
         CategoryImgName: newPayment.img,
-        created_at: data.created_at
       }]));
 
     setBalance(balance - newPayment.value);
@@ -70,7 +68,7 @@ function App() {
                   <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} balance={balance} />
                   {/* <Modal active={modalActive} setActive={setModalActive}/> */}
                   {/* <Category /> */}
-                  <PaymentList paymentList={paymentList} />
+                  <PaymentList paymentList={paymentList} categoryList={categoryList} />
                 </div>
               }
             />

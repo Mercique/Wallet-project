@@ -1,8 +1,10 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { Modal } from "../Modal/Modal";
 import styles from "./PaymentList.module.css";
 
-export const PaymentList = ({ paymentList }) => {
+export const PaymentList = ({ paymentList, categoryList }) => {
   const firstElement = useRef();
+  const [active, setActive] = useState(true);
   
   useEffect(() => {
     firstElement.current?.scrollIntoView();
@@ -26,11 +28,12 @@ export const PaymentList = ({ paymentList }) => {
             </div>
             <div className={styles.expRight}>
               <p className={styles.expSum}>- {payment.sum.toLocaleString()},00</p>
-              <button type="button" className={styles.expBtnEdit}><img src="/images/Edit.png" alt="" /></button>
+              <button type="button" className={styles.expBtnEdit} onClick={() => setActive(true)}><img src="/images/Edit.png" alt="" /></button>
             </div>
           </div>
         ))}
         <div ref={firstElement}></div>
+        <Modal active={active} setActive={setActive} categoryList={categoryList} />
       </div>
     </>
   );

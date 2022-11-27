@@ -5,7 +5,6 @@
     flex-direction: column-reverse;
     margin-top: 32px;
     overflow-y: auto;
-    justify-content: flex-end;
 }
 
 .expenses::-webkit-scrollbar {

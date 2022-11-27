@@ -62,8 +62,6 @@ function App() {
   };
 
   const editPayment = (paymentInfo, editPayment) => {
-    console.log(paymentInfo, editPayment);
-
     const putPayment = {
       name: editPayment.name,
       category_id: editPayment.category,
@@ -77,7 +75,18 @@ function App() {
         "Content-type": "application/json",
       }
     }).then((res) => res.json())
-      .then((data) => console.log("put", data));
+      .then((data) => {
+        const editItem = {
+          ...data,
+          category: categoryList[data.category_id - 1],
+        }
+        const index = paymentList.findIndex((payment) => payment.id === paymentInfo.id);
+
+        const updateList = [...paymentList];
+        updateList.splice(index, 1, editItem);
+
+        setPaymentList(updateList);
+      });
 
     setBalance(balance + paymentInfo.sum - editPayment.value);
   };

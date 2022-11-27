@@ -7,23 +7,41 @@ import { Routes, Route } from "react-router-dom";
 import { Calendar } from "./components/Calendar/Calendar";
 import { Registration } from "./components/Registration/Registration";
 import { Header } from "./components/Header/Header";
-// import { Modal } from "./components/Modal/Modal";
 import { Footer } from "./components/Footer/Footer";
 
 function App() {
-  const urlCategory = "http://wallet-backend/api/category";
-  const urlPayments = "http://wallet-backend/api/spending";
+  const urlCategory = "http://wallet-backend/api/category"; // API категорий
+  const urlPayments = "http://wallet-backend/api/spending"; // API расходов
 
   const [categoryList, setCategoryList] = useState([]);
   const [paymentList, setPaymentList] = useState([]);
-  // const [modalActive, setModalActive] = useState(false);
   const [balance, setBalance] = useState(500000);
+  const [expenses, setExpenses] = useState(0);
+
+  useEffect(() => {
+    const getAPI = (url, f) => {
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          f(data);
+          console.log(data);
+          if (data[0].sum) {
+            setExpenses(data.reduce((prev, cur) => prev + cur.sum, 0));
+          }
+        })
+        .catch((e) => console.log(e));
+    };
+
+    getAPI(urlCategory, setCategoryList);
+    getAPI(urlPayments, setPaymentList);
+  }, []);
 
   const addNewPayment = (newPayment) => {
     const postPayment = {
-      sum: newPayment.value,
-      category_id: newPayment.category_id,
-      created_at: newPayment.date
+      "name": newPayment.paymentName,
+      "category_id": newPayment.paymentCategoryId,
+      "sum": newPayment.paymentSum,
+      "created_at": newPayment.paymentDate
     }
 
     fetch(urlPayments, {
@@ -33,28 +51,49 @@ function App() {
         "Content-type": "application/json",
       }
     }).then((res) => res.json())
-      .then((data) => setPaymentList((prevPayment) => [...prevPayment, {
-        ...data,
-        CategoryName: newPayment.category,
-        CategoryImgName: newPayment.img,
-      }]));
+      .then((data) => {
+        setPaymentList((prevPayment) => [...prevPayment, {
+          ...data,
+          category: categoryList[newPayment.paymentCategoryId - 1]
+        }]);
+      });
 
-    setBalance(balance - newPayment.value);
+    setBalance(balance - newPayment.paymentSum);
   };
 
-  const getAPI = (url, f) => {
-    fetch(url)
-      .then((res) => res.json())
+  const editPayment = (paymentInfo, editPayment) => {
+    console.log(paymentInfo, editPayment);
+
+    const putPayment = {
+      name: editPayment.name,
+      category_id: editPayment.category,
+      sum: editPayment.value
+    }
+
+    fetch(`${urlPayments}/${paymentInfo.id}`, {
+      method: "PUT",
+      body: JSON.stringify(putPayment),
+      headers: {
+        "Content-type": "application/json",
+      }
+    }).then((res) => res.json())
+      .then((data) => console.log("put", data));
+
+    setBalance(balance + paymentInfo.sum - editPayment.value);
+  };
+
+  const deletePayment = (id, sum) => {
+    fetch(`${urlPayments}/${id}`, {
+      method: "DELETE",
+    }).then((res) => res.json())
       .then((data) => {
-        f(data);
+        const updatePaymentList = paymentList.filter((payment) => payment.id !== id);
+        setPaymentList(updatePaymentList);
         console.log(data);
       });
-  };
 
-  useEffect(() => {
-    getAPI(urlCategory, setCategoryList);
-    getAPI(urlPayments, setPaymentList);
-  }, []);
+    setBalance(balance + sum);
+  };
 
   return (
     <div className="App">
@@ -65,10 +104,8 @@ function App() {
             <Route path="/category" element={<Category />} />
             <Route path="/" element={
                 <div className="operations">
-                  <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} balance={balance} />
-                  {/* <Modal active={modalActive} setActive={setModalActive}/> */}
-                  {/* <Category /> */}
-                  <PaymentList paymentList={paymentList} categoryList={categoryList} />
+                  <PaymentForm addNewPayment={addNewPayment} categoryList={categoryList} balance={balance - expenses} />
+                  <PaymentList paymentList={paymentList} categoryList={categoryList} editPayment={editPayment} deletePayment={deletePayment} />
                 </div>
               }
             />

@@ -18,7 +18,7 @@ export const PaymentList = ({ paymentList, categoryList, editPayment, deletePaym
 
   return (
     <>
-      <div className={styles.expenses}>
+      <div className={styles.expenses} style={({ justifyContent: paymentList.length < 5 ? "flex-end" : "flex-start" })}>
         {paymentList.map((payment, idx) => (
           <div key={idx} className={styles.expItem}>
             <div className={styles.expLeft}>

@@ -19,22 +19,51 @@ function App() {
   const [expenses, setExpenses] = useState(0);
 
   useEffect(() => {
-    const getAPI = (url, f) => {
-      fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          f(data);
-          console.log(data);
-          if (data[0].sum) {
-            setExpenses(data.reduce((prev, cur) => prev + cur.sum, 0));
-          }
-        })
-        .catch((e) => console.log(e));
+    const fetchAPI = async (url) => {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
+        const data = await response.json();
+        return data;
+      } catch (err) {
+        console.warn(err);
+      }
     };
 
-    getAPI(urlCategory, setCategoryList);
-    getAPI(urlPayments, setPaymentList);
+    fetchAPI(urlCategory)
+      .then((data) => {
+        console.log(data);
+        setCategoryList(data);
+      });
+
+    fetchAPI(urlPayments)
+      .then((data) => {
+        console.log(data);
+        setPaymentList(data);
+        setExpenses(data.reduce((prev, cur) => prev + cur.sum, 0));
+      });
   }, []);
+
+  const handleSubmitAPI = async (url, method, body = null) => {
+    try {
+      const response = await fetch(url, {
+        method: method,
+        body: JSON.stringify(body),
+        headers: {
+          "Content-type": "application/json",
+        }
+      });
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 
   const addNewPayment = (newPayment) => {
     const postPayment = {
@@ -44,13 +73,7 @@ function App() {
       "created_at": newPayment.paymentDate
     }
 
-    fetch(urlPayments, {
-      method: "POST",
-      body: JSON.stringify(postPayment),
-      headers: {
-        "Content-type": "application/json",
-      }
-    }).then((res) => res.json())
+    handleSubmitAPI(urlPayments, "POST", postPayment)
       .then((data) => {
         setPaymentList((prevPayment) => [...prevPayment, {
           ...data,
@@ -61,26 +84,20 @@ function App() {
     setBalance(balance - newPayment.paymentSum);
   };
 
-  const editPayment = (paymentInfo, editPayment) => {
+  const editPayment = (editPayment) => {
     const putPayment = {
       name: editPayment.name,
       category_id: editPayment.category,
       sum: editPayment.value
     }
 
-    fetch(`${urlPayments}/${paymentInfo.id}`, {
-      method: "PUT",
-      body: JSON.stringify(putPayment),
-      headers: {
-        "Content-type": "application/json",
-      }
-    }).then((res) => res.json())
+    handleSubmitAPI(`${urlPayments}/${editPayment.id}`, "PUT", putPayment)
       .then((data) => {
         const editItem = {
           ...data,
           category: categoryList[data.category_id - 1],
         }
-        const index = paymentList.findIndex((payment) => payment.id === paymentInfo.id);
+        const index = paymentList.findIndex((payment) => payment.id === editPayment.id);
 
         const updateList = [...paymentList];
         updateList.splice(index, 1, editItem);
@@ -88,20 +105,18 @@ function App() {
         setPaymentList(updateList);
       });
 
-    setBalance(balance + paymentInfo.sum - editPayment.value);
+    setBalance(balance + editPayment.lastValue - editPayment.value);
   };
 
-  const deletePayment = (id, sum) => {
-    fetch(`${urlPayments}/${id}`, {
-      method: "DELETE",
-    }).then((res) => res.json())
+  const deletePayment = (deleteItem) => {
+    handleSubmitAPI(`${urlPayments}/${deleteItem.id}`, "DELETE")
       .then((data) => {
-        const updatePaymentList = paymentList.filter((payment) => payment.id !== id);
+        const updatePaymentList = paymentList.filter((payment) => payment.id !== deleteItem.id);
         setPaymentList(updatePaymentList);
-        console.log(data);
+        console.log("Delete ", data);
       });
 
-    setBalance(balance + sum);
+    setBalance(balance + deleteItem.sum);
   };
 
   return (

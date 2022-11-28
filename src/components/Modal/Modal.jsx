@@ -14,13 +14,13 @@ export const Modal = ({ active, setActive, categoryList, editPayment, deletePaym
   };
 
   const handleEditPayment = () => {
-    editPayment(paymentInfo, { name, value: +value, date, category: +category + 1 });
+    editPayment({ id: paymentInfo.id, name, value: +value, lastValue: paymentInfo.sum, date, category: +category + 1 });
 
     setActive(false);
   };
 
   const handleDeletePayment = () => {
-    deletePayment(paymentInfo.id, paymentInfo.sum);
+    deletePayment({ id: paymentInfo.id, sum: paymentInfo.sum });
     setActive(false);
   };
 

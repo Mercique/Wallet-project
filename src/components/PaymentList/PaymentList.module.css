@@ -1,10 +1,11 @@
 .expenses {
-    width: 584px;
+    width: 611px;
     height: 478px;
     display: flex;
     flex-direction: column;
     margin-top: 32px;
     overflow-y: auto;
+    padding-bottom: 8px;
 }
 
 .expenses::-webkit-scrollbar {
@@ -24,7 +25,7 @@
 }
 
 .expItem {
-    width: 554px;
+    width: 578px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -41,6 +42,10 @@
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.expItem:last-of-type {
+    margin: 0;
+}
+
 .expLeft {
     display: flex;
     gap: 22px;
@@ -53,11 +58,13 @@
 .paymentListError {
     width: 720px;
     margin-top: 30px;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 32px;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.1em;
     text-align: center;
-    color: #f00;
+    text-transform: uppercase;
+    color: #B91C1C;
 }
 
 .expRight {

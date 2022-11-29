@@ -45,11 +45,11 @@ export const PaymentForm = ({ addNewPayment, categoryList, balance }) => {
     <>
       <div className={styles.contentWrapper}>
         <form onSubmit={handleSubmit} className={styles.paymentInputForm}>
-          <div>
+          <div className={styles.inputBox}>
             <input className={styles.expensesInput} type="number" name="value" placeholder="Введите сумму" onChange={(event) => setValue(event.target.value)}/>
             <input className={styles.expensesInput} type="text" name="name" placeholder="Введите название" onChange={(event) => setName(event.target.value)}/>
           </div>
-          <div className="">
+          <div className={styles.inputBox}>
             { !categoryList ? (
               <select className={styles.expensesInput} style={{ color: "#f00" }}><option>Ошибка загрузки категорий!</option></select>
             ) : (
@@ -66,7 +66,7 @@ export const PaymentForm = ({ addNewPayment, categoryList, balance }) => {
             <input className={styles.expensesInput} type="date" name="date" onChange={(event) => setDate(event.target.value)}/>
           </div>
           <button className={styles.addSpendButton} disabled={!name | !value} >
-            Добавить трату
+            <span>Добавить трату</span>
           </button>
         </form>
         <div className={styles.balance}>

@@ -6,6 +6,7 @@
 .paymentInputForm {
     display: flex;
     flex-direction: column;
+    gap: 14px;
     padding-top: 30px;
 }
 
@@ -15,9 +16,7 @@
     height: 40px;
     border: 1px solid #d0bbbb;
     background: rgba(238, 238, 238, 0.93);
-    margin-right: 10px;
     border-radius: 8px;
-    margin-bottom: 15px;
 }
 
 .addSpendButton {
@@ -52,12 +51,22 @@
     background: #262626;
 }
 
-.addSpendButton:disabled::before {
+.addSpendButton:disabled span::before {
     content: "Введите сумму и название!";
     position: absolute;
-    top: -26px;
+    top: -29px;
     left: 0;
-    color: #f00;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.1em;
+    cursor: auto;
+    color: #B91C1C;
+}
+
+.inputBox {
+    display: flex;
+    gap: 14px;
 }
 
 .balance {

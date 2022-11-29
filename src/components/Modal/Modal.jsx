@@ -7,14 +7,26 @@ export const Modal = ({ active, setActive, categoryList, editPayment, deletePaym
   const [date, setDate] = useState(paymentInfo.created_at);
   const [category, setCategory] = useState(paymentInfo.category_id - 1);
 
-  const getCurrentDate = (date) => {
-    const getDate = new Date(date);
 
-    return `${getDate.getFullYear()}-${getDate.getMonth() + 1}-${getDate.getDate() < 10 ? "0" + getDate.getDate() : getDate.getDate()}`;
+  const getCurrentDate = (date) => {
+    const today = new Date();
+
+    if (date) {
+      return `${date}T${today.toLocaleTimeString()}`;
+    } else {
+      return `${today.toLocaleDateString()}T${today.toLocaleTimeString()}`;
+    }
   };
 
   const handleEditPayment = () => {
-    editPayment({ id: paymentInfo.id, name, value: +value, lastValue: paymentInfo.sum, date, category: +category + 1 });
+    editPayment({
+      id: paymentInfo.id,
+      name,
+      value: +value,
+      lastValue: paymentInfo.sum,
+      date: date ? getCurrentDate(date) : getCurrentDate(null),
+      category: +category + 1
+    });
 
     setActive(false);
   };
@@ -49,7 +61,7 @@ export const Modal = ({ active, setActive, categoryList, editPayment, deletePaym
           name="calendar"
           placeholder="Дата"
           className="expenses_input"
-          value={getCurrentDate(date)}
+          value={date}
           onChange={(event) => setDate(event.target.value)}
         />
         <select

@@ -66,6 +66,7 @@ function App() {
   };
 
   const addNewPayment = (newPayment) => {
+    console.log(newPayment.paymentDate);
     const postPayment = {
       "name": newPayment.paymentName,
       "category_id": newPayment.paymentCategoryId,
@@ -75,12 +76,14 @@ function App() {
 
     handleSubmitAPI(urlPayments, "POST", postPayment)
       .then((data) => {
-        setPaymentList((prevPayment) => [...prevPayment, {
+        setPaymentList((prevPayment) => [{
           ...data,
           category: categoryList[newPayment.paymentCategoryId - 1]
-        }]);
-      });
+        }, ...prevPayment]);
 
+        console.log(data);
+      });
+    
     setBalance(balance - newPayment.paymentSum);
   };
 
@@ -88,8 +91,11 @@ function App() {
     const putPayment = {
       name: editPayment.name,
       category_id: editPayment.category,
-      sum: editPayment.value
+      sum: editPayment.value,
+      created_at: editPayment.date
     }
+
+    console.log(putPayment);
 
     handleSubmitAPI(`${urlPayments}/${editPayment.id}`, "PUT", putPayment)
       .then((data) => {

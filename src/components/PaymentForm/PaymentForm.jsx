@@ -1,4 +1,4 @@
-import "./PaymentForm.css";
+import styles from "./PaymentForm.module.css";
 import { useState } from "react";
 
 export const PaymentForm = ({ addNewPayment, categoryList, balance }) => {
@@ -7,10 +7,14 @@ export const PaymentForm = ({ addNewPayment, categoryList, balance }) => {
   const [date, setDate] = useState("");
   const [category, setCategory] = useState(1);
 
-  const getCurrentDate = () => {
-    const today = new Date(Date.now());
+  const getCurrentDate = (date) => {
+    const today = new Date();
 
-    return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    if (date) {
+      return `${date}T${today.toLocaleTimeString()}`;
+    } else {
+      return `${today.toLocaleDateString()}T${today.toLocaleTimeString()}`;
+    }
   };
 
   const resetForm = (e) => {
@@ -31,7 +35,7 @@ export const PaymentForm = ({ addNewPayment, categoryList, balance }) => {
       paymentName: name,
       paymentCategoryId: +category,
       paymentCategoryName: categoryList[+category - 1].name,
-      paymentDate: date || getCurrentDate()
+      paymentDate: date ? getCurrentDate(date) : getCurrentDate(null)
     });
 
     resetForm(e);
@@ -39,31 +43,35 @@ export const PaymentForm = ({ addNewPayment, categoryList, balance }) => {
 
   return (
     <>
-      <div className="content-wrapper">
-        <form onSubmit={handleSubmit} className="payment-input-form">
-          <div className="payment-input-form-">
-            <input className="expenses_input" type="number" name="value" placeholder="Введите сумму" onChange={(event) => setValue(event.target.value)}/>
-            <input className="expenses_input" type="text" name="name" placeholder="Введите название" onChange={(event) => setName(event.target.value)}/>
+      <div className={styles.contentWrapper}>
+        <form onSubmit={handleSubmit} className={styles.paymentInputForm}>
+          <div>
+            <input className={styles.expensesInput} type="number" name="value" placeholder="Введите сумму" onChange={(event) => setValue(event.target.value)}/>
+            <input className={styles.expensesInput} type="text" name="name" placeholder="Введите название" onChange={(event) => setName(event.target.value)}/>
           </div>
           <div className="">
-            <select
-              className="expenses_input"
-              name="category"
-              onChange={(event) => setCategory(event.target.value)}
-            >
-              { categoryList.map((category, idx) => (
-                <option value={category.id} key={idx}>{category.name}</option>
-              )) }
-            </select>
-            <input className="expenses_input" type="date" name="date" onChange={(event) => setDate(event.target.value)}/>
+            { !categoryList ? (
+              <select className={styles.expensesInput} style={{ color: "#f00" }}><option>Ошибка загрузки категорий!</option></select>
+            ) : (
+              <select
+                className={styles.expensesInput}
+                name="category"
+                onChange={(event) => setCategory(event.target.value)}
+              >
+                { categoryList?.map((category, idx) => (
+                  <option value={category.id} key={idx}>{category.name}</option>
+                )) }
+              </select>
+            ) }
+            <input className={styles.expensesInput} type="date" name="date" onChange={(event) => setDate(event.target.value)}/>
           </div>
-          <button disabled={!name | !value} className="add_spend_button">
+          <button disabled={!name | !value} className={styles.addSpendButton}>
             Добавить трату
           </button>
         </form>
-        <div className="balance">
-          <p className="balance-label">Баланс:</p>
-          <p className="white-text">{balance.toLocaleString()},00 &#8381;</p>
+        <div className={styles.balance}>
+          <p className={styles.balanceLabel}>Баланс:</p>
+          <p className={styles.whiteText}>{balance.toLocaleString()},00 &#8381;</p>
         </div>
       </div>
     </>

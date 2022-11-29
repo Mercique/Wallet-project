@@ -65,7 +65,7 @@ export const PaymentForm = ({ addNewPayment, categoryList, balance }) => {
             ) }
             <input className={styles.expensesInput} type="date" name="date" onChange={(event) => setDate(event.target.value)}/>
           </div>
-          <button disabled={!name | !value} className={styles.addSpendButton}>
+          <button className={styles.addSpendButton} disabled={!name | !value} >
             Добавить трату
           </button>
         </form>

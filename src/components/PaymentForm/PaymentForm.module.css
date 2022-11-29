@@ -21,6 +21,7 @@
 }
 
 .addSpendButton {
+    position: relative;
     width: 100%;
     height: 61px;
     padding: 14px 120px;
@@ -35,10 +36,28 @@
     cursor: pointer;
     color: #FFFBFB;
     margin-top: 20px;
+    transition: background .2s ease;
 }
 
-.addSpendButton:focus {
-    background: #718cb5;
+.addSpendButton:hover {
+    background: #ff59597d;
+}
+
+.addSpendButton:active {
+    background: #642727;
+}
+
+.addSpendButton:disabled {
+    cursor: not-allowed;
+    background: #262626;
+}
+
+.addSpendButton:disabled::before {
+    content: "Введите сумму и название!";
+    position: absolute;
+    top: -26px;
+    left: 0;
+    color: #f00;
 }
 
 .balance {

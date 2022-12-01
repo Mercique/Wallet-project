@@ -1,5 +1,5 @@
 .expenses {
-    width: 611px;
+    width: 569px;
     height: 478px;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@
 }
 
 .expItem {
-    width: 578px;
+    width: 536px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -68,6 +68,7 @@
 }
 
 .expRight {
+    position: relative;
     display: flex;
     gap: 25px;
     padding-right: 24px;
@@ -102,6 +103,35 @@
     cursor: pointer;
     border: 0;
     background: transparent;
+}
+
+.expShowEditDelete {
+    width: 136px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 16px;
+    right: 30px;
+    background: #D9D9D9;
+    box-shadow: 0px 4px 4px 5px rgba(0, 0, 0, 0.25);
+}
+
+.expShowEditDelete button {
+    height: 33px;
+    display: flex;
+    gap: 9px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    transition: background .2s ease;
+}
+
+.expShowEditDelete button:hover {
+    background: #BDB7B7;
 }
 
 .expenses-list {

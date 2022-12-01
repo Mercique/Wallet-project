@@ -41,7 +41,10 @@ function App() {
     fetchAPI(urlPayments)
       .then((data) => {
         console.log(data);
-        setPaymentList(data);
+        setPaymentList([...data].map((el) => {
+          el["showEdit"] = false;
+          return el;
+        }));
         setExpenses(data.reduce((prev, cur) => prev + cur.sum, 0));
       });
   }, []);

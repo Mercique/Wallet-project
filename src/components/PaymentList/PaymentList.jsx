@@ -42,7 +42,8 @@ export const PaymentList = ({ paymentList, categoryList, editPayment, deletePaym
           <div className={styles.expItem} key={idx} >
             <div className={styles.expLeft}>
               <div className={styles.expIcon}>
-                <img src={`/images/${payment.category.img_name}`} alt="" />
+                {/* <img src={`/images/${payment.category.img_name}`} alt="" /> */}
+                <img src={`/images/${categoryList[payment.category_id - 1].img.img_name}`} alt="" />
               </div>
               <div className={styles.expTexts}>
                 <p className={styles.expName}>{payment.name}</p>

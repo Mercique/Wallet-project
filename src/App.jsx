@@ -2,7 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { PaymentForm } from "./components/PaymentForm/PaymentForm";
 import { PaymentList } from "./components/PaymentList/PaymentList";
-import { Category } from "./components/Category/category";
+import { Category } from "./components/Category/Category";
 import { Routes, Route } from "react-router-dom";
 import { Calendar } from "./components/Calendar/Calendar";
 import { Registration } from "./components/Registration/Registration";

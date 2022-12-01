@@ -10,7 +10,7 @@
   .contentWrapper {
     width: 1024px;
     display: flex;
-    padding: 30px 0 0;
+    padding: 25px 0 0;
     box-sizing: border-box;
     justify-content: space-between;
   }

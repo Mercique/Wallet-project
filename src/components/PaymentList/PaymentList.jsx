@@ -1,9 +1,8 @@
-import { useRef, useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal } from "../Modal/Modal";
 import styles from "./PaymentList.module.css";
 
 export const PaymentList = ({ paymentList, categoryList, editPayment, deletePayment }) => {
-  const firstElement = useRef();
   const [active, setActive] = useState(false);
   const [paymentInfo, setPaymentInfo] = useState();
   const [showEdit, setShowEdit] = useState();
@@ -36,14 +35,9 @@ export const PaymentList = ({ paymentList, categoryList, editPayment, deletePaym
     setShowEdit();
   };
 
-  useEffect(() => {
-    firstElement.current?.scrollIntoView();
-  }, [paymentList]);
-
   return (
     <>
       <div className={styles.expenses}>
-        <div ref={firstElement}></div>
         { paymentList?.map((payment, idx) => (
           <div className={styles.expItem} key={idx} >
             <div className={styles.expLeft}>

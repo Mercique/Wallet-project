@@ -1,0 +1,155 @@
+@media (min-width: 1024px) {
+  .categoryWrapper {
+    width: 1024px;
+    padding: 38px 12px 0 40px;
+  }
+
+  .balance {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .balanceHeader {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    text-transform: uppercase;
+    color: #FF5555;
+  }
+  .balanceValue {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 33px;
+    line-height: 39px;
+    letter-spacing: -0.065em;
+    text-transform: lowercase;
+    color: #FFFFFF;
+  }
+
+  .addCategory {
+    margin-top: 25px;
+    margin-bottom: 50px;
+    width: 830px;
+  }
+
+  .actionArea {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+
+  .addCategoryName,
+  .addCategoryPic {
+    font-family: 'Hind';
+    box-sizing: border-box;
+    width: 400px;
+    height: 40px;
+    border: 1px solid #d0bbbb;
+    background: rgba(238, 238, 238, 0.93);
+    padding: 0 10px;
+  }
+
+  .addCategoryName::placeholder {
+    color: black;
+    padding-left: 4px;
+
+  }
+
+  .addCategoryName:focus {
+    border-color: #968383;
+  }
+
+  .addButton {
+    width: 830px;
+    height: 65px;
+    background: #B99494;
+    border-radius: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .addButton div {
+    font-family: 'Hind';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 35px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
+
+  .changeCategory {
+    width: 830px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sliderHeader {
+    font-family: 'Hind';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 51px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
+
+  .categoriesImg {
+    width: 830px;
+    margin: 28px 0;
+  }
+
+  .categoryName {
+    font-family: 'Hind';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 38px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+  }
+
+  .changeArea {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    margin-top: 30px;
+  }
+
+  .changeCategoryName {
+    font-family: 'Hind';
+    box-sizing: border-box;
+    width: 300px;
+    height: 40px;
+    border: 1px solid #d0bbbb;
+    background: rgba(238, 238, 238, 0.93);
+    padding: 0 10px;
+    border-radius: 13px;
+  }
+
+  .renameButton,
+  .deleteButton {
+    width: 300px;
+    height: 55px;
+    background: #B99494;
+    border: 1px solid #B99494;
+    border-radius: 13px;
+    font-family: 'Hind';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 26px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+
+  }
+}

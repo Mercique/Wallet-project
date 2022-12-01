@@ -1,7 +1,85 @@
 .footer {
-  height: 100px;
+  min-height: 230px;
+  background-color: #556A8A;
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: #FF5555;
+  margin-top: 40px;
+}
+
+@media (min-width: 1024px) {
+  .contentWrapper {
+    width: 1024px;
+    display: flex;
+    padding: 30px 0 0;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+
+  .copyright {
+    font-style: normal;
+    font-weight: 200;
+    font-size: 18px;
+    line-height: 21px;
+    margin-top: 12px;
+    color: #FFFFFF;
+  }
+
+  .participantsHeader {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 23px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-bottom: 18px;
+  }
+
+  .participants {
+    display: grid;
+    row-gap: 9px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .participant {
+    font-style: normal;
+    font-weight: 200;
+    font-size: 15px;
+    line-height: 19px;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+
+  .participant:active {
+    transform: translateY(1px);
+  }
+
+  .linkTG:active,
+  .linkTG:hover,
+  .linkTG:visited,
+  .linkTG:link,
+  .linkTG {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .contactsHeader {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
+
+  .phone {
+    margin: 28px 0 18px;
+  }
+
+  .phone,
+  .email {
+    font-style: normal;
+    font-weight: 200;
+    font-size: 18px;
+    line-height: 21px;
+    color: #FFFFFF;
+  }
 }

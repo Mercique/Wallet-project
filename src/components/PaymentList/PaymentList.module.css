@@ -24,6 +24,15 @@
     background-clip: content-box;
 }
 
+.expensesError {
+    width: 536px;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 26px;
+    text-align: center;
+    color: #B91C1C;
+}
+
 .expItem {
     width: 536px;
     display: flex;

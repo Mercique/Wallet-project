@@ -10,42 +10,48 @@ import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 
 function App() {
-  const urlCategory = "http://wallet-backend/api/category"; // API категорий
-  const urlPayments = "http://wallet-backend/api/spending"; // API расходов
+  const urlCategory = "http://wallet-backend/api/categor"; // API категорий
+  const urlPayments = "http://wallet-backend/api/spendin"; // API расходов
 
   const [categoryList, setCategoryList] = useState([]);
   const [paymentList, setPaymentList] = useState([]);
-  const [balance, setBalance] = useState(500000);
+  const [balance, setBalance] = useState(0);
   const [expenses, setExpenses] = useState(0);
 
   useEffect(() => {
     const fetchAPI = async (url) => {
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(response.status);
-        }
-        const data = await response.json();
-        return data;
-      } catch (err) {
-        console.warn(err);
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Could not fetch ${url}, received ${response.status}`);
       }
+
+      const data = await response.json();
+      return data;
     };
 
     fetchAPI(urlCategory)
       .then((data) => {
         console.log(data);
         setCategoryList(data);
+      })
+      .catch((err) => {
+        console.log("catchCategory", err);
+        setCategoryList({error: true, name: "Ошибка загрузки категорий!"});
       });
 
     fetchAPI(urlPayments)
       .then((data) => {
         console.log(data);
-        setPaymentList([...data].map((el) => {
-          el["showEdit"] = false;
-          return el;
-        }));
+        setPaymentList(data);
+        setBalance(500000);
         setExpenses(data.reduce((prev, cur) => prev + cur.sum, 0));
+      })
+      .catch((err) => {
+        console.log("catchCategory", err);
+        setPaymentList({error: true, name: "Ошибка загрузки расходов!"});
+        setBalance(0);
+        setExpenses(0);
       });
   }, []);
 
@@ -137,7 +143,7 @@ function App() {
             <Route path="/category" element={<Category />} />
             <Route path="/" element={
                 <div className="operations">
-                  <PaymentForm addNewPayment={addNewPayment} categoryList={categoryList} balance={balance - expenses} />
+                  <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} balance={balance - expenses} />
                   <PaymentList paymentList={paymentList} categoryList={categoryList} editPayment={editPayment} deletePayment={deletePayment} />
                 </div>
               }

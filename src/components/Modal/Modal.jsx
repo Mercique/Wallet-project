@@ -19,13 +19,16 @@ export const Modal = ({ active, setActive, categoryList, editPayment, paymentInf
   };
 
   const handleEditPayment = () => {
+    console.log("paymentInfo", paymentInfo);
     editPayment({
       id: paymentInfo.id,
       name,
-      value: +value,
+      sum: +value,
       lastValue: paymentInfo.sum,
-      date: date ? getCurrentDate(date) : getCurrentDate(null),
-      category: +category + 1
+      created_at: date ? getCurrentDate(date) : getCurrentDate(null),
+      category_id: +category + 1,
+      categoryName: categoryList[category].name,
+      categoryImgName: categoryList[category].img.img_name
     });
 
     setActive(false);

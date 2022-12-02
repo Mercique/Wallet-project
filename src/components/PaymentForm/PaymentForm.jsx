@@ -32,11 +32,12 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
     e.preventDefault();
     
     addNewPayment({
-      paymentSum: +value,
-      paymentName: name,
-      paymentCategoryId: +category,
-      paymentCategoryName: categoryList[+category - 1].name,
-      paymentDate: date ? getCurrentDate(date) : getCurrentDate(null)
+      sum: +value,
+      name,
+      category_id: +category,
+      categoryName: categoryList[+category - 1].name,
+      categoryImgName: categoryList[+category - 1].img.img_name,
+      created_at: date ? getCurrentDate(date) : getCurrentDate(null)
     });
 
     resetForm(e);

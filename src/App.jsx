@@ -10,8 +10,8 @@ import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 
 function App() {
-  const urlCategory = "http://wallet-backend/api/categor"; // API категорий
-  const urlPayments = "http://wallet-backend/api/spendin"; // API расходов
+  const urlCategory = "http://wallet-backend/api/category"; // API категорий
+  const urlPayments = "http://wallet-backend/api/spending"; // API расходов
 
   const [categoryList, setCategoryList] = useState([]);
   const [paymentList, setPaymentList] = useState([]);
@@ -36,7 +36,7 @@ function App() {
         setCategoryList(data);
       })
       .catch((err) => {
-        console.log("catchCategory", err);
+        console.error("Catch categoryList: ", err);
         setCategoryList({error: true, name: "Ошибка загрузки категорий!"});
       });
 
@@ -48,7 +48,7 @@ function App() {
         setExpenses(data.reduce((prev, cur) => prev + cur.sum, 0));
       })
       .catch((err) => {
-        console.log("catchCategory", err);
+        console.error("Catch paymentList: ", err);
         setPaymentList({error: true, name: "Ошибка загрузки расходов!"});
         setBalance(0);
         setExpenses(0);
@@ -56,71 +56,67 @@ function App() {
   }, []);
 
   const handleSubmitAPI = async (url, method, body = null) => {
-    try {
-      const response = await fetch(url, {
-        method: method,
-        body: JSON.stringify(body),
-        headers: {
-          "Content-type": "application/json",
-        }
-      });
-      if (!response.ok) {
-        throw new Error(response.status);
+    const response = await fetch(url, {
+      method: method,
+      body: JSON.stringify(body),
+      headers: {
+        "Content-type": "application/json",
       }
-      const data = await response.json();
-      return data;
-    } catch (err) {
-      console.warn(err);
+    });
+
+    if (!response.ok) {
+      throw new Error(`Could not fetch ${method} ${url}, received ${response.status}`);
     }
+
+    const data = await response.json();
+    return data;
   };
 
   const addNewPayment = (newPayment) => {
-    console.log(newPayment.paymentDate);
     const postPayment = {
-      "name": newPayment.paymentName,
-      "category_id": newPayment.paymentCategoryId,
-      "sum": newPayment.paymentSum,
-      "created_at": newPayment.paymentDate
+      "name": newPayment.name,
+      "category_id": newPayment.category_id,
+      "sum": newPayment.sum,
+      "created_at": newPayment.created_at
     }
 
     handleSubmitAPI(urlPayments, "POST", postPayment)
       .then((data) => {
         setPaymentList((prevPayment) => [{
           ...data,
-          category: categoryList[newPayment.paymentCategoryId - 1]
+          categoryName: newPayment.categoryName,
+          categoryImgName: newPayment.categoryImgName
         }, ...prevPayment]);
-
-        console.log(data);
-      });
+      })
+      .catch((err) => console.error(err));
     
-    setBalance(balance - newPayment.paymentSum);
+    setBalance(balance - newPayment.sum);
   };
 
   const editPayment = (editPayment) => {
     const putPayment = {
       name: editPayment.name,
-      category_id: editPayment.category,
-      sum: editPayment.value,
-      created_at: editPayment.date
+      category_id: editPayment.category_id,
+      sum: editPayment.sum,
+      created_at: editPayment.created_at
     }
-
-    console.log(putPayment);
 
     handleSubmitAPI(`${urlPayments}/${editPayment.id}`, "PUT", putPayment)
       .then((data) => {
         const editItem = {
           ...data,
-          category: categoryList[data.category_id - 1],
+          categoryName: editPayment.categoryName,
+          categoryImgName: editPayment.categoryImgName,
         }
-        const index = paymentList.findIndex((payment) => payment.id === editPayment.id);
 
+        const index = paymentList.findIndex((payment) => payment.id === editPayment.id);
         const updateList = [...paymentList];
         updateList.splice(index, 1, editItem);
-
         setPaymentList(updateList);
-      });
+      })
+      .catch((err) => console.error(err));
 
-    setBalance(balance + editPayment.lastValue - editPayment.value);
+    setBalance(balance + editPayment.lastValue - editPayment.sum);
   };
 
   const deletePayment = (deleteItem) => {
@@ -128,8 +124,9 @@ function App() {
       .then((data) => {
         const updatePaymentList = paymentList.filter((payment) => payment.id !== deleteItem.id);
         setPaymentList(updatePaymentList);
-        console.log("Delete ", data);
-      });
+        console.log("Delete payment: ", data);
+      })
+      .catch((err) => console.error(err));
 
     setBalance(balance + deleteItem.sum);
   };

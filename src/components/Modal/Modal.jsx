@@ -1,4 +1,4 @@
-import "./Modal.css";
+import styles from "./Modal.module.css";
 import { useState } from "react";
 
 export const Modal = ({ active, setActive, categoryList, editPayment, paymentInfo}) => {
@@ -19,43 +19,41 @@ export const Modal = ({ active, setActive, categoryList, editPayment, paymentInf
   };
 
   const handleEditPayment = () => {
-    console.log("paymentInfo", paymentInfo);
     editPayment({
       id: paymentInfo.id,
       name,
       sum: +value,
-      lastValue: paymentInfo.sum,
+      lastSum: paymentInfo.sum,
       created_at: date ? getCurrentDate(date) : getCurrentDate(null),
-      category_id: +category + 1,
-      categoryName: categoryList[category].name,
-      categoryImgName: categoryList[category].img.img_name
+      category_id: +category + 1
     });
 
     setActive(false);
   };
 
   return (
-    <div className={active ? "modal active" : "modal"} onClick={() => setActive(false)}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <div className={active ? `${styles.modal} ${styles.active}` : `${styles.modal}`} onClick={() => setActive(false)}>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <input
           type="text"
           name="name"
           placeholder="Введите название"
-          className="modal_input"
+          className={styles.modalInput}
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
         <input
           type="number"
+          step="0.01"
           name="payment"
           placeholder="Введите сумму"
-          className="modal_input"
+          className={styles.modalInput}
           value={value}
           onChange={(event) => setValue(event.target.value)}
         />
         <select
           name="category"
-          className="modal_input"
+          className={styles.modalInput}
           value={category}
           onChange={(event) => setCategory(event.target.value)}
         >
@@ -67,11 +65,11 @@ export const Modal = ({ active, setActive, categoryList, editPayment, paymentInf
           type="date"
           name="calendar"
           placeholder="Дата"
-          className="modal_input"
+          className={styles.modalInput}
           value={date}
           onChange={(event) => setDate(event.target.value)}
         />
-        <button onClick={handleEditPayment} className="input-button edit">Добавить изменение</button>
+        <button onClick={handleEditPayment} className={styles.inputButton}>Добавить изменение</button>
       </div>
     </div>
   );

@@ -26,10 +26,13 @@
 
 .expensesError {
     width: 536px;
-    font-weight: 700;
-    font-size: 23px;
-    line-height: 26px;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.1em;
     text-align: center;
+    text-transform: uppercase;
+    user-select: none;
     color: #B91C1C;
 }
 
@@ -63,18 +66,6 @@
 
 .expIcon {}
 .expTexts {}
-
-.paymentListError {
-    width: 720px;
-    margin-top: 30px;
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: 0.1em;
-    text-align: center;
-    text-transform: uppercase;
-    color: #B91C1C;
-}
 
 .expRight {
     position: relative;

@@ -35,8 +35,6 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
       sum: +value,
       name,
       category_id: +category,
-      categoryName: categoryList[+category - 1].name,
-      categoryImgName: categoryList[+category - 1].img.img_name,
       created_at: date ? getCurrentDate(date) : getCurrentDate(null)
     });
 
@@ -48,7 +46,7 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
       <div className={styles.contentWrapper}>
         <form onSubmit={handleSubmit} className={styles.paymentInputForm}>
           <div className={styles.inputBox}>
-            <input className={styles.expensesInput} type="number" name="value" placeholder="Введите сумму" onChange={(event) => setValue(event.target.value)}/>
+            <input className={styles.expensesInput} step="0.01" type="number" name="value" placeholder="Введите сумму" onChange={(event) => setValue(event.target.value)}/>
             <input className={styles.expensesInput} type="text" name="name" placeholder="Введите название" onChange={(event) => setName(event.target.value)}/>
           </div>
           <div className={styles.inputBox}>
@@ -92,15 +90,6 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
                 </div>
               </details>
             ) }
-            {/* <select
-              className={styles.expensesInput}
-              name="category"
-              onChange={(event) => setCategory(event.target.value)}
-            >
-              { categoryList?.map((category, idx) => (
-                <option value={category.id} key={idx}>{category.name}</option>
-              )) }
-            </select> */}
             <input className={styles.expensesInput} type="date" name="date" onChange={(event) => setDate(event.target.value)}/>
           </div>
           <button className={styles.addSpendButton} disabled={!name | !value | categoryList?.error | paymentList?.error} >
@@ -109,7 +98,7 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
         </form>
         <div className={styles.balance}>
           <p className={styles.balanceLabel}>Баланс:</p>
-          <p className={styles.whiteText}>{balance.toLocaleString()},00 &#8381;</p>
+          <p className={styles.whiteText}>{balance.toLocaleString()} &#8381;</p>
         </div>
       </div>
     </>

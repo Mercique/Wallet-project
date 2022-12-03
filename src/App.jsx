@@ -50,7 +50,7 @@ function App() {
       .catch((err) => {
         console.error("Catch paymentList: ", err);
         setPaymentList({error: true, name: "Ошибка загрузки расходов!"});
-        setBalance(0);
+        setBalance(500000);
         setExpenses(0);
       });
   }, []);
@@ -82,11 +82,8 @@ function App() {
 
     handleSubmitAPI(urlPayments, "POST", postPayment)
       .then((data) => {
-        setPaymentList((prevPayment) => [{
-          ...data,
-          categoryName: newPayment.categoryName,
-          categoryImgName: newPayment.categoryImgName
-        }, ...prevPayment]);
+        console.log("POST: ", data);
+        setPaymentList(data);
       })
       .catch((err) => console.error(err));
     
@@ -100,23 +97,15 @@ function App() {
       sum: editPayment.sum,
       created_at: editPayment.created_at
     }
-
+    
     handleSubmitAPI(`${urlPayments}/${editPayment.id}`, "PUT", putPayment)
       .then((data) => {
-        const editItem = {
-          ...data,
-          categoryName: editPayment.categoryName,
-          categoryImgName: editPayment.categoryImgName,
-        }
-
-        const index = paymentList.findIndex((payment) => payment.id === editPayment.id);
-        const updateList = [...paymentList];
-        updateList.splice(index, 1, editItem);
-        setPaymentList(updateList);
+        console.log("PUT: ", data);
+        setPaymentList(data);
       })
       .catch((err) => console.error(err));
 
-    setBalance(balance + editPayment.lastValue - editPayment.sum);
+    setBalance(balance + editPayment.lastSum - editPayment.sum);
   };
 
   const deletePayment = (deleteItem) => {

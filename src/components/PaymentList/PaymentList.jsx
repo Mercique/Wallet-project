@@ -42,21 +42,21 @@ export const PaymentList = ({ paymentList, categoryList, editPayment, deletePaym
           <p className={styles.expensesError}>{paymentList.name}</p>
         </div>
       ) : (
-        <div className={styles.expenses}>
+        <div className={styles.expenses} onClick={() => setShowEdit()}>
           { paymentList?.map((payment, idx) => (
             <div className={styles.expItem} key={idx} >
               <div className={styles.expLeft}>
                 <div className={styles.expIcon}>
-                  <img src={`/images/${payment.categoryImgName}`} alt="" />
+                  <img src={`/images/${payment.img.img_name}`} alt="" />
                 </div>
                 <div className={styles.expTexts}>
                   <p className={styles.expName}>{payment.name}</p>
-                  <p className={styles.expCategory}>{payment.categoryName}</p>
+                  <p className={styles.expCategory}>{payment.category.name}</p>
                 </div>
               </div>
               <div className={styles.expRight}>
-                <p className={styles.expSum}>- {payment.sum.toLocaleString()},00 &#8381;</p>
-                <button type="button" className={styles.expBtnEdit} onClick={() => setShowEdit(payment.id)}><img src="/images/Edit.png" alt="" /></button>
+                <p className={styles.expSum}>- {payment.sum.toLocaleString()} &#8381;</p>
+                <button type="button" className={styles.expBtnEdit} onClick={(e) => {e.stopPropagation();setShowEdit(payment.id)}}><img src="/images/Edit.png" alt="" /></button>
                 { payment.id === showEdit &&
                   <div className={styles.expShowEditDelete}>
                     <button type="button" onClick={() => handleEditPayment(payment)}>

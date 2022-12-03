@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal } from "../Modal/Modal";
 import styles from "./PaymentList.module.css";
 
@@ -34,6 +34,14 @@ export const PaymentList = ({ paymentList, categoryList, editPayment, deletePaym
 
     setShowEdit();
   };
+
+  useEffect(() => {
+    if (active) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [active]);
 
   return (
     <>

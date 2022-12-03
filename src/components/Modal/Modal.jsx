@@ -1,12 +1,12 @@
 import styles from "./Modal.module.css";
 import { useState } from "react";
+import { CategoryMenu } from "../CategoryMenu/CategoryMenu";
 
 export const Modal = ({ active, setActive, categoryList, editPayment, paymentInfo}) => {
-  const [name, setName] = useState(paymentInfo.name);
-  const [value, setValue] = useState(paymentInfo.sum);
+  const [name, setName] = useState("");
+  const [value, setValue] = useState("");
   const [date, setDate] = useState(paymentInfo.created_at);
-  const [category, setCategory] = useState(paymentInfo.category_id - 1);
-
+  const [category, setCategory] = useState(paymentInfo.category_id);
 
   const getCurrentDate = (date) => {
     const today = new Date();
@@ -25,7 +25,7 @@ export const Modal = ({ active, setActive, categoryList, editPayment, paymentInf
       sum: +value,
       lastSum: paymentInfo.sum,
       created_at: date ? getCurrentDate(date) : getCurrentDate(null),
-      category_id: +category + 1
+      category_id: +category
     });
 
     setActive(false);
@@ -37,30 +37,19 @@ export const Modal = ({ active, setActive, categoryList, editPayment, paymentInf
         <input
           type="text"
           name="name"
-          placeholder="Введите название"
+          placeholder={`Изменить: "${paymentInfo.name}"`}
           className={styles.modalInput}
-          value={name}
           onChange={(event) => setName(event.target.value)}
         />
         <input
           type="number"
           step="0.01"
           name="payment"
-          placeholder="Введите сумму"
+          placeholder={`Изменить: "${paymentInfo.sum}"`}
           className={styles.modalInput}
-          value={value}
           onChange={(event) => setValue(event.target.value)}
         />
-        <select
-          name="category"
-          className={styles.modalInput}
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
-        >
-          { categoryList.map((category, idx) => (
-            <option value={idx} key={idx}>{category.name}</option>
-            )) }
-        </select>
+        <CategoryMenu categoryList={categoryList} category={category} setCategory={setCategory} />
         <input
           type="date"
           name="calendar"
@@ -69,7 +58,7 @@ export const Modal = ({ active, setActive, categoryList, editPayment, paymentInf
           value={date}
           onChange={(event) => setDate(event.target.value)}
         />
-        <button onClick={handleEditPayment} className={styles.inputButton}>Добавить изменение</button>
+        <button onClick={handleEditPayment} className={styles.inputButton} disabled={!name | !value | categoryList?.error}>Добавить изменение</button>
       </div>
     </div>
   );

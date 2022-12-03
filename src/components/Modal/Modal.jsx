@@ -32,7 +32,7 @@ export const Modal = ({ active, setActive, categoryList, editPayment, paymentInf
   };
 
   return (
-    <div className={active ? `${styles.modal} ${styles.active}` : `${styles.modal}`} onClick={() => setActive(false)}>
+    <div className={active ? `${styles.modal} ${styles.active}` : styles.modal} onClick={() => setActive(false)}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <input
           type="text"

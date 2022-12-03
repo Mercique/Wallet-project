@@ -1,0 +1,24 @@
+.balance {
+  text-align: right;
+  margin-right: 10px;
+  padding-top: 30px;
+}
+
+.balanceLabel {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  text-transform: uppercase;
+  color: #FF5555;
+  margin: 0px;
+  padding-bottom: 7px;
+}
+
+.balanceValue {
+  font-weight: 400;
+  font-size: 33px;
+  margin: 0px;
+  letter-spacing: -0.065em;
+  text-transform: lowercase;
+  color: #FFFFFF;
+}

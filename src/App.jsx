@@ -113,7 +113,7 @@ function App() {
       .then((data) => {
         const updatePaymentList = paymentList.filter((payment) => payment.id !== deleteItem.id);
         setPaymentList(updatePaymentList);
-        console.log("Delete payment: ", data);
+        console.log("Delete: ", data);
       })
       .catch((err) => console.error(err));
 
@@ -126,7 +126,7 @@ function App() {
         <div className="wrapper-top center">
           <Header />
           <Routes>
-            <Route path="/category" element={<Category />} />
+            <Route path="/category" element={<Category balance={balance - expenses} />} />
             <Route path="/" element={
                 <div className="operations">
                   <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} balance={balance - expenses} />

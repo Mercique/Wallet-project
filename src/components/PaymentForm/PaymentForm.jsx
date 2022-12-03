@@ -1,5 +1,6 @@
 import styles from "./PaymentForm.module.css";
 import { useState } from "react";
+import { Balance } from "../Balance/Balance";
 
 export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance }) => {
   const [name, setName] = useState("");
@@ -96,10 +97,7 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
             <span>Добавить трату</span>
           </button>
         </form>
-        <div className={styles.balance}>
-          <p className={styles.balanceLabel}>Баланс:</p>
-          <p className={styles.whiteText}>{balance.toLocaleString()} &#8381;</p>
-        </div>
+        <Balance balance={balance} />
       </div>
     </>
   );

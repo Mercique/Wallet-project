@@ -1,6 +1,7 @@
 import styles from "./Category.module.css";
+import { Balance } from "../Balance/Balance";
 
-export const Category = () => {
+export const Category = ({ balance }) => {
     // const [category, setCategory] = useState([
     //   { id: 1, img: "/images/img-category-1.png", category: "Одежда" },
     //   { id: 2, img: "/images/img-category-2.png", category: "транспорт" },
@@ -14,10 +15,7 @@ export const Category = () => {
 
     return (
         <div className={styles.categoryWrapper}>
-            <div className={styles.balance}>
-                <div className={styles.balanceHeader}>Баланс:</div>
-                <div className={styles.balanceValue}>143 607,31</div>
-            </div>
+            <Balance balance={balance} />
             <div className={styles.addCategory}>
                 <div className={styles.actionArea}>
                     <input className={styles.addCategoryName} type="text" name="name"

@@ -55,7 +55,7 @@ function App() {
       });
   }, []);
 
-  const handleSubmitAPI = async (url, method, body = null) => {
+  const sendRequest = async (url, method, body = null) => {
     const response = await fetch(url, {
       method: method,
       body: JSON.stringify(body),
@@ -65,7 +65,7 @@ function App() {
     });
 
     if (!response.ok) {
-      throw new Error(`Could not fetch ${method} ${url}, received ${response.status}`);
+      throw new Error(`Could not fetch ${url}, received ${response.status}`);
     }
 
     const data = await response.json();
@@ -80,7 +80,7 @@ function App() {
       "created_at": newPayment.created_at
     }
 
-    handleSubmitAPI(urlPayments, "POST", postPayment)
+    sendRequest(urlPayments, "POST", postPayment)
       .then((data) => {
         console.log("POST: ", data);
         setPaymentList(data);
@@ -98,7 +98,7 @@ function App() {
       created_at: editPayment.created_at
     }
     
-    handleSubmitAPI(`${urlPayments}/${editPayment.id}`, "PUT", putPayment)
+    sendRequest(`${urlPayments}/${editPayment.id}`, "PUT", putPayment)
       .then((data) => {
         console.log("PUT: ", data);
         setPaymentList(data);
@@ -109,7 +109,7 @@ function App() {
   };
 
   const deletePayment = (deleteItem) => {
-    handleSubmitAPI(`${urlPayments}/${deleteItem.id}`, "DELETE")
+    sendRequest(`${urlPayments}/${deleteItem.id}`, "DELETE")
       .then((data) => {
         const updatePaymentList = paymentList.filter((payment) => payment.id !== deleteItem.id);
         setPaymentList(updatePaymentList);

@@ -2,6 +2,8 @@ import styles from "./PaymentForm.module.css";
 import { useState } from "react";
 import { Balance } from "../Balance/Balance";
 import { CategoryMenu } from "../CategoryMenu/CategoryMenu";
+import { Input } from "../Input/Input";
+import { SubmitButton } from "../SubmitButton/SubmitButton";
 
 export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance }) => {
   const [name, setName] = useState("");
@@ -19,16 +21,6 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
     }
   };
 
-  const resetForm = (e) => {
-    let inputsValues = e.target.elements;
-    inputsValues.name.value = ''
-    inputsValues.value.value = ''
-    inputsValues.date.value = ''
-    setName("");
-    setValue("");
-    setDate("");
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -39,24 +31,24 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
       created_at: date ? getCurrentDate(date) : getCurrentDate(null)
     });
 
-    resetForm(e);
+    setName("");
+    setValue("");
+    setDate("");
   }
 
   return (
     <>
       <div className={styles.contentWrapper}>
-        <form onSubmit={handleSubmit} className={styles.paymentInputForm}>
+        <form className={styles.paymentInputForm} onSubmit={handleSubmit}>
           <div className={styles.inputBox}>
-            <input className={styles.expensesInput} step="0.01" type="number" name="value" placeholder="Введите сумму" onChange={(event) => setValue(event.target.value)}/>
-            <input className={styles.expensesInput} type="text" name="name" placeholder="Введите название" onChange={(event) => setName(event.target.value)}/>
+            <Input type={"text"} className={styles.expensesInput} placeholder={"Введите название"} value={name} onChange={(event) => setName(event.target.value)} />
+            <Input type={"number"} className={styles.expensesInput} placeholder={"Введите сумму"} value={value} step={"0.01"} onChange={(event) => setValue(event.target.value)} />
           </div>
           <div className={styles.inputBox}>
             <CategoryMenu categoryList={categoryList} category={category} setCategory={setCategory} />
-            <input className={styles.expensesInput} type="date" name="date" onChange={(event) => setDate(event.target.value)}/>
+            <Input type={"date"} className={styles.expensesInput} value={date} onChange={(event) => setDate(event.target.value)} />
           </div>
-          <button className={styles.addSpendButton} disabled={!name | !value | categoryList?.error | paymentList?.error}>
-            <span>Добавить трату</span>
-          </button>
+          <SubmitButton className={styles.addExpensesButton} name={"Добавить трату"} disabled={!name | !value | categoryList?.error | paymentList?.error} />
         </form>
         <Balance balance={balance} />
       </div>

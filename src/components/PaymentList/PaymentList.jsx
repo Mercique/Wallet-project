@@ -83,7 +83,7 @@ export const PaymentList = ({ paymentList, categoryList, editPayment, deletePaym
               </div>
             </div>
           )) }
-          { active && <Modal active={active} setActive={setActive} categoryList={categoryList} editPayment={editPayment} paymentInfo={paymentInfo} /> }
+          { active && <Modal setActive={setActive} categoryList={categoryList} editPayment={editPayment} paymentInfo={paymentInfo} /> }
         </div>
       ) }
     </>

@@ -1,0 +1,25 @@
+.submitButton {
+  width: 100%;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid #B99494;
+  color: #FFFFFF;
+  background: #B99494;
+  transition: all .2s ease;
+}
+
+.submitButton:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+.submitButton:not(:disabled):hover {
+  border-color: #ff59597d;
+  background: #ff59597d;
+}
+
+.submitButton:not(:disabled):active {
+  border-color: #642727;
+  background: #642727;
+}

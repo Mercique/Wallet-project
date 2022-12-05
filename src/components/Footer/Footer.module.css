@@ -6,9 +6,9 @@
   margin-top: 40px;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .contentWrapper {
-    width: 1024px;
+    width: 1200px;
     display: flex;
     padding: 25px 0 0;
     box-sizing: border-box;

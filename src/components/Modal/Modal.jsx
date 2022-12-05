@@ -51,7 +51,7 @@ export const Modal = ({ setActive, categoryList, editPayment, paymentInfo}) => {
           placeholder={`Изменить: "${paymentInfo.sum}"`}
           onChange={(event) => setValue(event.target.value)}
         />
-        <CategoryMenu categoryList={categoryList} category={category} setCategory={setCategory} />
+        <CategoryMenu categoryName={categoryList[+category - 1]?.name} categoryList={categoryList} category={category} setCategory={setCategory} />
         <Input
           type={"date"}
           className={styles.modalInput}

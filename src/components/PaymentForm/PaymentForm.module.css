@@ -4,7 +4,6 @@
 }
 
 .paymentInputForm {
-  width: 554px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -15,6 +14,10 @@
   display: flex;
   gap: 14px;
   padding: 0 8px;
+}
+
+.inputBox .categoryError {
+  border: 1px solid #604b4b;
 }
 
 .expensesInput {

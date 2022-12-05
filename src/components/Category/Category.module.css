@@ -1,4 +1,4 @@
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .categoryWrapper {
     padding-left: 12px;
   }
@@ -31,9 +31,9 @@
   }
 
   .addCategory {
+    display: flex;
     margin-top: 25px;
     margin-bottom: 50px;
-    width: 830px;
   }
 
   .actionArea {
@@ -43,35 +43,36 @@
     margin-left: 10px;
   }
 
-  .addCategoryName,
-  .addCategoryPic {
-    font-family: 'Hind';
-    box-sizing: border-box;
-    width: 400px;
-    height: 40px;
-    border: 1px solid #d0bbbb;
-    background: rgba(238, 238, 238, 0.93);
-    padding: 0 10px;
-  }
-
-  .addCategoryName::placeholder {
-    color: black;
-    padding-left: 4px;
-
-  }
-
-  .addCategoryName:focus {
-    border-color: #968383;
-  }
-
-  .addButton {
-    width: 830px;
-    height: 65px;
-    background: #B99494;
-    border-radius: 19px;
+  .addCategoryForm {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .addCategoryBox {
+    display: flex;
+    gap: 19px;
+  }
+
+  .inputCategory {
+    width: 480px;
+    height: 71px;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 38px;
+    border-color: #fff;
+    color: #fff;
+  }
+
+  .inputCategory::placeholder {
+    color: #CECECE;
+  }
+
+  .addCategoryButton {
+    height: 77px;
+    font-size: 22px;
+    line-height: 35px;
+    border-radius: 19px;
   }
 
   .addButton div {

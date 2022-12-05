@@ -1,33 +1,64 @@
 import styles from "./Category.module.css";
+import { useState } from "react";
 import { Balance } from "../Balance/Balance";
+import { SubmitButton } from "../SubmitButton/SubmitButton";
+import { Input } from "../Input/Input";
+import { IconCategoryMenu } from "../IconCategoryMenu/IconCategoryMenu";
 
 export const Category = ({ balance }) => {
-    // const [category, setCategory] = useState([
-    //   { id: 1, img: "/images/img-category-1.png", category: "Одежда" },
-    //   { id: 2, img: "/images/img-category-2.png", category: "транспорт" },
-    //   { id: 3, img: "/images/img-category-3.png", category: "Кафе и рестораны" },
-    //   { id: 4, img: "/images/img-category-4.png", category: "Супермаркеты" },
-    //   { id: 5, img: "/images/img-category-5.png", category: "Жкх, связь. интернет", },
-    //   { id: 6, img: "/images/img-category-6.png", category: "медицина" },
-    //   { id: 7, img: "/images/img-category-7.png", category: "образование" },
-    //   { id: 8, img: "/images/img-category-8.png", category: "прочие расходы" },
-    // ]);
+    const [category, setCategory] = useState([]);
+    const images = [
+        { id: 1, img_name: "animal.svg" },
+        { id: 2, img_name: "bedroom.svg" },
+        { id: 3, img_name: "book.svg" },
+        { id: 4, img_name: "bulb.svg" },
+        { id: 5, img_name: "car.svg" },
+        { id: 6, img_name: "childhood.svg" },
+        { id: 7, img_name: "cocktail.svg" },
+        { id: 8, img_name: "diamonds.svg" }
+    ];
+
+    const [categoryName, setCategoryName] = useState();
+    const [categoryImg, setCategoryImg] = useState();
+
+    const addCategory = (e) => {
+        e.preventDefault();
+
+        const newCategory = {
+            id: Date.now(),
+            name: categoryName,
+            img_name: categoryImg
+        }
+
+        setCategory((prevCategory) => [...prevCategory, newCategory]);
+
+        setCategoryName("");
+        setCategoryImg("");
+
+        console.log(category);
+    };
 
     return (
         <div className={styles.categoryWrapper}>
             <Balance balance={balance} />
             <div className={styles.addCategory}>
-                <div className={styles.actionArea}>
-                    <input className={styles.addCategoryName} type="text" name="name"
-                           placeholder="Введите название категории"/>
-                    <select
-                        className={styles.addCategoryPic}
-                        name="category"
-                    >
-                        <option value="" disabled selected hidden>Выберите иконку</option>
-                    </select>
-                </div>
-                <div className={styles.addButton}><div>Добавить категорию</div></div>
+                <form className={styles.addCategoryForm} onSubmit={addCategory}>
+                    <div className={styles.addCategoryBox}>
+                        <Input
+                            type={"text"}
+                            className={styles.inputCategory}
+                            value={categoryName}
+                            placeholder={"Введите название категории"}
+                            onChange={(e) => setCategoryName(e.target.value)}
+                        />
+                        <IconCategoryMenu images={images} />
+                    </div>
+                    <SubmitButton
+                        className={styles.addCategoryButton}
+                        name={"Добавить категорию"}
+                        disabled={!categoryName}
+                    />
+                </form>
             </div>
             <div className={styles.changeCategory}>
                 <div className={styles.slider}>

@@ -18,7 +18,7 @@ export const Category = ({ balance }) => {
         { id: 8, img_name: "diamonds.svg" }
     ];
 
-    const [categoryName, setCategoryName] = useState();
+    const [categoryName, setCategoryName] = useState("");
     const [categoryImg, setCategoryImg] = useState();
 
     const addCategory = (e) => {

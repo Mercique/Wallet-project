@@ -1,0 +1,8 @@
+.errorFetch {
+  gap: 10px;
+  cursor: not-allowed;
+  font-size: 14px;
+  line-height: 13px;
+  border: 1px solid #B91C1C !important;
+  color: #b91c1c !important;
+}

@@ -1,6 +1,6 @@
 import styles from "./CategoryMenu.module.css";
 import { useState } from "react";
-import { CategoryError } from "../CategoryError/CategoryError";
+import { ErrorFetch } from "../ErrorFetch/ErrorFetch";
 
 export const CategoryMenu = ({ categoryList, category, setCategory}) => {
   const [openOption, setOpenOption] = useState(false);
@@ -8,7 +8,7 @@ export const CategoryMenu = ({ categoryList, category, setCategory}) => {
   return (
     <>
       { categoryList?.error ? (
-        <CategoryError summaryStyle={styles.categorySummary} errorName={categoryList.name} />
+        <ErrorFetch summaryStyle={styles.categorySummary} errorName={categoryList.name} />
       ) : (
         <details className={styles.categoryDetails} open={openOption} onClick={(e) => {e.preventDefault();setOpenOption(!openOption);}}>
           <summary className={styles.categorySummary}>

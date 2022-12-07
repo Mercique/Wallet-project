@@ -63,6 +63,7 @@ function App() {
       })
       .catch((err) => {
         console.error("Catch imagesList:\n", err);
+        setImages({error: true, name: "Ошибка загрузки иконок!"});
       });
   }, []);
 

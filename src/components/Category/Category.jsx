@@ -5,37 +5,20 @@ import { SubmitButton } from "../SubmitButton/SubmitButton";
 import { Input } from "../Input/Input";
 import { IconCategoryMenu } from "../IconCategoryMenu/IconCategoryMenu";
 
-export const Category = ({ balance }) => {
-    const [category, setCategory] = useState([]);
-    const images = [
-        { id: 1, img_name: "animal.svg" },
-        { id: 2, img_name: "bedroom.svg" },
-        { id: 3, img_name: "book.svg" },
-        { id: 4, img_name: "bulb.svg" },
-        { id: 5, img_name: "car.svg" },
-        { id: 6, img_name: "childhood.svg" },
-        { id: 7, img_name: "cocktail.svg" },
-        { id: 8, img_name: "diamonds.svg" }
-    ];
-
+export const Category = ({ images, balance, addNewCategory }) => {
     const [categoryName, setCategoryName] = useState("");
-    const [categoryImg, setCategoryImg] = useState();
+    const [categoryImgId, setCategoryImgId] = useState("");
 
     const addCategory = (e) => {
         e.preventDefault();
 
-        const newCategory = {
-            id: Date.now(),
+        addNewCategory({
             name: categoryName,
-            img_name: categoryImg
-        }
-
-        setCategory((prevCategory) => [...prevCategory, newCategory]);
+            img_id: categoryImgId
+        });
 
         setCategoryName("");
-        setCategoryImg("");
-
-        console.log(category);
+        setCategoryImgId("");
     };
 
     return (
@@ -51,12 +34,12 @@ export const Category = ({ balance }) => {
                             placeholder={"Введите название категории"}
                             onChange={(e) => setCategoryName(e.target.value)}
                         />
-                        <IconCategoryMenu images={images} />
+                        <IconCategoryMenu images={images} categoryImgId={categoryImgId} setCategoryImgId={setCategoryImgId} />
                     </div>
                     <SubmitButton
                         className={styles.addCategoryButton}
                         name={"Добавить категорию"}
-                        disabled={!categoryName}
+                        disabled={!categoryName | !categoryImgId}
                     />
                 </form>
             </div>

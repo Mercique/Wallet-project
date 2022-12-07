@@ -9,7 +9,7 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
   const [date, setDate] = useState("");
-  const [category, setCategory] = useState(1);
+  const [category, setCategory] = useState("");
 
   const getCurrentDate = (date) => {
     const today = new Date();
@@ -34,6 +34,7 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
     setName("");
     setValue("");
     setDate("");
+    setCategory("");
   }
 
   return (
@@ -48,7 +49,7 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
             <CategoryMenu categoryList={categoryList} category={category} setCategory={setCategory} />
             <Input type={"date"} className={styles.expensesInput} value={date} onChange={(event) => setDate(event.target.value)} />
           </div>
-          <SubmitButton className={styles.addExpensesButton} name={"Добавить трату"} disabled={!name | !value | categoryList?.error | paymentList?.error} />
+          <SubmitButton className={styles.addExpensesButton} name={"Добавить трату"} disabled={!name | !value | !category | categoryList?.error | paymentList?.error} />
         </form>
         <Balance balance={balance} />
       </div>

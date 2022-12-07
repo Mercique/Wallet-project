@@ -28,11 +28,55 @@
 .iconCategoryDrop {
   box-sizing: border-box;
   width: 480px;
-  height: 415px;
   position: absolute;
   top: 76px;
   left: 0;
   z-index: 999;
+  padding: 10px;
   box-shadow: 0px 13px 20px rgba(0, 0, 0, 0.25);
   background: #D9D9D9;
+}
+
+.iconCategoryScroll {
+  box-sizing: border-box;
+  height: 352px;
+  overflow-y: auto;
+}
+
+.iconCategoryScroll::-webkit-scrollbar {
+  width: 15px;
+}
+
+.iconCategoryScroll::-webkit-scrollbar-track {
+  background: #BDB7B7;
+  border-radius: 22px;
+}
+
+.iconCategoryScroll::-webkit-scrollbar-thumb {
+  background-color: #858383;
+  border-radius: 22px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+.iconCategoryOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 31px;
+  padding: 10px;
+}
+
+.iconCategoryIcon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background .2s ease;
+}
+
+.iconCategoryIcon:hover {
+  background: #BDB7B7;
 }

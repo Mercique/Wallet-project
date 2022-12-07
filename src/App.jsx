@@ -12,9 +12,11 @@ import { Footer } from "./components/Footer/Footer";
 function App() {
   const urlCategory = "http://wallet-backend/api/category"; // API категорий
   const urlPayments = "http://wallet-backend/api/spending"; // API расходов
+  const urlImg = "http://wallet-backend/api/categoryImg"; // API названий картинок
 
   const [categoryList, setCategoryList] = useState([]);
   const [paymentList, setPaymentList] = useState([]);
+  const [images, setImages] = useState([]);
   const [balance, setBalance] = useState(0);
   const [expenses, setExpenses] = useState(0);
 
@@ -32,26 +34,35 @@ function App() {
 
     fetchAPI(urlCategory)
       .then((data) => {
-        console.log(data);
+        console.log("Categories GET:\n", data);
         setCategoryList(data);
       })
       .catch((err) => {
-        console.error("Catch categoryList: ", err);
+        console.error("Catch categoryList:\n", err);
         setCategoryList({error: true, name: "Ошибка загрузки категорий!"});
       });
 
     fetchAPI(urlPayments)
       .then((data) => {
-        console.log(data);
+        console.log("Payments GET:\n", data);
         setPaymentList(data);
         setBalance(500000);
         setExpenses(data.reduce((prev, cur) => prev + cur.sum, 0));
       })
       .catch((err) => {
-        console.error("Catch paymentList: ", err);
+        console.error("Catch paymentList:\n", err);
         setPaymentList({error: true, name: "Ошибка загрузки расходов!"});
         setBalance(500000);
         setExpenses(0);
+      });
+    
+    fetchAPI(urlImg)
+      .then((data) => {
+        console.log("Images GET:\n", data);
+        setImages(data);
+      })
+      .catch((err) => {
+        console.error("Catch imagesList:\n", err);
       });
   }, []);
 
@@ -72,7 +83,23 @@ function App() {
     return data;
   };
 
-  const addNewPayment = (newPayment) => {
+  const addNewCategory = (newCategory) => { // Добавление категории
+    console.log(newCategory);
+
+    sendRequest(urlCategory, "POST", newCategory)
+      .then((data) => {
+        console.log("Category POST:\n", data);
+        setCategoryList((prevCategoryList) => [...prevCategoryList, {
+          ...data,
+          img: {
+            img_name: images[newCategory.img_id - 1].img_name
+          }
+        }]);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const addNewPayment = (newPayment) => { // Добавление траты
     const postPayment = {
       "name": newPayment.name,
       "category_id": newPayment.category_id,
@@ -82,7 +109,7 @@ function App() {
 
     sendRequest(urlPayments, "POST", postPayment)
       .then((data) => {
-        console.log("POST: ", data);
+        console.log("Payments POST:\n", data);
         setPaymentList(data);
       })
       .catch((err) => console.error(err));
@@ -90,7 +117,7 @@ function App() {
     setBalance(balance - newPayment.sum);
   };
 
-  const editPayment = (editPayment) => {
+  const editPayment = (editPayment) => { // Изменение траты
     const putPayment = {
       name: editPayment.name,
       category_id: editPayment.category_id,
@@ -100,7 +127,7 @@ function App() {
     
     sendRequest(`${urlPayments}/${editPayment.id}`, "PUT", putPayment)
       .then((data) => {
-        console.log("PUT: ", data);
+        console.log("Payments PUT:\n", data);
         setPaymentList(data);
       })
       .catch((err) => console.error(err));
@@ -108,12 +135,12 @@ function App() {
     setBalance(balance + editPayment.lastSum - editPayment.sum);
   };
 
-  const deletePayment = (deleteItem) => {
+  const deletePayment = (deleteItem) => { // Удаление траты
     sendRequest(`${urlPayments}/${deleteItem.id}`, "DELETE")
       .then((data) => {
         const updatePaymentList = paymentList.filter((payment) => payment.id !== deleteItem.id);
         setPaymentList(updatePaymentList);
-        console.log("Delete: ", data);
+        console.log("Payments Delete:\n", data);
       })
       .catch((err) => console.error(err));
 
@@ -126,7 +153,7 @@ function App() {
         <div className="wrapper-top center">
           <Header />
           <Routes>
-            <Route path="/category" element={<Category balance={balance - expenses} />} />
+            <Route path="/category" element={<Category images={images} balance={balance - expenses} addNewCategory={addNewCategory} />} />
             <Route path="/" element={
                 <div className="operations">
                   <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} balance={balance - expenses} />

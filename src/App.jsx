@@ -10,9 +10,9 @@ import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 
 function App() {
-  const urlCategory = "http://wallet-backend/api/category"; // API категорий
-  const urlPayments = "http://wallet-backend/api/spending"; // API расходов
-  const urlImg = "http://wallet-backend/api/categoryImg"; // API названий картинок
+  const urlCategory = "http://localhost:3000/db/categories.json"; // API категорий
+  const urlPayments = "http://localhost:3000/db/payments.json"; // API расходов
+  const urlImg = "http://localhost:3000/db/images.json"; // API названий картинок
 
   const [categoryList, setCategoryList] = useState([]);
   const [paymentList, setPaymentList] = useState([]);
@@ -66,85 +66,138 @@ function App() {
       });
   }, []);
 
-  const sendRequest = async (url, method, body = null) => {
-    const response = await fetch(url, {
-      method: method,
-      body: JSON.stringify(body),
-      headers: {
-        "Content-type": "application/json",
-      }
-    });
+  // const sendRequest = async (url, method, body = null) => {
+  //   const response = await fetch(url, {
+  //     method: method,
+  //     body: JSON.stringify(body),
+  //     headers: {
+  //       "Content-type": "application/json",
+  //     }
+  //   });
 
-    if (!response.ok) {
-      throw new Error(`Could not fetch ${url}, received ${response.status}`);
-    }
+  //   if (!response.ok) {
+  //     throw new Error(`Could not fetch ${url}, received ${response.status}`);
+  //   }
 
-    const data = await response.json();
-    return data;
-  };
+  //   const data = await response.json();
+  //   return data;
+  // };
 
   const addNewCategory = (newCategory) => { // Добавление категории
     console.log(newCategory);
 
-    sendRequest(urlCategory, "POST", newCategory)
-      .then((data) => {
-        console.log("Category POST:\n", data);
-        setCategoryList((prevCategoryList) => [...prevCategoryList, {
-          ...data,
-          img: {
-            img_name: images[newCategory.img_id - 1].img_name
-          }
-        }]);
-      })
-      .catch((err) => console.error(err));
+    const postCategory = {
+      id: categoryList.length + 1,
+      ...newCategory,
+      img: {
+        id: newCategory.img_id,
+        img_name: images[newCategory.img_id - 1].img_name
+      }
+    }
+
+    setCategoryList((prevCategoryList) => [...prevCategoryList, postCategory]);
+
+    // sendRequest(urlCategory, "POST", newCategory)
+    //   .then((data) => {
+    //     console.log("Category POST:\n", data);
+    //     setCategoryList((prevCategoryList) => [...prevCategoryList, {
+    //       ...data,
+    //       img: {
+    //         img_name: images[newCategory.img_id - 1].img_name
+    //       }
+    //     }]);
+    //   })
+    //   .catch((err) => console.error(err));
   };
 
   const addNewPayment = (newPayment) => { // Добавление траты
+    console.log(newPayment);
+
     const postPayment = {
-      "name": newPayment.name,
-      "category_id": newPayment.category_id,
-      "sum": newPayment.sum,
-      "created_at": newPayment.created_at
+      id: paymentList[0].id + 1,
+      ...newPayment,
+      img: {
+        ...images[newPayment.category_id - 1]
+      },
+      category: {
+        ...categoryList[newPayment.category_id - 1]
+      }
     }
 
-    sendRequest(urlPayments, "POST", postPayment)
-      .then((data) => {
-        console.log("Payments POST:\n", data);
-        setPaymentList(data);
-      })
-      .catch((err) => console.error(err));
-    
+    setPaymentList((prevPaymentList) => [postPayment, ...prevPaymentList]);
     setBalance(balance - newPayment.sum);
+
+    // const postPayment = {
+    //   "name": newPayment.name,
+    //   "category_id": newPayment.category_id,
+    //   "sum": newPayment.sum,
+    //   "created_at": newPayment.created_at
+    // }
+
+    // sendRequest(urlPayments, "POST", postPayment)
+    //   .then((data) => {
+    //     console.log("Payments POST:\n", data);
+    //     setPaymentList(data);
+    //   })
+    //   .catch((err) => console.error(err));
+    
+    // setBalance(balance - newPayment.sum);
   };
 
   const editPayment = (editPayment) => { // Изменение траты
     const putPayment = {
+      id: editPayment.id,
       name: editPayment.name,
       category_id: editPayment.category_id,
       sum: editPayment.sum,
-      created_at: editPayment.created_at
+      created_at: editPayment.created_at,
+      img: {
+        ...images[editPayment.category_id - 1]
+      },
+      category: {
+        ...categoryList[editPayment.category_id - 1]
+      }
     }
-    
-    sendRequest(`${urlPayments}/${editPayment.id}`, "PUT", putPayment)
-      .then((data) => {
-        console.log("Payments PUT:\n", data);
-        setPaymentList(data);
-      })
-      .catch((err) => console.error(err));
 
+    const index = paymentList.findIndex((payment) => payment.id === editPayment.id);
+    const updateList = [...paymentList];
+    
+    updateList.splice(index, 1, putPayment);
+
+    setPaymentList(updateList);
     setBalance(balance + editPayment.lastSum - editPayment.sum);
+
+    // const putPayment = {
+    //   name: editPayment.name,
+    //   category_id: editPayment.category_id,
+    //   sum: editPayment.sum,
+    //   created_at: editPayment.created_at
+    // }
+    
+    // sendRequest(`${urlPayments}/${editPayment.id}`, "PUT", putPayment)
+    //   .then((data) => {
+    //     console.log("Payments PUT:\n", data);
+    //     setPaymentList(data);
+    //   })
+    //   .catch((err) => console.error(err));
+
+    // setBalance(balance + editPayment.lastSum - editPayment.sum);
   };
 
   const deletePayment = (deleteItem) => { // Удаление траты
-    sendRequest(`${urlPayments}/${deleteItem.id}`, "DELETE")
-      .then((data) => {
-        const updatePaymentList = paymentList.filter((payment) => payment.id !== deleteItem.id);
-        setPaymentList(updatePaymentList);
-        console.log("Payments Delete:\n", data);
-      })
-      .catch((err) => console.error(err));
-
+    const updatePaymentList = paymentList.filter((payment) => payment.id !== deleteItem.id);
+    setPaymentList(updatePaymentList);
     setBalance(balance + deleteItem.sum);
+    
+    // sendRequest(`${urlPayments}/${deleteItem.id}`, "DELETE")
+    //   .then((data) => {
+    //     const updatePaymentList = paymentList.filter((payment) => payment.id !== deleteItem.id);
+    //     setPaymentList(updatePaymentList);
+    //     console.log("Payments Delete:\n", data);
+    //   })
+    //   .catch((err) => console.error(err));
+
+    // setBalance(balance + deleteItem.sum);
   };
 
   return (

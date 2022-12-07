@@ -29,8 +29,8 @@ export const CategoryMenu = ({ categoryList, category, setCategory}) => {
               <div className={styles.detailsBoxScroll}>
                 <div className={styles.detailsBoxOptions}>
                   {categoryList?.map((category, idx) => (
-                    <button
-                      type="button"
+                    <div
+                      className={styles.categoryOption}
                       onClick={() => {
                         setCategory(category.id);
                         setOpenOption(!openOption);
@@ -38,7 +38,7 @@ export const CategoryMenu = ({ categoryList, category, setCategory}) => {
                       key={idx}
                     >
                       {category.name}
-                    </button>
+                    </div>
                   ))}
                 </div>
               </div>

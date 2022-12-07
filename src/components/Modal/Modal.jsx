@@ -5,8 +5,8 @@ import { Input } from "../Input/Input";
 import { SubmitButton } from "../SubmitButton/SubmitButton";
 
 export const Modal = ({ setActive, categoryList, editPayment, paymentInfo}) => {
-  const [name, setName] = useState("");
-  const [value, setValue] = useState("");
+  const [name, setName] = useState(paymentInfo.name);
+  const [value, setValue] = useState(paymentInfo.sum);
   const [date, setDate] = useState(paymentInfo.created_at);
   const [category, setCategory] = useState(paymentInfo.category_id);
 
@@ -39,24 +39,26 @@ export const Modal = ({ setActive, categoryList, editPayment, paymentInfo}) => {
     <div className={styles.modal} onClick={() => setActive(false)}>
       <form className={styles.modalInputForm} onClick={(e) => e.stopPropagation()} onSubmit={handleEditPayment}>
         <Input
-          type={"text"}
+          type="text"
           className={styles.modalInput}
-          placeholder={`Изменить: "${paymentInfo.name}"`}
+          value={name}
+          placeholder={`Название: "${paymentInfo.name}"`}
           onChange={(event) => setName(event.target.value)}
         />
         <Input
-          type={"number"}
+          type="number"
           className={styles.modalInput}
+          value={value}
+          placeholder={`Сумма: "${paymentInfo.sum}"`}
           step="0.01"
-          placeholder={`Изменить: "${paymentInfo.sum}"`}
           onChange={(event) => setValue(event.target.value)}
         />
         <CategoryMenu categoryName={categoryList[+category - 1]?.name} categoryList={categoryList} category={category} setCategory={setCategory} />
         <Input
-          type={"date"}
+          type="date"
           className={styles.modalInput}
-          placeholder="Дата"
           value={date}
+          placeholder="Дата"
           onChange={(event) => setDate(event.target.value)}
         />
         <SubmitButton className={styles.editExpensesButton} name={"Добавить изменение"} disabled={!name | !value | categoryList?.error} />

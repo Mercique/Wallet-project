@@ -7,7 +7,7 @@ export const SubmitButton = ({ className, name, ...attrs }) => {
       className={`${styles.submitButton} ${className}`}
       {...attrs}
     >
-      {name}
+      <span>{name}</span>
     </button>
   );
 };

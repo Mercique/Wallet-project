@@ -28,10 +28,10 @@ export const Category = ({ images, balance, addNewCategory }) => {
                 <form className={styles.addCategoryForm} onSubmit={addCategory}>
                     <div className={styles.addCategoryBox}>
                         <Input
-                            type={"text"}
+                            type="text"
                             className={styles.inputCategory}
                             value={categoryName}
-                            placeholder={"Введите название категории"}
+                            placeholder="Введите название категории"
                             onChange={(e) => setCategoryName(e.target.value)}
                         />
                         <IconCategoryMenu images={images} categoryImgId={categoryImgId} setCategoryImgId={setCategoryImgId} />

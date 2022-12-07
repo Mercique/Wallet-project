@@ -1,5 +1,7 @@
 .submitButton {
+  position: relative;
   width: 100%;
+  margin-top: 15px;
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
@@ -14,9 +16,23 @@
   opacity: .5;
 }
 
+.submitButton:disabled span::before {
+  content: "";
+  position: absolute;
+  top: -26px;
+  left: 6px;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.1em;
+  cursor: default;
+  text-transform: none;
+  color: #CB2424;
+}
+
 .submitButton:not(:disabled):hover {
-  border-color: #ff59597d;
-  background: #ff59597d;
+  border-color: #9c2a2a;
+  background: #9c2a2a;
 }
 
 .submitButton:not(:disabled):active {

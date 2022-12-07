@@ -42,12 +42,29 @@ export const PaymentForm = ({ addNewPayment, paymentList, categoryList, balance 
       <div className={styles.contentWrapper}>
         <form className={styles.paymentInputForm} onSubmit={handleSubmit}>
           <div className={styles.inputBox}>
-            <Input type={"text"} className={styles.expensesInput} placeholder={"Введите название"} value={name} onChange={(event) => setName(event.target.value)} />
-            <Input type={"number"} className={styles.expensesInput} placeholder={"Введите сумму"} value={value} step={"0.01"} onChange={(event) => setValue(event.target.value)} />
+            <Input
+              type="text"
+              className={styles.expensesInput}
+              value={name}
+              placeholder="Введите название"
+              onChange={(event) => setName(event.target.value)}
+            />
+            <Input
+              type="number"
+              className={styles.expensesInput}
+              value={value}
+              placeholder="Введите сумму"
+              step="0.01"
+              onChange={(event) => setValue(event.target.value)} />
           </div>
           <div className={styles.inputBox}>
             <CategoryMenu categoryList={categoryList} category={category} setCategory={setCategory} />
-            <Input type={"date"} className={styles.expensesInput} value={date} onChange={(event) => setDate(event.target.value)} />
+            <Input
+              type="date"
+              className={styles.expensesInput}
+              value={date}
+              placeholder="Дата"
+              onChange={(event) => setDate(event.target.value)} />
           </div>
           <SubmitButton className={styles.addExpensesButton} name={"Добавить трату"} disabled={!name | !value | !category | categoryList?.error | paymentList?.error} />
         </form>

@@ -1,8 +1,8 @@
-import styles from "./CategoryError.module.css";
+import styles from "./ErrorFetch.module.css";
 
-export const CategoryError = ({ summaryStyle, errorName }) => {
+export const ErrorFetch = ({ summaryStyle, errorName }) => {
   return (
-    <div className={`${summaryStyle} ${styles.categoryError}`}>
+    <div className={`${summaryStyle} ${styles.errorFetch}`}>
       <span>{errorName}</span>
       <svg width="26" height="15" viewBox="0 0 26 15" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_223_96)">

@@ -43,5 +43,5 @@
 }
 
 .addExpensesButton:disabled span::before {
-  content: "Введите сумму и название!" !important;
+  content: "Введите название, сумму и категорию!" !important;
 }

@@ -1,0 +1,164 @@
+.registration_wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.column_left {
+    display: flex;
+    flex-direction: column;
+}
+
+.column_right {
+    display: flex;
+    flex-direction: column;
+}
+
+.left_textarea {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.reg_heading {
+
+    width: 613px;
+    height: 49px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 49px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.reg_text {
+    width: 621px;
+    height: 76px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 32px;
+    line-height: 38px;
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 0px;
+
+}
+
+.left_imagearea {
+    display: flex;
+    justify-content: center;
+}
+
+.main_img {
+    height: 400px;
+}
+
+.column_right {
+    margin-left: 40px;
+}
+
+.registration_form {
+    display: flex;
+    justify-content: center;
+    width: 415px;
+    height: 395px;
+    background: #F0F2F5;
+    box-shadow: 0px 4px 40px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin-top: 42px;
+}
+
+.registration_title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 50px;
+    color: #604B4B;
+    margin-bottom: 0px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.form_area {
+    display: flex;
+    flex-direction: column;
+}
+
+.input_heading {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px;
+    color: #604B4B;
+    margin: 12px;
+
+}
+
+.input_element {
+    width: 350px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 2px solid #787878;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.input_element::placeholder {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 36px;
+    color: #B5B5B5;
+    /* text-indent: 10px; */
+}
+
+.input_element input[type="email"] {
+    /* text-indent: 10px; */
+    line-height: normal;
+}
+
+.btn_area {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.enter_btn {
+    background: #556A8A;
+    border-radius: 10px;
+    padding: 20px 70px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 16px;
+    color: #FFFFFF;
+}
+
+.enter_btn:active {
+    background: #2D3B50;
+}
+
+.subtext_area {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 12px;
+}
+
+.subtext_text {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #787878;
+    text-align: center;
+    margin: 4px;
+}

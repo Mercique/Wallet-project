@@ -90,12 +90,7 @@ function App() {
     sendRequest(urlCategory, "POST", newCategory)
       .then((data) => {
         console.log("Category POST:\n", data);
-        setCategoryList((prevCategoryList) => [...prevCategoryList, {
-          ...data,
-          img: {
-            img_name: images[newCategory.img_id - 1].img_name
-          }
-        }]);
+        setCategoryList(data);
       })
       .catch((err) => console.error(err));
   };
@@ -139,9 +134,8 @@ function App() {
   const deletePayment = (deleteItem) => { // Удаление траты
     sendRequest(`${urlPayments}/${deleteItem.id}`, "DELETE")
       .then((data) => {
-        const updatePaymentList = paymentList.filter((payment) => payment.id !== deleteItem.id);
-        setPaymentList(updatePaymentList);
-        console.log("Payments Delete:\n", data);
+        console.log("Payments DELETE:\n", data);
+        setPaymentList(data);
       })
       .catch((err) => console.error(err));
 

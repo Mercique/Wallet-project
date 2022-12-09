@@ -6,6 +6,7 @@ import { Category } from "./components/Category/Category";
 import { Routes, Route } from "react-router-dom";
 import { Calendar } from "./components/Calendar/Calendar";
 import { Registration } from "./components/Registration/Registration";
+import { RegistrationAuth } from "./components/RegistrationAuth/RegistrationAuth";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 
@@ -39,7 +40,7 @@ function App() {
       })
       .catch((err) => {
         console.error("Catch categoryList:\n", err);
-        setCategoryList({error: true, name: "Ошибка загрузки категорий!"});
+        setCategoryList({ error: true, name: "Ошибка загрузки категорий!" });
       });
 
     fetchAPI(urlPayments)
@@ -51,11 +52,11 @@ function App() {
       })
       .catch((err) => {
         console.error("Catch paymentList:\n", err);
-        setPaymentList({error: true, name: "Ошибка загрузки расходов!"});
+        setPaymentList({ error: true, name: "Ошибка загрузки расходов!" });
         setBalance(500000);
         setExpenses(0);
       });
-    
+
     fetchAPI(urlImg)
       .then((data) => {
         console.log("Images GET:\n", data);
@@ -63,7 +64,7 @@ function App() {
       })
       .catch((err) => {
         console.error("Catch imagesList:\n", err);
-        setImages({error: true, name: "Ошибка загрузки иконок!"});
+        setImages({ error: true, name: "Ошибка загрузки иконок!" });
       });
   }, []);
 
@@ -85,8 +86,6 @@ function App() {
   };
 
   const addNewCategory = (newCategory) => { // Добавление категории
-    console.log(newCategory);
-
     sendRequest(urlCategory, "POST", newCategory)
       .then((data) => {
         console.log("Category POST:\n", data);
@@ -109,7 +108,7 @@ function App() {
         setPaymentList(data);
       })
       .catch((err) => console.error(err));
-    
+
     setBalance(balance - newPayment.sum);
   };
 
@@ -120,7 +119,7 @@ function App() {
       sum: editPayment.sum,
       created_at: editPayment.created_at
     }
-    
+
     sendRequest(`${urlPayments}/${editPayment.id}`, "PUT", putPayment)
       .then((data) => {
         console.log("Payments PUT:\n", data);
@@ -150,14 +149,15 @@ function App() {
           <Routes>
             <Route path="/category" element={<Category images={images} balance={balance - expenses} addNewCategory={addNewCategory} />} />
             <Route path="/" element={
-                <div className="operations">
-                  <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} balance={balance - expenses} />
-                  <PaymentList paymentList={paymentList} categoryList={categoryList} editPayment={editPayment} deletePayment={deletePayment} />
-                </div>
-              }
+              <div className="operations">
+                <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} balance={balance - expenses} />
+                <PaymentList paymentList={paymentList} categoryList={categoryList} editPayment={editPayment} deletePayment={deletePayment} />
+              </div>
+            }
             />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/registration" element={<Registration />} />
+            <Route path="/registration/auth" element={<RegistrationAuth />} />
           </Routes>
         </div>
         <Footer />

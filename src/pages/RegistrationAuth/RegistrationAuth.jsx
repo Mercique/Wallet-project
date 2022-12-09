@@ -1,8 +1,6 @@
 import styles from "./RegistrationAuth.module.css";
 
-export function RegistrationAuth() {
-
-
+export const RegistrationAuth = () => {
     return (
         <div className={styles.reg_wrapper}>
             <div className={styles.reg_card}>
@@ -45,10 +43,5 @@ export function RegistrationAuth() {
 
             </div>
         </div>
-
-
-
     );
-
-
-}
+};

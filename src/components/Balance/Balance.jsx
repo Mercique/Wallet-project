@@ -1,6 +1,8 @@
 import styles from "./Balance.module.css";
 
-export const Balance = ({ balance }) => {
+export const Balance = () => {
+  let balance = 500000;
+  
   return (
     <div className={styles.balance}>
       <p className={styles.balanceLabel}>Баланс:</p>

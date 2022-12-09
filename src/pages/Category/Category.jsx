@@ -1,29 +1,29 @@
 import styles from "./Category.module.css";
 import { useState } from "react";
-import { Balance } from "../Balance/Balance";
-import { SubmitButton } from "../SubmitButton/SubmitButton";
-import { Input } from "../Input/Input";
-import { IconCategoryMenu } from "../IconCategoryMenu/IconCategoryMenu";
+import { Balance } from "../../components/Balance/Balance";
+import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
+import { Input } from "../../components/Input/Input";
+import { IconCategoryMenu } from "../../components/IconCategoryMenu/IconCategoryMenu";
 
-export const Category = ({ images, balance, addNewCategory }) => {
+export const Category = () => {
     const [categoryName, setCategoryName] = useState("");
     const [categoryImgId, setCategoryImgId] = useState("");
 
     const addCategory = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
 
-        addNewCategory({
-            name: categoryName,
-            img_id: categoryImgId
-        });
+        // addNewCategory({
+        //     name: categoryName,
+        //     img_id: categoryImgId
+        // });
 
-        setCategoryName("");
-        setCategoryImgId("");
+        // setCategoryName("");
+        // setCategoryImgId("");
     };
 
     return (
         <div className={styles.categoryWrapper}>
-            <Balance balance={balance} />
+            <Balance />
             <div className={styles.addCategory}>
                 <form className={styles.addCategoryForm} onSubmit={addCategory}>
                     <div className={styles.addCategoryBox}>
@@ -34,7 +34,7 @@ export const Category = ({ images, balance, addNewCategory }) => {
                             placeholder="Введите название категории"
                             onChange={(e) => setCategoryName(e.target.value)}
                         />
-                        <IconCategoryMenu images={images} categoryImgId={categoryImgId} setCategoryImgId={setCategoryImgId} />
+                        <IconCategoryMenu />
                     </div>
                     <SubmitButton
                         className={styles.addCategoryButton}

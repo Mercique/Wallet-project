@@ -1,7 +1,6 @@
 import styles from "./Registration.module.css";
 
-export function Registration() {
-
+export const Registration = () => {
   return (
     <div className={styles.registration_wrapper}>
       <div className={styles.column_left}>
@@ -40,10 +39,5 @@ export function Registration() {
         </form>
       </div>
     </div>
-
-
   );
-
-}
-
-
+};

@@ -1,8 +1,12 @@
 import { apiPayments } from "../../utils/constants";
+import { sendRequest } from "../../utils/asyncAction";
 
 export const GET_PAYMENTS_REQUEST = "PAYMENTS::GET_PAYMENTS_REQUEST";
 export const GET_PAYMENTS_SUCCESS = "PAYMENTS::GET_PAYMENTS_SUCCESS";
 export const GET_PAYMENTS_FAILURE = "PAYMENTS::GET_PAYMENTS_FAILURE";
+export const POST_PAYMENTS_SUCCESS = "PAYMENTS::POST_PAYMENTS_SUCCESS";
+export const PUT_PAYMENTS_SUCCESS = "PAYMENTS::PUT_PAYMENTS_SUCCESS";
+export const DELETE_PAYMENTS_SUCCESS = "PAYMENTS::DELETE_PAYMENTS_SUCCESS";
 
 export const getPaymentsRequest = () => ({
   type: GET_PAYMENTS_REQUEST,
@@ -16,6 +20,21 @@ export const getPaymentsSuccess = (payments) => ({
 export const getPaymentsFailure = (error) => ({
   type: GET_PAYMENTS_FAILURE,
   payload: error,
+});
+
+export const postPaymentsSuccess = (payments) => ({
+  type: POST_PAYMENTS_SUCCESS,
+  payload: payments,
+});
+
+export const putPaymentsSuccess = (payments) => ({
+  type: PUT_PAYMENTS_SUCCESS, 
+  payload: payments,
+});
+
+export const deletePaymentsSuccess = (payments) => ({
+  type: DELETE_PAYMENTS_SUCCESS,
+  payload: payments,
 });
 
 export const getPayments = () => async (dispatch) => {
@@ -35,23 +54,20 @@ export const getPayments = () => async (dispatch) => {
   }
 };
 
-const sendRequest = async (url, method, body = null) => {
-  const response = await fetch(url, {
-    method: method,
-    body: JSON.stringify(body),
-    headers: {
-      "Content-type": "application/json",
-    }
-  });
-  if (!response.status) {
-    throw new Error(`Could not fetch ${url}, received ${response.status}`);
-  }
-  const result = await response.json();
-  return result;
+export const addPayment = (url, method, body) => (dispatch) => {
+  sendRequest(url, method, body)
+    .then((result) => dispatch(postPaymentsSuccess(result)))
+    .catch((err) => console.log("err", err));
 };
 
-export const addNewPayment = (url, method, body) => async (dispatch) => {
+export const editPayment = (url, method, body) => (dispatch) => {
   sendRequest(url, method, body)
-    .then((result) => console.log("res", result))
+    .then((result) => dispatch(putPaymentsSuccess(result)))
+    .catch((err) => console.log("err", err));
+};
+
+export const deletePayment = (url, method, body) => (dispatch) => {
+  sendRequest(url, method, body)
+    .then((result) => dispatch(deletePaymentsSuccess(result)))
     .catch((err) => console.log("err", err));
 };

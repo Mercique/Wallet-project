@@ -4,9 +4,10 @@ import { Balance } from "../Balance/Balance";
 import { CategoryMenu } from "../CategoryMenu/CategoryMenu";
 import { Input } from "../Input/Input";
 import { SubmitButton } from "../SubmitButton/SubmitButton";
-import { useDispatch } from "react-redux";
-import { addNewPayment } from "../../store/payments/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { addPayment } from "../../store/payments/actions";
 import { apiPayments } from "../../utils/constants";
+import { selectPaymentsError } from "../../store/payments/selectors";
 
 export const PaymentForm = () => {
   const [name, setName] = useState("");
@@ -15,6 +16,7 @@ export const PaymentForm = () => {
   const [categoryId, setCategoryId] = useState("");
 
   const dispatch = useDispatch();
+  const paymentsError = useSelector(selectPaymentsError);
 
   const getCurrentDate = (date) => {
     const today = new Date();
@@ -36,7 +38,7 @@ export const PaymentForm = () => {
       created_at: date ? getCurrentDate(date) : getCurrentDate(null)
     };
     
-    dispatch(addNewPayment(apiPayments, "POST", newPayment));
+    dispatch(addPayment(apiPayments, "POST", newPayment));
 
     setName("");
     setValue("");
@@ -72,7 +74,7 @@ export const PaymentForm = () => {
             placeholder="Дата"
             onChange={(event) => setDate(event.target.value)} />
         </div>
-        <SubmitButton className={styles.addExpensesButton} name={"Добавить трату"} disabled={!name | !value | !categoryId} />
+        <SubmitButton className={styles.addExpensesButton} name="Добавить трату" disabled={!name | !value | !categoryId | paymentsError} />
       </form>
       <Balance />
     </div>

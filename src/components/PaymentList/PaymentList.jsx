@@ -1,63 +1,63 @@
 import styles from "./PaymentList.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPayments } from "../../store/payments/actions";
+import { deletePayment, getPayments } from "../../store/payments/actions";
 import { Modal } from "../Modal/Modal";
 import { selectPayments, selectPaymentsError, selectPaymentsLoading } from "../../store/payments/selectors";
+import { apiPayments } from "../../utils/constants";
 
 export const PaymentList = () => {
+  const [active, setActive] = useState(false);
+  const [showEdit, setShowEdit] = useState("");
+  const [paymentInfo, setPaymentInfo] = useState();
+  
   const dispatch = useDispatch();
   const paymentList = useSelector(selectPayments);
   const paymentsLoading = useSelector(selectPaymentsLoading);
   const paymentsError = useSelector(selectPaymentsError);
-
+  
   const getData = async () => {
     dispatch(getPayments());
   };
-
+  
   useEffect(() => {
     getData();
   }, []);
 
-  // const [active, setActive] = useState(false);
-  // const [paymentInfo, setPaymentInfo] = useState();
-  // const [showEdit, setShowEdit] = useState();
+  const getDate = (date) => {
+    const paymentDate = new Date(date);
 
-  // const getDate = (date) => {
-  //   const paymentDate = new Date(date);
+    const editDate = {
+      year: paymentDate.getFullYear(),
+      month: paymentDate.getMonth() + 1,
+      day: paymentDate.getDate() < 10 ? "0" + paymentDate.getDate() : paymentDate.getDate()
+    }
 
-  //   const editDate = {
-  //     year: paymentDate.getFullYear(),
-  //     month: paymentDate.getMonth() + 1,
-  //     day: paymentDate.getDate() < 10 ? "0" + paymentDate.getDate() : paymentDate.getDate()
-  //   }
+    return `${editDate.year}-${editDate.month}-${editDate.day}`;
+  };
 
-  //   return `${editDate.year}-${editDate.month}-${editDate.day}`;
-  // };
+  const handleEditPayment = (payment) => {
+    setPaymentInfo({
+      ...payment,
+      created_at: getDate(payment.created_at)
+    });
 
-  // const handleEditPayment = (payment) => {
-  //   setPaymentInfo({
-  //     ...payment,
-  //     created_at: getDate(payment.created_at)
-  //   });
+    setShowEdit("");
+    setActive(true);
+  };
 
-  //   setShowEdit();
-  //   setActive(true);
-  // };
+  const handleDeletePayment = (payment) => {
+    dispatch(deletePayment(`${apiPayments}/${payment.id}`, "DELETE", { id: payment.id, sum: payment.sum }));
+    setShowEdit("");
+  };
 
-  // const handleDeletePayment = (payment) => {
-  //   deletePayment({ id: payment.id, sum: payment.sum });
-
-  //   setShowEdit();
-  // };
-
-  // useEffect(() => {
-  //   if (active) {
-  //     document.body.style.overflowY = "hidden";
-  //   } else {
-  //     document.body.style.overflowY = "auto";
-  //   }
-  // }, [active]);
+  useEffect(() => {
+    if (active) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [active]);
 
   return (
     <>
@@ -82,8 +82,8 @@ export const PaymentList = () => {
                   </div>
                   <div className={styles.expRight}>
                     <p className={styles.expSum}>- {payment.sum.toLocaleString()} &#8381;</p>
-                    <button type="button" className={styles.expBtnEdit}><img src="/images/Edit.png" alt="Edit" /></button>
-                    {/* { payment.id === showEdit &&
+                    <button type="button" className={styles.expBtnEdit} onClick={() => setShowEdit(payment.id)}><img src="/images/Edit.png" alt="Edit" /></button>
+                    { payment.id === showEdit &&
                       <div className={styles.expShowEditDelete}>
                         <button type="button" onClick={() => handleEditPayment(payment)}>
                           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,11 +98,11 @@ export const PaymentList = () => {
                           <span>Удалить</span>
                         </button>
                       </div>
-                    } */}
+                    }
                   </div>
                 </div>
               )) }
-              {/* { active && <Modal setActive={setActive} categoryList={categoryList} editPayment={editPayment} paymentInfo={paymentInfo} /> } */}
+              { active && <Modal paymentInfo={paymentInfo} setActive={setActive} /> }
             </div>
           ) }
         </>

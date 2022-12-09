@@ -1,5 +1,5 @@
 import { FETCH_STATUSES } from "../../utils/constants";
-import { GET_CATEGORY_FAILURE, GET_CATEGORY_REQUEST, GET_CATEGORY_SUCCESS } from "./actions";
+import { GET_CATEGORY_FAILURE, GET_CATEGORY_REQUEST, GET_CATEGORY_SUCCESS, POST_CATEGORY_SUCCESS } from "./actions";
 
 const initialState = {
   data: [],
@@ -28,6 +28,13 @@ export const categoryReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
         status: FETCH_STATUSES.FAILURE,
+      };
+    }
+    case POST_CATEGORY_SUCCESS: {
+      return {
+        data: action.payload,
+        error: null,
+        status: FETCH_STATUSES.SUCCESS,
       };
     }
     default: {

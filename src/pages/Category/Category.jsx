@@ -1,31 +1,38 @@
 import styles from "./Category.module.css";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Balance } from "../../components/Balance/Balance";
 import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
 import { Input } from "../../components/Input/Input";
 import { IconCategoryMenu } from "../../components/IconCategoryMenu/IconCategoryMenu";
+import { addCategory } from "../../store/category/actions";
+import { apiCategory } from "../../utils/constants";
 
 export const Category = () => {
     const [categoryName, setCategoryName] = useState("");
     const [categoryImgId, setCategoryImgId] = useState("");
 
-    const addCategory = (e) => {
-        // e.preventDefault();
+    const dispatch = useDispatch();
 
-        // addNewCategory({
-        //     name: categoryName,
-        //     img_id: categoryImgId
-        // });
+    const addNewCategory = (e) => {
+        e.preventDefault();
 
-        // setCategoryName("");
-        // setCategoryImgId("");
+        const newCategory = {
+            img_id: categoryImgId,
+            name: categoryName
+        }
+
+        dispatch(addCategory(apiCategory, "POST", newCategory));
+
+        setCategoryName("");
+        setCategoryImgId("");
     };
 
     return (
         <div className={styles.categoryWrapper}>
             <Balance />
             <div className={styles.addCategory}>
-                <form className={styles.addCategoryForm} onSubmit={addCategory}>
+                <form className={styles.addCategoryForm} onSubmit={addNewCategory}>
                     <div className={styles.addCategoryBox}>
                         <Input
                             type="text"
@@ -34,11 +41,11 @@ export const Category = () => {
                             placeholder="Введите название категории"
                             onChange={(e) => setCategoryName(e.target.value)}
                         />
-                        <IconCategoryMenu />
+                        <IconCategoryMenu categoryImgId={categoryImgId} setCategoryImgId={setCategoryImgId} />
                     </div>
                     <SubmitButton
                         className={styles.addCategoryButton}
-                        name={"Добавить категорию"}
+                        name="Добавить категорию"
                         disabled={!categoryName | !categoryImgId}
                     />
                 </form>

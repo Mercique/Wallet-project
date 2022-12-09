@@ -55,11 +55,11 @@
   }
 
   .inputCategory {
-    width: 480px;
-    height: 71px;
-    font-weight: 300;
-    font-size: 24px;
-    line-height: 38px;
+    width: 480px !important;
+    height: 71px !important;
+    font-weight: 300 !important;
+    font-size: 24px !important;
+    line-height: 38px !important;
     border-color: #fff;
     color: #fff;
   }

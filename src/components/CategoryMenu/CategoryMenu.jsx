@@ -25,9 +25,8 @@ export const CategoryMenu = ({ categoryId, setCategoryId }) => {
     setOpenOption(!openOption);
   };
 
-  const selectOption = (e) => {
-    setCategoryId(e.target.id);
-    setOpenOption(false);
+  const selectOption = (id) => {
+    setCategoryId(id);
   };
 
   return (
@@ -51,9 +50,8 @@ export const CategoryMenu = ({ categoryId, setCategoryId }) => {
             <div className={styles.detailsBoxOptions}>
               {categoryList?.map((category, idx) => (
                 <div
-                  id={category.id}
                   className={styles.categoryOption}
-                  onClick={selectOption}
+                  onClick={() => selectOption(category.id)}
                   key={idx}
                 >
                   {category.name}

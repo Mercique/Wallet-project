@@ -3,12 +3,19 @@ import { useState } from "react";
 import { CategoryMenu } from "../CategoryMenu/CategoryMenu";
 import { Input } from "../Input/Input";
 import { SubmitButton } from "../SubmitButton/SubmitButton";
+import { useDispatch, useSelector } from "react-redux";
+import { apiPayments } from "../../utils/constants";
+import { editPayment } from "../../store/payments/actions";
+import { selectCategoryError } from "../../store/category/selectors";
 
-export const Modal = ({ setActive, categoryList, editPayment, paymentInfo}) => {
+export const Modal = ({ paymentInfo, setActive }) => {
   const [name, setName] = useState(paymentInfo.name);
   const [value, setValue] = useState(paymentInfo.sum);
   const [date, setDate] = useState(paymentInfo.created_at);
-  const [category, setCategory] = useState(paymentInfo.category_id);
+  const [categoryId, setCategoryId] = useState(paymentInfo.category_id);
+
+  const dispatch = useDispatch();
+  const categoryError = useSelector(selectCategoryError);
 
   const getCurrentDate = (date) => {
     const today = new Date();
@@ -23,15 +30,14 @@ export const Modal = ({ setActive, categoryList, editPayment, paymentInfo}) => {
   const handleEditPayment = (e) => {
     e.preventDefault();
 
-    editPayment({
-      id: paymentInfo.id,
+    const putPayment = {
       name,
       sum: +value,
-      lastSum: paymentInfo.sum,
+      category_id: +categoryId,
       created_at: date ? getCurrentDate(date) : getCurrentDate(null),
-      category_id: +category
-    });
-
+    };
+    
+    dispatch(editPayment(`${apiPayments}/${paymentInfo.id}`, "PUT", putPayment));
     setActive(false);
   };
 
@@ -53,7 +59,7 @@ export const Modal = ({ setActive, categoryList, editPayment, paymentInfo}) => {
           step="0.01"
           onChange={(event) => setValue(event.target.value)}
         />
-        <CategoryMenu categoryName={categoryList[+category - 1]?.name} categoryList={categoryList} category={category} setCategory={setCategory} />
+        <CategoryMenu categoryId={categoryId} setCategoryId={setCategoryId} />
         <Input
           type="date"
           className={styles.modalInput}
@@ -61,7 +67,7 @@ export const Modal = ({ setActive, categoryList, editPayment, paymentInfo}) => {
           placeholder="Дата"
           onChange={(event) => setDate(event.target.value)}
         />
-        <SubmitButton className={styles.editExpensesButton} name={"Добавить изменение"} disabled={!name | !value | categoryList?.error} />
+        <SubmitButton className={styles.editExpensesButton} name="Добавить изменение" disabled={!name | !value | categoryError} />
       </form>
     </div>
   );

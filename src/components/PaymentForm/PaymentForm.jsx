@@ -6,27 +6,17 @@ import { Input } from "../Input/Input";
 import { SubmitButton } from "../SubmitButton/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
 import { addPayment } from "../../store/payments/actions";
-import { apiPayments } from "../../utils/constants";
+import { apiPayments, getDate } from "../../utils/constants";
 import { selectPaymentsError } from "../../store/payments/selectors";
 
 export const PaymentForm = () => {
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(getDate(new Date()));
   const [categoryId, setCategoryId] = useState("");
 
   const dispatch = useDispatch();
   const paymentsError = useSelector(selectPaymentsError);
-
-  const getCurrentDate = (date) => {
-    const today = new Date();
-
-    if (date) {
-      return `${date}T${today.toLocaleTimeString()}`;
-    } else {
-      return `${today.toLocaleDateString()}T${today.toLocaleTimeString()}`;
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,14 +25,14 @@ export const PaymentForm = () => {
       sum: +value,
       name,
       category_id: +categoryId,
-      created_at: date ? getCurrentDate(date) : getCurrentDate(null)
+      created_at: `${date}T${new Date().toLocaleTimeString()}`
     };
     
     dispatch(addPayment(apiPayments, "POST", newPayment));
 
     setName("");
     setValue("");
-    setDate("");
+    setDate(getDate(new Date()));
     setCategoryId("");
   }
 
@@ -74,7 +64,7 @@ export const PaymentForm = () => {
             placeholder="Дата"
             onChange={(event) => setDate(event.target.value)} />
         </div>
-        <SubmitButton className={styles.addExpensesButton} name="Добавить трату" disabled={!name | !value | !categoryId | paymentsError} />
+        <SubmitButton className={styles.addExpensesButton} name="Добавить трату" disabled={!name | !value | !categoryId | paymentsError !== null} />
       </form>
       <Balance />
     </div>

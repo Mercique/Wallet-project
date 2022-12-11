@@ -4,28 +4,18 @@ import { CategoryMenu } from "../CategoryMenu/CategoryMenu";
 import { Input } from "../Input/Input";
 import { SubmitButton } from "../SubmitButton/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
-import { apiPayments } from "../../utils/constants";
+import { apiPayments, getDate } from "../../utils/constants";
 import { editPayment } from "../../store/payments/actions";
 import { selectCategoryError } from "../../store/category/selectors";
 
 export const Modal = ({ paymentInfo, setActive }) => {
   const [name, setName] = useState(paymentInfo.name);
   const [value, setValue] = useState(paymentInfo.sum);
-  const [date, setDate] = useState(paymentInfo.created_at);
+  const [date, setDate] = useState("");
   const [categoryId, setCategoryId] = useState(paymentInfo.category_id);
 
   const dispatch = useDispatch();
   const categoryError = useSelector(selectCategoryError);
-
-  const getCurrentDate = (date) => {
-    const today = new Date();
-
-    if (date) {
-      return `${date}T${today.toLocaleTimeString()}`;
-    } else {
-      return `${today.toLocaleDateString()}T${today.toLocaleTimeString()}`;
-    }
-  };
 
   const handleEditPayment = (e) => {
     e.preventDefault();
@@ -34,7 +24,7 @@ export const Modal = ({ paymentInfo, setActive }) => {
       name,
       sum: +value,
       category_id: +categoryId,
-      created_at: date ? getCurrentDate(date) : getCurrentDate(null),
+      created_at: date ? `${date}T${new Date().toLocaleTimeString()}` : paymentInfo.created_at,
     };
     
     dispatch(editPayment(`${apiPayments}/${paymentInfo.id}`, "PUT", putPayment));
@@ -63,11 +53,11 @@ export const Modal = ({ paymentInfo, setActive }) => {
         <Input
           type="date"
           className={styles.modalInput}
-          value={date}
+          value={date || getDate(paymentInfo.created_at)}
           placeholder="Дата"
           onChange={(event) => setDate(event.target.value)}
         />
-        <SubmitButton className={styles.editExpensesButton} name="Добавить изменение" disabled={!name | !value | categoryError} />
+        <SubmitButton className={styles.editExpensesButton} name="Добавить изменение" disabled={!name | !value | categoryError !== null} />
       </form>
     </div>
   );

@@ -1,5 +1,5 @@
+import { getData, sendRequest } from "../../utils/asyncActions";
 import { apiPayments } from "../../utils/constants";
-import { sendRequest } from "../../utils/asyncAction";
 
 export const GET_PAYMENTS_REQUEST = "PAYMENTS::GET_PAYMENTS_REQUEST";
 export const GET_PAYMENTS_SUCCESS = "PAYMENTS::GET_PAYMENTS_SUCCESS";
@@ -37,37 +37,31 @@ export const deletePaymentsSuccess = (payments) => ({
   payload: payments,
 });
 
-export const getPayments = () => async (dispatch) => {
+export const getPayments = () => (dispatch) => {
   dispatch(getPaymentsRequest());
 
-  try {
-    const response = await fetch(apiPayments);
-    if (!response.status) {
-      console.log(response.status);
-      throw new Error(`Could not fetch ${apiPayments}, received ${response.status}`);
-    }
-    const result = await response.json();
-    dispatch(getPaymentsSuccess(result));
-  } catch (err) {
-    dispatch(getPaymentsFailure(`${err.name}: Ошибка загрузки списка трат!`));
-    console.warn(err);
-  }
+  getData(apiPayments)
+    .then((result) => dispatch(getPaymentsSuccess(result)))
+    .catch((err) => {
+      console.warn(err);
+      dispatch(getPaymentsFailure("Ошибка загрузки расходов!"));
+    });
 };
 
 export const addPayment = (url, method, body) => (dispatch) => {
   sendRequest(url, method, body)
     .then((result) => dispatch(postPaymentsSuccess(result)))
-    .catch((err) => console.log("err", err));
+    .catch((err) => console.log("POST err", err));
 };
 
 export const editPayment = (url, method, body) => (dispatch) => {
   sendRequest(url, method, body)
     .then((result) => dispatch(putPaymentsSuccess(result)))
-    .catch((err) => console.log("err", err));
+    .catch((err) => console.log("PUT err", err));
 };
 
 export const deletePayment = (url, method, body) => (dispatch) => {
   sendRequest(url, method, body)
     .then((result) => dispatch(deletePaymentsSuccess(result)))
-    .catch((err) => console.log("err", err));
+    .catch((err) => console.log("DELETE err", err));
 };

@@ -1,5 +1,9 @@
 import { FETCH_STATUSES } from "../../utils/constants";
-import { GET_ICONS_FAILURE, GET_ICONS_REQUEST, GET_ICONS_SUCCESS } from "./actions";
+import {
+  GET_ICONS_FAILURE,
+  GET_ICONS_REQUEST,
+  GET_ICONS_SUCCESS,
+} from "./actions";
 
 const initialState = {
   data: [],

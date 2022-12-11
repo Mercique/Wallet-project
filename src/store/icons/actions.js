@@ -1,3 +1,4 @@
+import { getData } from "../../utils/asyncActions";
 import { apiIcons } from "../../utils/constants";
 
 export const GET_ICONS_REQUEST = "ICONS::GET_ICONS_REQUEST";
@@ -18,19 +19,13 @@ export const getIconsFailure = (error) => ({
   payload: error,
 });
 
-export const getIcons = () => async (dispatch) => {
+export const getIcons = () => (dispatch) => {
   dispatch(getIconsRequest());
 
-  try {
-    const response = await fetch(apiIcons);
-    if (!response.status) {
-      console.log(response.status);
-      throw new Error(`Could not fetch ${apiIcons}, received ${response.status}`);
-    }
-    const result = await response.json();
-    dispatch(getIconsSuccess(result));
-  } catch (err) {
-    dispatch(getIconsFailure(`${err.name}: Ошибка загрузки списка иконок!`));
-    console.warn(err);
-  }
+  getData(apiIcons)
+    .then((result) => dispatch(getIconsSuccess(result)))
+    .catch((err) => {
+      console.warn(err);
+      dispatch(getIconsFailure("Ошибка загрузки иконок!"));
+    });
 };

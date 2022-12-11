@@ -1,5 +1,12 @@
 import { FETCH_STATUSES } from "../../utils/constants";
-import { GET_CATEGORY_FAILURE, GET_CATEGORY_REQUEST, GET_CATEGORY_SUCCESS, POST_CATEGORY_SUCCESS } from "./actions";
+import {
+  DELETE_CATEGORY_SUCCESS,
+  GET_CATEGORY_FAILURE,
+  GET_CATEGORY_REQUEST,
+  GET_CATEGORY_SUCCESS,
+  POST_CATEGORY_SUCCESS,
+  PUT_CATEGORY_SUCCESS,
+} from "./actions";
 
 const initialState = {
   data: [],
@@ -31,6 +38,20 @@ export const categoryReducer = (state = initialState, action) => {
       };
     }
     case POST_CATEGORY_SUCCESS: {
+      return {
+        data: action.payload,
+        error: null,
+        status: FETCH_STATUSES.SUCCESS,
+      };
+    }
+    case PUT_CATEGORY_SUCCESS: {
+      return {
+        data: action.payload,
+        error: null,
+        status: FETCH_STATUSES.SUCCESS,
+      };
+    }
+    case DELETE_CATEGORY_SUCCESS: {
       return {
         data: action.payload,
         error: null,

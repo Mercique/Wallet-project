@@ -24,7 +24,9 @@
     background-clip: content-box;
 }
 
-.expensesError {
+.expensesError, .expensesLoading, .expensesEmpty {
+    width: 554px;
+    margin-top: 20px;
     font-weight: 300;
     font-size: 20px;
     line-height: 24px;
@@ -33,6 +35,10 @@
     text-transform: uppercase;
     user-select: none;
     color: #B91C1C;
+}
+
+.expensesLoading, .expensesEmpty {
+    color: #fff;
 }
 
 .expItem {

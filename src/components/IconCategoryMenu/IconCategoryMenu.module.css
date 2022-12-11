@@ -6,7 +6,7 @@
   transform: rotate(180deg);
 }
 
-.iconCategorySummary {
+.iconCategorySummary, .iconsError, .iconsLoading, .iconsEmpty {
   box-sizing: border-box;
   width: 480px;
   height: 71px;
@@ -23,6 +23,19 @@
   user-select: none;
   color: #604B4B;
   background: #D9D9D9;
+}
+
+.iconsError {
+  border: 1px solid #CB2424;
+  color: #CB2424;
+}
+
+.iconsError svg path {
+  fill: #CB2424;
+}
+
+.iconsError, .iconsEmpty {
+  cursor: default;
 }
 
 .iconCategoryDrop {

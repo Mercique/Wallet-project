@@ -1,6 +1,12 @@
+// local API
+// export const apiCategory = "http://localhost:3000/db/category.json"; // API категорий
+// export const apiPayments = "http://localhost:3000/db/payments.json"; // API расходов
+// export const apiIcons = "http://localhost:3000/db/icons.json"; // API картинок
+
+// backend API
 export const apiCategory = "http://wallet-backend/api/category"; // API категорий
 export const apiPayments = "http://wallet-backend/api/spending"; // API расходов
-export const apiIcons = "http://wallet-backend/api/categoryImg"; // API названий картинок
+export const apiIcons = "http://wallet-backend/api/categoryImg"; // API картинок
 
 export const getDate = (date) => {
   const paymentDate = new Date(date);

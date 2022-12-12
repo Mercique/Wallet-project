@@ -34,7 +34,7 @@ export const Category = () => {
 
   const handleEditCategory = () => {
     dispatch(putCategory(`${apiCategory}/${categoryEdit.id}`, "PUT", { name: editName, img_id: categoryEdit.img_id }));
-    editName("");
+    setEditName("");
     setCategoryEdit();
   };
 

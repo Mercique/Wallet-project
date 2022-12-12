@@ -11,12 +11,16 @@ export function Header() {
       name: 'категории'
     },
     {
-      route: '/',
+      route: '/operations',
       name: 'операции'
     },
     {
       route: '/calendar',
       name: 'календарь'
+    },
+    {
+      route: '/',
+      name: 'вход'
     },
     {
       route: '/registration',

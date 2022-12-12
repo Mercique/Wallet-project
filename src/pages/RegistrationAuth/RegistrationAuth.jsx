@@ -1,4 +1,5 @@
 import styles from "./RegistrationAuth.module.css";
+import { Link } from "react-router-dom";
 
 export const RegistrationAuth = () => {
     return (
@@ -38,7 +39,7 @@ export const RegistrationAuth = () => {
                     <div className={styles.btn_area}>
                         <div className={styles.reg_btn}>Регистрация</div>
                     </div>
-
+                    <Link to="/" className={styles.subtext_text}>Вход</Link>
                 </div>
 
             </div>

@@ -97,6 +97,18 @@
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
+  .categoryError {
+    margin-bottom: 50px;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.1em;
+    text-align: center;
+    text-transform: uppercase;
+    user-select: none;
+    color: #b91c1c;
+  }
+
   .categoryName {
     font-family: 'Hind';
     font-style: normal;

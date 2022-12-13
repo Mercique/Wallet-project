@@ -7,7 +7,7 @@ import { Input } from "../../components/Input/Input";
 import { IconCategoryMenu } from "../../components/IconCategoryMenu/IconCategoryMenu";
 import { addCategory, deleteCategory, putCategory } from "../../store/category/actions";
 import { apiCategory } from "../../utils/constants";
-import { selectCategory } from "../../store/category/selectors";
+import { selectCategory, selectCategoryError } from "../../store/category/selectors";
 import { getCategory } from "../../store/category/actions";
 import { getIcons } from "../../store/icons/actions";
 
@@ -19,6 +19,7 @@ export const Category = () => {
 
   const dispatch = useDispatch();
   const categoryList = useSelector(selectCategory);
+  const categoryError = useSelector(selectCategoryError);
 
   useEffect(() => {
     dispatch(getIcons());
@@ -76,23 +77,29 @@ export const Category = () => {
       </div>
       <div className={styles.changeCategory}>
         <div className={styles.slider}>
-          <h2 className={styles.sliderHeader}>Изменить категорию:</h2>
-          <div className={styles.categorySlider}>
-            {categoryList?.map((category, idx) => (
-              <div
-                className={category.img_id !== categoryEdit?.img_id ? styles.categorySliderItem : `${styles.categorySliderItem} ${styles.active}`}
-                onClick={() => setCategoryEdit({id: category.id, name: category.name, img_id: category.img_id})}
-                key={idx}
-              >
-                <img
-                  className={styles.categoriesImg}
-                  src={`/images/icons/${category.img.img_name}`}
-                  alt="categoryImg"
-                />
+          { categoryError ? (
+            <div className={styles.categoryError}>{categoryError}</div>
+          ) : (
+            <>
+              <h2 className={styles.sliderHeader}>Изменить категорию:</h2>
+              <div className={styles.categorySlider}>
+                {categoryList?.map((category, idx) => (
+                  <div
+                    className={category.img_id !== categoryEdit?.img_id ? styles.categorySliderItem : `${styles.categorySliderItem} ${styles.active}`}
+                    onClick={() => setCategoryEdit({id: category.id, name: category.name, img_id: category.img_id})}
+                    key={idx}
+                  >
+                    <img
+                      className={styles.categoriesImg}
+                      src={`/images/icons/${category.img.img_name}`}
+                      alt="categoryImg"
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <h3 className={styles.categoryName}>{!categoryEdit ? "Выберите категорию" : `Название: ${categoryEdit.name}`}</h3>
+              <h3 className={styles.categoryName}>{!categoryEdit ? "Выберите категорию" : `Название: ${categoryEdit.name}`}</h3>
+            </>
+          ) }
         </div>
         <form className={styles.changeArea} onSubmit={(e) => e.preventDefault()}>
           <Input

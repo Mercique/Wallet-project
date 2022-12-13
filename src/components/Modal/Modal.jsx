@@ -7,8 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { apiPayments, getDate } from "../../utils/constants";
 import { editPayment } from "../../store/payments/actions";
 import { selectCategoryError } from "../../store/category/selectors";
+import { selectPaymentInfo } from "../../store/modal/selectors";
+import { hideModal } from "../../store/modal/actions";
 
-export const Modal = ({ paymentInfo, setActive }) => {
+export const Modal = () => {
+  const paymentInfo = useSelector(selectPaymentInfo);
+
   const [name, setName] = useState(paymentInfo.name);
   const [value, setValue] = useState(paymentInfo.sum);
   const [date, setDate] = useState("");
@@ -28,11 +32,15 @@ export const Modal = ({ paymentInfo, setActive }) => {
     };
     
     dispatch(editPayment(`${apiPayments}/${paymentInfo.id}`, "PUT", putPayment));
-    setActive(false);
+    dispatch(hideModal());
+  };
+
+  const closeModal = () => {
+    dispatch(hideModal());
   };
 
   return (
-    <div className={styles.modal} onClick={() => setActive(false)}>
+    <div className={styles.modal} onClick={closeModal}>
       <form className={styles.modalInputForm} onClick={(e) => e.stopPropagation()} onSubmit={handleEditPayment}>
         <Input
           type="text"

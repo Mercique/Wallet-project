@@ -4,14 +4,10 @@ import { useState } from "react";
 
 export const MainAuth = ({ onAuth }) => {
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleAuth = () => {
-    onAuth({
-      name: "Mercique",
-      email,
-      pass
-    });
+    onAuth({email,password});
   };
 
   return (
@@ -48,8 +44,8 @@ export const MainAuth = ({ onAuth }) => {
                   type="password"
                   name="password"
                   id="password"
-                  value={pass}
-                  onChange={(e) => setPass(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Введите пароль"
                   className={styles.input_element}
                 />

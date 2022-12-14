@@ -14,6 +14,8 @@ import { useState } from "react";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { MainAuth } from "./pages/MainAuth/MainAuth";
+import { apiLogin, apiLogout } from "./utils/constants";
+import cookie from "cookie";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,23 +24,53 @@ function App() {
   const [userAuth, setUserAuth] = useState();
   const [authed, setAuthed] = useState(false);
 
-  const authorize = (data) => {
-    const user = {
-      name: "Mercique",
-      email: "dev",
-      pass: "123"
-    }
+  const authorize = async (login) => {
+    try {
+      const response = await fetch(apiLogin, {
+        method: "POST",
+        body: JSON.stringify(login),
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Could not fetch ${apiLogin}, received ${response.status}`);
+      }
+      // const data = await response.json();
+      // console.log(data);
 
-    if (user.email === data.email && user.pass === data.pass) {
-      setUserAuth(data);
+      setUserAuth(login);
       setAuthed(true);
-    } else {
-      alert("Error");
+    } catch (err) {
+      console.warn(err);
+      setAuthed(false);
     }
   };
 
-  const unauthorize = () => {
-    setAuthed(false);
+  const unauthorize = async () => {
+    try {
+      const response = await fetch(apiLogout, {
+        method: "POST",
+        body: JSON.stringify(null),
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+          "XSRF-TOKEN": cookie.parse(document.cookie)["XSRF-TOKEN"] || false,
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Could not fetch ${apiLogout}, received ${response.status}`);
+      }
+      // const data = await response.json();
+      // console.log(data);
+
+      setUserAuth();
+      setAuthed(false);
+    } catch (err) {
+      console.warn(err);
+      setAuthed(false);
+    }
   };
 
   const navListPublic = [

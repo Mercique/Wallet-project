@@ -24,3 +24,17 @@
 .link:active {
     transform: translateY(1px);
 }
+
+.authLink {
+    width: 139px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 16px;
+    color: #FFFFFF;
+    text-decoration: none;
+    border: 1px solid #fff;
+}

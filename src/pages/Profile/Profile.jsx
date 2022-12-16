@@ -7,9 +7,11 @@ export const Profile = ({ userAuth, onLogout }) => {
         <p>{userAuth?.email}</p>
         <p>{userAuth?.pass}</p>
       </div>
-      <button type="button" onClick={onLogout}>
-        Logout
-      </button>
+      <form action="#">
+        <button type="submit" onClick={onLogout}>
+          Logout
+        </button>
+      </form>
     </>
   );
 };

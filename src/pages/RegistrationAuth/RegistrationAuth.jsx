@@ -3,6 +3,7 @@ import { useState } from "react";
 import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
 import { AuthLink } from "../../components/AuthLink/AuthLink";
 import { InputAuth } from "../../components/InputAuth/InputAuth";
+import { checkInputValues } from "../../utils/constants";
 
 export const RegistrationAuth = ({ register }) => {
   const [name, setName] = useState("");
@@ -18,10 +19,13 @@ export const RegistrationAuth = ({ register }) => {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    if (!name || !surname) {
-      register({ name, surname, email, password, checked });
-    } else {
+    setErrorName(checkInputValues("name", name));
+    setErrorSurname(checkInputValues("surname", surname));
+    setErrorEmail(checkInputValues("email", email));
+    setErrorPassword(checkInputValues("password", password));
 
+    if (name && surname && email && password) {
+      register({ name, surname, email, password, checked });
     }
   };
 

@@ -1,7 +1,7 @@
 .link {
   font-family: 'Roboto';
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
   gap: 5px;
   text-decoration: none;

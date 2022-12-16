@@ -40,6 +40,8 @@
 }
 
 .inputError {
+  width: 249px;
+  display: block;
   position: absolute;
   left: 16px;
   bottom: -16px;

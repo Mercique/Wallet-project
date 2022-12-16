@@ -10,12 +10,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectShowEditId } from "./store/modal/selectors";
 import { hideEdit } from "./store/modal/actions";
 import { Profile } from "./pages/Profile/Profile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { MainAuth } from "./pages/MainAuth/MainAuth";
-import { apiLogin, apiLogout, apiRegister } from "./utils/constants";
+import { apiLogin, apiLogout, apiRegister, apiToken } from "./utils/constants";
 import axios from 'axios';
+import { getCategory } from "./store/category/actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,18 +25,15 @@ function App() {
   const [userAuth, setUserAuth] = useState();
   const [authed, setAuthed] = useState(false);
 
-  const authorize = async (login) => {
-    axios.get('http://wallet-backend/sanctum/csrf-cookie', { withCredentials: true }).then(response => {
-      console.log(response);
-    });
-    // const tokenResponse = await fetch("http://wallet-backend/sanctum/csrf-cookie", {
-    //     method: "GET",
-    //     credentials: "include",
-    //     "Accept": "application/json, text/plain, */*",
-    //     "Content-type": "application/json",
-    //   },
-    // ).then((data) => console.log(data.headers.get("XSRF-TOKEN")));
+  const getCookie = async () => {
+    axios.get(apiToken, { withCredentials: true });
+  };
 
+  useEffect(() => {
+    getCookie();
+  }, []);
+
+  const authorize = async (login) => {
     try {
       const loginResponse = await axios({
         method: 'post',
@@ -43,28 +41,23 @@ function App() {
         data: login,
         withCredentials: true,
         headers: {
-          "Accept": "application/json, text/plain, */*",
+          "Accept": "application/json",
           "Content-Type": "application/json",
         },
       });
 
-      // const loginResponse = await fetch(apiLogin, {
-      //   method: "POST",
-      //   credentials: "include",
-      //   headers: {
-      //     "X-XSRF-TOKEN": ""
-      //     "Accept": "application/json, text/plain, */*",
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(login),
-      // });
+      console.log(loginResponse);
 
       if (!loginResponse.ok) {
-        throw new Error(`Could not authorize ${apiLogin}, received ${loginResponse.status}`);
+        throw new Error(`Could not fetch ${apiLogin}, received ${loginResponse.status}`);
       }
 
+      console.log(loginResponse.data);
+
+      dispatch(getCategory());
+      
       setUserAuth(login);
-      setAuthed(true);
+      setAuthed(false); //true
     } catch(err) {
       console.warn(err);
       setAuthed(false);

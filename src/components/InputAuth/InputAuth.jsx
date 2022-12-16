@@ -5,7 +5,7 @@ export const InputAuth = ({ id, labelName, error, ...attrs }) => {
     <div className={!error ? styles.inputBox : styles.inputBoxError}>
       <label htmlFor={id} className={styles.label}>{labelName}</label>
       <input id={id} className={styles.input} {...attrs} />
-      { error && <span className={styles.inputError}>Поле обязательно для заполнения!</span> }
+      { error && <span className={styles.inputError}>{error}</span> }
     </div>
   );
 };

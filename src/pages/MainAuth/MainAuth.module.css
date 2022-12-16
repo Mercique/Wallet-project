@@ -152,7 +152,7 @@
     margin-top: 12px;
 }
 
-.subtext_text, .registrationLink {
+.subtext_text {
     display: flex;
     align-items: center;
     justify-content: center;

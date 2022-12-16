@@ -9,10 +9,12 @@ export const PrivateRoute = ({ authed }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCategory());
-    dispatch(getPayments());
-    dispatch(getIcons());
-  }, [dispatch]);
+    if (authed) {
+      dispatch(getCategory());
+      dispatch(getPayments());
+      dispatch(getIcons());
+    }
+  }, [authed, dispatch]);
 
   return authed ? <Outlet /> : <Navigate to="/" replace />;
 };

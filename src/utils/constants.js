@@ -9,6 +9,7 @@ export const apiPayments = "http://wallet-backend/api/spending"; // API расх
 export const apiIcons = "http://wallet-backend/api/categoryImg"; // API картинок
 export const apiLogin = "http://wallet-backend/api/login"; // API вход пользователя
 export const apiLogout = "http://wallet-backend/api/logout"; // API выход пользователя
+export const apiRegister = "http://wallet-backend/api/register" // API регистрация
 
 export const getDate = (date) => {
   const paymentDate = new Date(date);

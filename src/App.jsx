@@ -14,8 +14,8 @@ import { useState } from "react";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { MainAuth } from "./pages/MainAuth/MainAuth";
-import { apiLogin, apiLogout } from "./utils/constants";
-import cookie from "cookie";
+import { apiLogin, apiLogout, apiRegister } from "./utils/constants";
+import axios from 'axios';
 
 function App() {
   const dispatch = useDispatch();
@@ -25,24 +25,47 @@ function App() {
   const [authed, setAuthed] = useState(false);
 
   const authorize = async (login) => {
+    axios.get('http://wallet-backend/sanctum/csrf-cookie', { withCredentials: true }).then(response => {
+      console.log(response);
+    });
+    // const tokenResponse = await fetch("http://wallet-backend/sanctum/csrf-cookie", {
+    //     method: "GET",
+    //     credentials: "include",
+    //     "Accept": "application/json, text/plain, */*",
+    //     "Content-type": "application/json",
+    //   },
+    // ).then((data) => console.log(data.headers.get("XSRF-TOKEN")));
+
     try {
-      const response = await fetch(apiLogin, {
-        method: "POST",
-        body: JSON.stringify(login),
+      const loginResponse = await axios({
+        method: 'post',
+        url: apiLogin,
+        data: login,
+        withCredentials: true,
         headers: {
-          "Accept": "application/json",
-          "Content-type": "application/json",
+          "Accept": "application/json, text/plain, */*",
+          "Content-Type": "application/json",
         },
       });
-      if (!response.ok) {
-        throw new Error(`Could not fetch ${apiLogin}, received ${response.status}`);
+
+      // const loginResponse = await fetch(apiLogin, {
+      //   method: "POST",
+      //   credentials: "include",
+      //   headers: {
+      //     "X-XSRF-TOKEN": ""
+      //     "Accept": "application/json, text/plain, */*",
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(login),
+      // });
+
+      if (!loginResponse.ok) {
+        throw new Error(`Could not authorize ${apiLogin}, received ${loginResponse.status}`);
       }
-      // const data = await response.json();
-      // console.log(data);
 
       setUserAuth(login);
       setAuthed(true);
-    } catch (err) {
+    } catch(err) {
       console.warn(err);
       setAuthed(false);
     }
@@ -56,14 +79,14 @@ function App() {
         headers: {
           "Accept": "application/json",
           "Content-type": "application/json",
-          "XSRF-TOKEN": cookie.parse(document.cookie)["XSRF-TOKEN"] || false,
         },
       });
+
       if (!response.ok) {
-        throw new Error(`Could not fetch ${apiLogout}, received ${response.status}`);
+        throw new Error(
+          `Could not fetch ${apiLogout}, received ${response.status}`
+        );
       }
-      // const data = await response.json();
-      // console.log(data);
 
       setUserAuth();
       setAuthed(false);
@@ -71,6 +94,11 @@ function App() {
       console.warn(err);
       setAuthed(false);
     }
+  };
+
+  const register = (newUser) => {
+    console.log(newUser);
+    console.log(apiRegister);
   };
 
   const navListPublic = [
@@ -125,7 +153,7 @@ function App() {
           <Routes>
             <Route path="/" element={<PublicRoute name={userAuth?.name} authed={authed} />}>
               <Route path="" element={<MainAuth onAuth={authorize} />} />
-              <Route path="/registration" element={<RegistrationAuth />} />
+              <Route path="/registration" element={<RegistrationAuth register={register} />} />
             </Route>
             <Route path="/" element={<PrivateRoute authed={authed} />}>
               <Route path="/category" element={<Category />} />

@@ -1,10 +1,8 @@
-import cookie from "cookie";
-
 export const getData = async (url) => {
   const response = await fetch(url, {
     headers: {
+      "Accept": "application/json",
       "Content-type": "application/json",
-      "XSRF-TOKEN": cookie.parse(document.cookie)["XSRF-TOKEN"] || false,
     },
   });
   if (!response.ok) {
@@ -20,8 +18,8 @@ export const sendRequest = async (url, method, body = null) => {
     method: method,
     body: JSON.stringify(body),
     headers: {
+      "Accept": "application/json",
       "Content-type": "application/json",
-      "XSRF-TOKEN": cookie.parse(document.cookie)["XSRF-TOKEN"] || false,
     },
   });
   if (!response.ok) {

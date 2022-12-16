@@ -35,7 +35,9 @@ export const checkInputValues = (inputName, inputValue) => {
   switch (inputName) {
     case "name": {
       const re = /^[a-zа-яё]+$/i;
-      if (!re.test(inputValue)) {
+      if (!inputValue.length) {
+        return "Поле обязательно для заполнения!";
+      } else if (!re.test(inputValue)) {
         return "Имя содержит только буквы!";
       } else {
         return "";
@@ -43,7 +45,9 @@ export const checkInputValues = (inputName, inputValue) => {
     }
     case "surname": {
       const re = /^[a-zа-яё]+$/i;
-      if (!re.test(inputValue)) {
+      if (!inputValue.length) {
+        return "Поле обязательно для заполнения!";
+      } else if (!re.test(inputValue)) {
         return "Имя содержит только буквы!";
       } else {
         return "";
@@ -51,7 +55,9 @@ export const checkInputValues = (inputName, inputValue) => {
     }
     case "email": {
       const re = /^[\w._-]+@\w+\.[a-z]{2,4}$/i;
-      if (!re.test(inputValue)) {
+      if (!inputValue.length) {
+        return "Поле обязательно для заполнения!";
+      } else if (!re.test(inputValue)) {
         return "E-mail выглядит как mymail@mail.ru";
       } else {
         return "";
@@ -59,7 +65,9 @@ export const checkInputValues = (inputName, inputValue) => {
     }
     case "password": {
       const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d@#$%]).{8,}$/;
-      if (!re.test(inputValue)) {
+      if (!inputValue.length) {
+        return "Поле обязательно для заполнения!";
+      } else if (!re.test(inputValue)) {
         return "Пароль из 8 символов, заглавной буквой и цифрой!";
       } else {
         return "";

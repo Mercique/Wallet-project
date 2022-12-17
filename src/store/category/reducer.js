@@ -1,5 +1,6 @@
 import { FETCH_STATUSES } from "../../utils/constants";
 import {
+  DELETE_CATEGORY_FAILURE,
   DELETE_CATEGORY_SUCCESS,
   GET_CATEGORY_FAILURE,
   GET_CATEGORY_REQUEST,
@@ -11,6 +12,7 @@ import {
 const initialState = {
   data: [],
   error: null,
+  errorDelete: null,
   status: FETCH_STATUSES.IDLE,
 };
 
@@ -41,6 +43,7 @@ export const categoryReducer = (state = initialState, action) => {
       return {
         data: action.payload,
         error: null,
+        errorDelete: null,
         status: FETCH_STATUSES.SUCCESS,
       };
     }
@@ -48,6 +51,7 @@ export const categoryReducer = (state = initialState, action) => {
       return {
         data: action.payload,
         error: null,
+        errorDelete: null,
         status: FETCH_STATUSES.SUCCESS,
       };
     }
@@ -55,7 +59,14 @@ export const categoryReducer = (state = initialState, action) => {
       return {
         data: action.payload,
         error: null,
+        errorDelete: null,
         status: FETCH_STATUSES.SUCCESS,
+      };
+    }
+    case DELETE_CATEGORY_FAILURE: {
+      return {
+        ...state,
+        errorDelete: action.payload,
       };
     }
     default: {

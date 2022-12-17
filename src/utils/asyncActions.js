@@ -19,6 +19,7 @@ export const sendRequest = async (url, method, body = null) => {
   const response = await fetch(url, {
     method: method,
     body: JSON.stringify(body),
+    credentials: "include",
     headers: {
       "Accept": "application/json",
       "Content-type": "application/json",

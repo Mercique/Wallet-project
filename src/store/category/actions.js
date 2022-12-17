@@ -8,6 +8,7 @@ export const GET_CATEGORY_FAILURE = "CATEGORY::GET_CATEGORY_FAILURE";
 export const POST_CATEGORY_SUCCESS = "CATEGORY::POST_CATEGORY_SUCCESS";
 export const PUT_CATEGORY_SUCCESS = "CATEGORY::PUT_CATEGORY_SUCCESS";
 export const DELETE_CATEGORY_SUCCESS = "CATEGORY::DELETE_CATEGORY_SUCCESS";
+export const DELETE_CATEGORY_FAILURE = "CATEGORY::DELETE_CATEGORY_FAILURE";
 
 export const getCategoryRequest = () => ({
   type: GET_CATEGORY_REQUEST,
@@ -36,6 +37,11 @@ export const putCategorySuccess = (category) => ({
 export const deleteCategorySuccess = (category) => ({
   type: DELETE_CATEGORY_SUCCESS,
   payload: category,
+});
+
+export const deleteCategoryFailure = (error) => ({
+  type: DELETE_CATEGORY_FAILURE,
+  payload: error,
 });
 
 export const getCategory = () => (dispatch) => {
@@ -67,5 +73,8 @@ export const putCategory = (url, method, body) => (dispatch) => {
 export const deleteCategory = (url, method, body) => (dispatch) => {
   sendRequest(url, method, body)
     .then((result) => dispatch(deleteCategorySuccess(result)))
-    .catch((err) => console.warn(err));
+    .catch((err) => {
+      console.warn(err);
+      dispatch(deleteCategoryFailure("Ошибка удаления! Возможно категория уже используется!"));
+    });
 };

@@ -7,17 +7,26 @@ import { Input } from "../../components/Input/Input";
 import { IconCategoryMenu } from "../../components/IconCategoryMenu/IconCategoryMenu";
 import { addCategory, deleteCategory, putCategory } from "../../store/category/actions";
 import { apiCategory } from "../../utils/constants";
-import { selectCategory, selectCategoryError } from "../../store/category/selectors";
+import { selectCategory, selectCategoryError, selectCategoryErrorDelete } from "../../store/category/selectors";
 
 export const Category = () => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryImgId, setCategoryImgId] = useState("");
-  const [categoryEdit, setCategoryEdit] = useState();
+  const [categoryEdit, setCategoryEdit] = useState("");
   const [editName, setEditName] = useState("");
 
   const dispatch = useDispatch();
   const categoryList = useSelector(selectCategory);
   const categoryError = useSelector(selectCategoryError);
+  const categoryErrorDelete = useSelector(selectCategoryErrorDelete);
+
+  const handleActive = (el) => {
+    if (el.id !== categoryEdit?.id) {
+      setCategoryEdit({id: el.id, name: el.name, img_id: el.img_id});
+    } else {
+      setCategoryEdit("");
+    }
+  };
 
   const addNewCategory = (e) => {
     e.preventDefault();
@@ -36,12 +45,12 @@ export const Category = () => {
   const handleEditCategory = () => {
     dispatch(putCategory(`${apiCategory}/${categoryEdit.id}`, "PUT", { name: editName, img_id: categoryEdit.img_id }));
     setEditName("");
-    setCategoryEdit();
+    setCategoryEdit("");
   };
 
   const handleDeleteCategory = () => {
     dispatch(deleteCategory(`${apiCategory}/${categoryEdit.id}`, "DELETE"));
-    setCategoryEdit();
+    setCategoryEdit("");
   };
 
   return (
@@ -53,6 +62,7 @@ export const Category = () => {
             <Input
               type="text"
               className={styles.inputCategory}
+              value={categoryName}
               placeholder="Введите название категории"
               onChange={(e) => setCategoryName(e.target.value)}
             />
@@ -78,8 +88,8 @@ export const Category = () => {
               <div className={styles.categorySlider}>
                 {categoryList?.map((category, idx) => (
                   <div
-                    className={category.img_id !== categoryEdit?.img_id ? styles.categorySliderItem : `${styles.categorySliderItem} ${styles.active}`}
-                    onClick={() => setCategoryEdit({id: category.id, name: category.name, img_id: category.img_id})}
+                    className={category.img_id !== categoryEdit?.img_id ? styles.categorySliderItem : styles.categoryActive}
+                    onClick={() => handleActive(category)}
                     key={idx}
                   >
                     <img
@@ -90,7 +100,11 @@ export const Category = () => {
                   </div>
                 ))}
               </div>
-              <h3 className={styles.categoryName}>{!categoryEdit ? "Выберите категорию" : `Название: ${categoryEdit.name}`}</h3>
+              { !categoryErrorDelete ? (
+                <h3 className={styles.categoryName}>{!categoryEdit ? "Выберите категорию:" : `Название: ${categoryEdit.name}`}</h3>
+              ) : (
+                <h3 className={styles.categoryErrorDelete}>{categoryErrorDelete}</h3>
+              ) }
             </>
           ) }
         </div>

@@ -40,10 +40,6 @@ export const navListPrivate = [
     name: "Операции",
   },
   {
-    route: "/calendar",
-    name: "Календарь",
-  },
-  {
     route: "/profile",
     name: "Профиль",
   },

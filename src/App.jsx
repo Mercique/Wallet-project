@@ -4,7 +4,6 @@ import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { Category } from "./pages/Category/Category";
 import { Operations } from "./pages/Operations/Operations";
-import { Calendar } from "./pages/Calendar/Calendar";
 import { RegistrationAuth } from "./pages/RegistrationAuth/RegistrationAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { selectShowEditId } from "./store/modal/selectors";
@@ -116,7 +115,6 @@ function App() {
             <Route path="/" element={<PrivateRoute authed={authed} />}>
               <Route path="/category" element={<Category />} />
               <Route path="/operations" element={<Operations />} />
-              <Route path="/calendar" element={<Calendar />} />
               <Route path="/profile" element={<Profile userAuth={userAuth} onLogout={unauthorize} />} />
             </Route>
           </Routes>

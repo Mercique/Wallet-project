@@ -1,5 +1,5 @@
 import styles from "./Category.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Balance } from "../../components/Balance/Balance";
 import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
@@ -8,8 +8,6 @@ import { IconCategoryMenu } from "../../components/IconCategoryMenu/IconCategory
 import { addCategory, deleteCategory, putCategory } from "../../store/category/actions";
 import { apiCategory } from "../../utils/constants";
 import { selectCategory, selectCategoryError } from "../../store/category/selectors";
-import { getCategory } from "../../store/category/actions";
-import { getIcons } from "../../store/icons/actions";
 
 export const Category = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -20,11 +18,6 @@ export const Category = () => {
   const dispatch = useDispatch();
   const categoryList = useSelector(selectCategory);
   const categoryError = useSelector(selectCategoryError);
-
-  useEffect(() => {
-    dispatch(getIcons());
-    dispatch(getCategory());
-  }, [dispatch]);
 
   const addNewCategory = (e) => {
     e.preventDefault();

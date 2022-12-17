@@ -4,30 +4,7 @@ import { Nav, Navbar as NavbarBS } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
 
-export function Header() {
-  const navList = [
-    {
-      route: '/category',
-      name: 'категории'
-    },
-    {
-      route: '/operations',
-      name: 'операции'
-    },
-    {
-      route: '/calendar',
-      name: 'календарь'
-    },
-    {
-      route: '/',
-      name: 'вход'
-    },
-    {
-      route: '/registration',
-      name: 'регистрация'
-    },
-  ];
-
+export function Header({ authed, navList }) {
   return (
     <NavbarBS className={styles.header}>
       <Logo />
@@ -36,7 +13,7 @@ export function Header() {
             navList.map((navItem, idx) => (
             <Nav.Link
                 style={({ isActive }) => ({ color: isActive ? "#FF5555" : "white" })}
-                className={styles.link}
+                className={authed ? styles.link : styles.authLink}
                 to={navItem.route}
                 as={NavLink}
                 key={idx}

@@ -1,48 +1,101 @@
 import styles from "./RegistrationAuth.module.css";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
+import { AuthLink } from "../../components/AuthLink/AuthLink";
+import { InputAuth } from "../../components/InputAuth/InputAuth";
+import { checkInputValues } from "../../utils/constants";
 
-export const RegistrationAuth = () => {
-    return (
-        <div className={styles.reg_wrapper}>
-            <div className={styles.reg_card}>
-                <div className={styles.reg_head}>
-                    <h4 className={styles.reg_title}>Регистрация</h4>
-                    <p className={styles.reg_text}>У меня есть аккаунт</p>
-                </div>
-                <div className={styles.input_block}>
-                    <div className={styles.input_top_area}>
-                        <div className={styles.form_group}>
-                            <p className={styles.input_heading}>Имя</p>
-                            <input type="text" name="name" id="name" placeholder="Введите имя" className={styles.input_element_left} />
-                        </div>
-                        <div className={styles.form_group}>
-                            <p className={styles.input_heading}>Фамилия</p>
-                            <input type="text" name="familyname" id="familyname" placeholder="Введите фамилию" className={styles.input_element} />
-                        </div>
-                    </div>
-                    <div className={styles.input_bottom_area}>
-                        <div className={styles.form_group}>
-                            <p className={styles.input_heading}>Email</p>
-                            <input type="email" name="email" id="email" placeholder="Введите email" className={styles.input_element_left} />
-                        </div>
-                        <div className={styles.form_group}>
-                            <p className={styles.input_heading}>Пароль</p>
-                            <input type="password" name="password" id="password" placeholder="Введите пароль" className={styles.input_element} />
-                        </div>
-                    </div>
-                    <div className={styles.mails_block}>
-                        <div className={styles.mails_wrapper}>
-                            <input type="checkbox" name="checkbox" id="checkbox" className={styles.mails_checkbox} />
-                            <p className={styles.mails_text} >Я согласен получать обновления на почту</p>
-                        </div>
-                    </div>
-                    <div className={styles.btn_area}>
-                        <div className={styles.reg_btn}>Регистрация</div>
-                    </div>
-                    <Link to="/" className={styles.subtext_text}>Вход</Link>
-                </div>
+export const RegistrationAuth = ({ register }) => {
+  const [name, setName] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [errorSurname, setErrorSurname] = useState("");
+  const [email, setEmail] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [checked, setChecked] = useState(false);
 
-            </div>
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    setErrorName(checkInputValues("name", name));
+    setErrorSurname(checkInputValues("surname", surname));
+    setErrorEmail(checkInputValues("email", email));
+    setErrorPassword(checkInputValues("password", password));
+
+    if (name && surname && email && password) {
+      register({ name, surname, email, password, checked });
+    }
+  };
+
+  return (
+    <div className={styles.regWrapper}>
+      <div className={styles.regCard}>
+        <div className={styles.regHead}>
+          <h4 className={styles.regTitle}>Регистрация</h4>
+          <AuthLink path="/" name="У меня есть аккаунт" />
         </div>
-    );
+        <form className={styles.inputBlock} onSubmit={handleRegister}>
+          <div className={styles.inputTopArea}>
+            <InputAuth
+              id="regName"
+              labelName="Имя:"
+              name="name"
+              type="text"
+              value={name}
+              error={errorName}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Введите имя"
+            />
+            <InputAuth
+              id="regSurname"
+              labelName="Фамилия:"
+              name="surname"
+              type="text"
+              value={surname}
+              error={errorSurname}
+              onChange={(e) => setSurname(e.target.value)}
+              placeholder="Введите фамилию"
+            />
+          </div>
+          <div className={styles.inputBottomArea}>
+            <InputAuth
+              id="regEmail"
+              labelName="E-mail:"
+              name="email"
+              type="email"
+              value={email}
+              error={errorEmail}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Введите e-mail"
+            />
+            <InputAuth
+              id="regPassword"
+              labelName="Пароль:"
+              name="password"
+              type="password"
+              value={password}
+              error={errorPassword}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Введите пароль"
+            />
+          </div>
+          <div className={styles.mailsBlock}>
+            <input
+              id="regMails"
+              type="checkbox"
+              className={styles.mailsCheckbox}
+              checked={checked}
+              onChange={(e) => setChecked(e.target.checked)}
+            />
+            <label htmlFor="regMails">Я согласен получать обновления на почту</label>
+          </div>
+          <div className={styles.btnArea}>
+            <SubmitButton className={styles.regBtn} name="Регистрация" />
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };

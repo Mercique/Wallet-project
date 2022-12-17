@@ -153,6 +153,10 @@
 }
 
 .subtext_text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
@@ -160,5 +164,6 @@
     line-height: 16px;
     color: #787878;
     text-align: center;
+    text-decoration: none;
     margin: 4px;
 }

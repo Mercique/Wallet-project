@@ -1,10 +1,17 @@
 export const getData = async (url) => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Could not fetch ${url}, received ${response.status}`);
-  }
-  const result = await response.json();
+  const response = await fetch(url, {
+    credentials: "include",
+    headers: {
+      "Accept": "application/json",
+      "Content-type": "application/json",
+    },
+  });
 
+  if (!response.ok) {
+    throw new Error(`Could not getData ${url}, received ${response.status}`);
+  }
+
+  const result = await response.json();
   return result;
 };
 
@@ -13,13 +20,15 @@ export const sendRequest = async (url, method, body = null) => {
     method: method,
     body: JSON.stringify(body),
     headers: {
+      "Accept": "application/json",
       "Content-type": "application/json",
     },
   });
+
   if (!response.ok) {
     throw new Error(`Could not send request ${url}, received ${response.status}`);
   }
-  const result = await response.json();
 
+  const result = await response.json();
   return result;
 };

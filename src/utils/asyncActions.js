@@ -1,8 +1,6 @@
-import axios from "axios";
-
 export const getData = async (url) => {
-  const response = await axios.get(url, {
-    withCredentials: true,
+  const response = await fetch(url, {
+    credentials: "include",
     headers: {
       "Accept": "application/json",
       "Content-type": "application/json",
@@ -10,10 +8,11 @@ export const getData = async (url) => {
   });
 
   if (!response.ok) {
-    throw new Error(`Could not fetch ${url}, received ${response.status}`);
+    throw new Error(`Could not getData ${url}, received ${response.status}`);
   }
 
-  return response.data;
+  const result = await response.json();
+  return result;
 };
 
 export const sendRequest = async (url, method, body = null) => {
@@ -25,10 +24,11 @@ export const sendRequest = async (url, method, body = null) => {
       "Content-type": "application/json",
     },
   });
+
   if (!response.ok) {
     throw new Error(`Could not send request ${url}, received ${response.status}`);
   }
-  const result = await response.json();
 
+  const result = await response.json();
   return result;
 };

@@ -1,5 +1,4 @@
 import styles from "./MainAuth.module.css";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { AuthLink } from "../../components/AuthLink/AuthLink";
 

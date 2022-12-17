@@ -4,13 +4,13 @@
 // export const apiIcons = "http://localhost:3000/db/icons.json"; // API картинок
 
 // backend API
-export const apiCategory = "http://wallet-backend/api/category"; // API категорий
-export const apiPayments = "http://wallet-backend/api/spending"; // API расходов
-export const apiIcons = "http://wallet-backend/api/categoryImg"; // API картинок
-export const apiToken = "http://wallet-backend/sanctum/csrf-cookie"; // API токен
-export const apiLogin = "http://wallet-backend/api/login"; // API вход пользователя
-export const apiLogout = "http://wallet-backend/api/logout"; // API выход пользователя
-export const apiRegister = "http://wallet-backend/api/register" // API регистрация
+export const apiCategory = "http://localhost/api/category"; // API категорий
+export const apiPayments = "http://localhost/api/spending"; // API расходов
+export const apiIcons = "http://localhost/api/categoryImg"; // API картинок
+export const apiToken = "http://localhost/sanctum/csrf-cookie"; // API токен
+export const apiLogin = "http://localhost/api/login"; // API вход пользователя
+export const apiLogout = "http://localhost/api/logout"; // API выход пользователя
+export const apiRegister = "http://localhost/api/register" // API регистрация
 
 export const FETCH_STATUSES = {
   IDLE: 0, // запроса еще не было, дефолтное состояние
@@ -18,6 +18,36 @@ export const FETCH_STATUSES = {
   SUCCESS: 2, // запрос прошел успешно
   FAILURE: 3, // запрос завершился с ошибкой
 };
+
+export const navListPublic = [
+  {
+    route: "/",
+    name: "Главная",
+  },
+  {
+    route: "/registration",
+    name: "Регистрация",
+  },
+];
+
+export const navListPrivate = [
+  {
+    route: "/category",
+    name: "Категории",
+  },
+  {
+    route: "/operations",
+    name: "Операции",
+  },
+  {
+    route: "/calendar",
+    name: "Календарь",
+  },
+  {
+    route: "/profile",
+    name: "Профиль",
+  },
+];
 
 export const getDate = (date) => {
   const paymentDate = new Date(date);

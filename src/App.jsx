@@ -10,13 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectShowEditId } from "./store/modal/selectors";
 import { hideEdit } from "./store/modal/actions";
 import { Profile } from "./pages/Profile/Profile";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { MainAuth } from "./pages/MainAuth/MainAuth";
-import { apiLogin, apiLogout, apiRegister, apiToken } from "./utils/constants";
-import axios from 'axios';
-import { getCategory } from "./store/category/actions";
+import { apiLogin, apiLogout, apiRegister, apiToken, navListPrivate, navListPublic } from "./utils/constants";
+import cookie from "cookie";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,40 +24,38 @@ function App() {
   const [userAuth, setUserAuth] = useState();
   const [authed, setAuthed] = useState(false);
 
-  const getCookie = async () => {
-    axios.get(apiToken, { withCredentials: true });
-  };
-
-  useEffect(() => {
-    getCookie();
-  }, []);
-
   const authorize = async (login) => {
     try {
-      const loginResponse = await axios({
-        method: 'post',
-        url: apiLogin,
-        data: login,
-        withCredentials: true,
+      const tokenResponse = await fetch(apiToken, {
+        credentials: "include",
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json",
+          "Content-type": "application/json",
         },
       });
-
-      console.log(loginResponse);
-
-      if (!loginResponse.ok) {
-        throw new Error(`Could not fetch ${apiLogin}, received ${loginResponse.status}`);
+  
+      if (!tokenResponse.ok) {
+        throw new Error(`Could not get token ${apiToken}, received ${tokenResponse.status}`);
       }
-
-      console.log(loginResponse.data);
-
-      dispatch(getCategory());
-      
+  
+      const loginResponse = await fetch(apiLogin, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(login),
+        headers: {
+          "Accept": "application/json",
+          "Content-type": "application/json",
+          "X-XSRF-TOKEN": cookie.parse(document.cookie)["XSRF-TOKEN"] || false
+        },
+      });
+  
+      if (!loginResponse.ok) {
+        throw new Error(`Could not authorize ${apiToken}, received ${loginResponse.status}`);
+      }
+  
       setUserAuth(login);
-      setAuthed(false); //true
-    } catch(err) {
+      setAuthed(true);
+    } catch (err) {
       console.warn(err);
       setAuthed(false);
     }
@@ -76,9 +73,7 @@ function App() {
       });
 
       if (!response.ok) {
-        throw new Error(
-          `Could not fetch ${apiLogout}, received ${response.status}`
-        );
+        throw new Error(`Could not unauthorize ${apiLogout}, received ${response.status}`);
       }
 
       setUserAuth();
@@ -93,36 +88,6 @@ function App() {
     console.log(newUser);
     console.log(apiRegister);
   };
-
-  const navListPublic = [
-    {
-      route: "/",
-      name: "Главная",
-    },
-    {
-      route: "/registration",
-      name: "Регистрация",
-    },
-  ];
-
-  const navListPrivate = [
-    {
-      route: "/category",
-      name: "Категории",
-    },
-    {
-      route: "/operations",
-      name: "Операции",
-    },
-    {
-      route: "/calendar",
-      name: "Календарь",
-    },
-    {
-      route: "/profile",
-      name: "Профиль",
-    },
-  ];
 
   const closeModals = () => {
     if (showEditId) {

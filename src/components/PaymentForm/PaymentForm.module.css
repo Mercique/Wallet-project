@@ -41,7 +41,3 @@
   line-height: 29px;
   border-radius: 21px;
 }
-
-.addExpensesButton:disabled span::before {
-  content: "Введите название, сумму и категорию!" !important;
-}

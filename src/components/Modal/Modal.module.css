@@ -41,8 +41,3 @@
   line-height: 26px;
   border-radius: 13px;
 }
-
-.editExpensesButton:disabled span::before {
-  content: "Нельзя изменить на пустое значение!" !important;
-  font-size: 12px !important;
-}

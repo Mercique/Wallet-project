@@ -48,10 +48,6 @@
     border-radius: 19px;
   }
 
-  .addCategoryButton:disabled span::before {
-    content: "Введите название и иконку для новой категории!" !important;
-  }
-
   .changeCategory {
     width: 979px;
     display: flex;

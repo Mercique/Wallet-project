@@ -9,84 +9,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectShowEditId } from "./store/modal/selectors";
 import { hideEdit } from "./store/modal/actions";
 import { Profile } from "./pages/Profile/Profile";
-import { useState } from "react";
+import { useEffect } from "react";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { MainAuth } from "./pages/MainAuth/MainAuth";
-import { apiLogin, apiLogout, apiRegister, apiToken, navListPrivate, navListPublic } from "./utils/constants";
+import { getUser, unauthUserSuccess } from "./store/profile/actions";
 import cookie from "cookie";
+import { navListPrivate, navListPublic } from "./utils/constants";
+import { selectUserAuthed } from "./store/profile/selectors";
 
 function App() {
   const dispatch = useDispatch();
   const showEditId = useSelector(selectShowEditId);
   const location = useLocation();
-  const [userAuth, setUserAuth] = useState();
-  const [authed, setAuthed] = useState(false);
+  const authed = useSelector(selectUserAuthed);
 
-  const authorize = async (login) => {
-    try {
-      const tokenResponse = await fetch(apiToken, {
-        credentials: "include",
-        headers: {
-          "Accept": "application/json",
-          "Content-type": "application/json",
-        },
-      });
-  
-      if (!tokenResponse.ok) {
-        throw new Error(`Could not get token ${apiToken}, received ${tokenResponse.status}`);
-      }
-  
-      const loginResponse = await fetch(apiLogin, {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify(login),
-        headers: {
-          "Accept": "application/json",
-          "Content-type": "application/json",
-          "X-XSRF-TOKEN": cookie.parse(document.cookie)["XSRF-TOKEN"] || false
-        },
-      });
-  
-      if (!loginResponse.ok) {
-        throw new Error(`Could not authorize ${apiToken}, received ${loginResponse.status}`);
-      }
-  
-      setUserAuth(login);
-      setAuthed(true);
-    } catch (err) {
-      console.warn(err);
-      setAuthed(false);
+  useEffect(() => {
+    if (cookie.parse(document.cookie).hasOwnProperty("XSRF-TOKEN")) {
+      console.log("authorized");
+      dispatch(getUser({email: "dev@dev.ru", password: "123"}));
+    } else {
+      console.log("unauthorized");
+      dispatch(unauthUserSuccess());
     }
-  };
-
-  const unauthorize = async () => {
-    try {
-      const response = await fetch(apiLogout, {
-        method: "POST",
-        body: JSON.stringify(null),
-        headers: {
-          "Accept": "application/json",
-          "Content-type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Could not unauthorize ${apiLogout}, received ${response.status}`);
-      }
-
-      setUserAuth();
-      setAuthed(false);
-    } catch (err) {
-      console.warn(err);
-      setAuthed(false);
-    }
-  };
-
-  const register = (newUser) => {
-    console.log(newUser);
-    console.log(apiRegister);
-  };
+  }, [authed, dispatch]);
 
   const closeModals = () => {
     if (showEditId) {
@@ -94,7 +40,7 @@ function App() {
     }
   };
 
-  const getLocation = () => {
+  const navLocation = () => {
     if (navListPublic[0].route === location.pathname) {
       return [navListPublic[1]];
     } else {
@@ -106,16 +52,16 @@ function App() {
     <div className="App" onClick={closeModals}>
       <div className="wrapper">
         <div className="wrapper-top center">
-          <Header authed={authed} navList={authed ? navListPrivate : getLocation()} />
+          <Header authed={authed} navList={authed ? navListPrivate : navLocation() } />
           <Routes>
-            <Route path="/" element={<PublicRoute name={userAuth?.name} authed={authed} />}>
-              <Route path="" element={<MainAuth onAuth={authorize} />} />
-              <Route path="/registration" element={<RegistrationAuth register={register} />} />
+            <Route path="/" element={<PublicRoute />}>
+              <Route path="" element={<MainAuth />} />
+              <Route path="/registration" element={<RegistrationAuth />} />
             </Route>
-            <Route path="/" element={<PrivateRoute authed={authed} />}>
+            <Route path="/" element={<PrivateRoute />}>
               <Route path="/category" element={<Category />} />
               <Route path="/operations" element={<Operations />} />
-              <Route path="/profile" element={<Profile userAuth={userAuth} onLogout={unauthorize} />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
           </Routes>
         </div>

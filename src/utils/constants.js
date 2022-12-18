@@ -90,11 +90,11 @@ export const checkInputValues = (inputName, inputValue) => {
       }
     }
     case "password": {
-      const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d@#$%]).{8,}$/;
+      const re = /^(?=.*[\da-zA-Z]).{3,}$/;
       if (!inputValue.length) {
         return "Поле обязательно для заполнения!";
       } else if (!re.test(inputValue)) {
-        return "Пароль из 8 символов, заглавной буквой и цифрой!";
+        return "Пароль минимум 3 символа!";
       } else {
         return "";
       }

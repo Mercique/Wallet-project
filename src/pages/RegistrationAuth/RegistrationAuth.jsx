@@ -5,7 +5,7 @@ import { AuthLink } from "../../components/AuthLink/AuthLink";
 import { InputAuth } from "../../components/InputAuth/InputAuth";
 import { checkInputValues } from "../../utils/constants";
 
-export const RegistrationAuth = ({ register }) => {
+export const RegistrationAuth = () => {
   const [name, setName] = useState("");
   const [errorName, setErrorName] = useState("");
   const [surname, setSurname] = useState("");
@@ -16,16 +16,43 @@ export const RegistrationAuth = ({ register }) => {
   const [errorPassword, setErrorPassword] = useState("");
   const [checked, setChecked] = useState(false);
 
+  const blurHandler = (e) => {
+    switch (e.target.name) {
+      case "name": {
+        setErrorName(checkInputValues(e.target.name, name));
+        break;
+      }
+      case "surname": {
+        setErrorSurname(checkInputValues(e.target.name, surname));
+        break;
+      }
+      case "email": {
+        setErrorEmail(checkInputValues(e.target.name, email));
+        break;
+      }
+      case "password": {
+        setErrorPassword(checkInputValues(e.target.name, password));
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  };
+
   const handleRegister = (e) => {
     e.preventDefault();
 
-    setErrorName(checkInputValues("name", name));
-    setErrorSurname(checkInputValues("surname", surname));
-    setErrorEmail(checkInputValues("email", email));
-    setErrorPassword(checkInputValues("password", password));
+    if (!errorName && !errorSurname && !errorEmail && !errorPassword) {
+      console.log({ name, surname, email, password, checked });
 
-    if (name && surname && email && password) {
-      register({ name, surname, email, password, checked });
+      setName("");
+      setSurname("");
+      setEmail("");
+      setPassword("");
+      setChecked(false);
+    } else {
+      console.log("ERROR");
     }
   };
 
@@ -45,6 +72,7 @@ export const RegistrationAuth = ({ register }) => {
               type="text"
               value={name}
               error={errorName}
+              onBlur={blurHandler}
               onChange={(e) => setName(e.target.value)}
               placeholder="Введите имя"
             />
@@ -55,6 +83,7 @@ export const RegistrationAuth = ({ register }) => {
               type="text"
               value={surname}
               error={errorSurname}
+              onBlur={blurHandler}
               onChange={(e) => setSurname(e.target.value)}
               placeholder="Введите фамилию"
             />
@@ -67,6 +96,7 @@ export const RegistrationAuth = ({ register }) => {
               type="email"
               value={email}
               error={errorEmail}
+              onBlur={blurHandler}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Введите e-mail"
             />
@@ -77,6 +107,7 @@ export const RegistrationAuth = ({ register }) => {
               type="password"
               value={password}
               error={errorPassword}
+              onBlur={blurHandler}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Введите пароль"
             />
@@ -89,10 +120,16 @@ export const RegistrationAuth = ({ register }) => {
               checked={checked}
               onChange={(e) => setChecked(e.target.checked)}
             />
-            <label htmlFor="regMails">Я согласен получать обновления на почту</label>
+            <label htmlFor="regMails">
+              Я согласен получать обновления на почту
+            </label>
           </div>
           <div className={styles.btnArea}>
-            <SubmitButton className={styles.regBtn} name="Регистрация" />
+            <SubmitButton
+              className={styles.regBtn}
+              name="Регистрация"
+              disabled={!name | !surname | !email | !password}
+            />
           </div>
         </form>
       </div>

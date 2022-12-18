@@ -1,12 +1,9 @@
-import cookie from "cookie";
-
 export const getData = async (url) => {
   const response = await fetch(url, {
     credentials: "include",
     headers: {
       "Accept": "application/json",
       "Content-type": "application/json",
-      "X-XSRF-TOKEN": cookie.parse(document.cookie)["XSRF-TOKEN"] || false,
     },
   });
 
@@ -26,7 +23,6 @@ export const sendRequest = async (url, method, body = null) => {
     headers: {
       "Accept": "application/json",
       "Content-type": "application/json",
-      "X-XSRF-TOKEN": cookie.parse(document.cookie)["XSRF-TOKEN"] || false,
     },
   });
 

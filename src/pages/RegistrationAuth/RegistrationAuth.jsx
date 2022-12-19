@@ -19,11 +19,11 @@ export const RegistrationAuth = () => {
   const blurHandler = (e) => {
     switch (e.target.name) {
       case "name": {
-        setErrorName(checkInputValues(e.target.name, name));
+        setErrorName(checkInputValues("text", name));
         break;
       }
       case "surname": {
-        setErrorSurname(checkInputValues(e.target.name, surname));
+        setErrorSurname(checkInputValues("text", surname));
         break;
       }
       case "email": {

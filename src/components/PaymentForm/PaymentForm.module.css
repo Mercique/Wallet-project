@@ -25,6 +25,10 @@
   color: #fff;
 }
 
+.expensesInputError {
+  border-color: #CB2424;
+}
+
 .expensesInput::placeholder {
   color: rgba(255, 255, 255, 0.27);
 }

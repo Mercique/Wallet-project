@@ -59,17 +59,14 @@ export const getDate = (date) => {
 
 export const checkInputValues = (inputName, inputValue) => {
   switch (inputName) {
-    case "name": {
-      const re = /^[a-zа-яё]+$/i;
+    case "payment": {
       if (!inputValue.length) {
-        return "Поле обязательно для заполнения!";
-      } else if (!re.test(inputValue)) {
-        return "Имя содержит только буквы!";
+        return true;
       } else {
-        return "";
+        return false;
       }
     }
-    case "surname": {
+    case "text": {
       const re = /^[a-zа-яё]+$/i;
       if (!inputValue.length) {
         return "Поле обязательно для заполнения!";

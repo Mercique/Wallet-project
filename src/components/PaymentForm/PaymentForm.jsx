@@ -5,12 +5,14 @@ import { Input } from "../Input/Input";
 import { SubmitButton } from "../SubmitButton/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
 import { addPayment } from "../../store/payments/actions";
-import { apiPayments, getDate } from "../../utils/constants";
+import { apiPayments, checkInputValues, getDate } from "../../utils/constants";
 import { selectPaymentsError } from "../../store/payments/selectors";
 
 export const PaymentForm = () => {
   const [name, setName] = useState("");
+  const [errorName, setErrorName] = useState(false);
   const [value, setValue] = useState("");
+  const [errorValue, setErrorValue] = useState(false);
   const [date, setDate] = useState(getDate(new Date()));
   const [categoryId, setCategoryId] = useState("");
 
@@ -35,23 +37,43 @@ export const PaymentForm = () => {
     setCategoryId("");
   }
 
+  const blurHandler = (e) => {
+    switch (e.target.name) {
+      case "paymentName": {
+        setErrorName(checkInputValues("payment", name));
+        break;
+      }
+      case "paymentValue": {
+        setErrorValue(checkInputValues("payment", value));
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  };
+
   return (
     <div className={styles.contentWrapper}>
       <form className={styles.paymentInputForm} onSubmit={handleSubmit}>
         <div className={styles.inputBox}>
           <Input
             type="text"
-            className={styles.expensesInput}
+            className={!errorName ? styles.expensesInput : `${styles.expensesInput} ${styles.expensesInputError}`}
             value={name}
             placeholder="Введите название"
+            name="paymentName"
+            onBlur={blurHandler}
             onChange={(event) => setName(event.target.value)}
           />
           <Input
             type="number"
-            className={styles.expensesInput}
+            className={!errorValue ? styles.expensesInput : `${styles.expensesInput} ${styles.expensesInputError}`}
             value={value}
             placeholder="Введите сумму"
             step="0.01"
+            name="paymentValue"
+            onBlur={blurHandler}
             onChange={(event) => setValue(event.target.value)} />
         </div>
         <div className={styles.inputBox}>

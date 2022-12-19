@@ -5,13 +5,12 @@
 
 .operationsLeft {
   display: flex;
-  align-items: center;
 }
 
 .operationsTestSlider {
   width: 130px;
   height: 588px;
-  margin-right: 12px;
+  margin: 66px 12px 63px 0;
 }
 
 .operationsTestSlider > div {

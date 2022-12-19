@@ -38,8 +38,10 @@ export const MainAuth = () => {
     if (!errorEmail && !errorPassword) {
       dispatch(authUser({email,password}));
 
-      setEmail("");
-      setPassword("");
+      if (userAuthError) {
+        setEmail("");
+        setPassword("");
+      }
     } else {
       console.log("ERROR");
     }

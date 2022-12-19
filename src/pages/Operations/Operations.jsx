@@ -7,6 +7,7 @@ import { Balance } from "../../components/Balance/Balance";
 import { useDispatch } from "react-redux";
 import { sortPayments } from "../../store/payments/actions";
 import { apiPayments } from "../../utils/constants";
+import { PieChart } from "../../components/PieChart/PieChart";
 
 export const Operations = () => {
   const [categoryEdit, setCategoryEdit] = useState("");
@@ -31,7 +32,10 @@ export const Operations = () => {
           <Payment />
         </div>
       </div>
-      <Balance />
+      <div className={styles.operationsRight}>
+        <Balance />
+        <PieChart />
+      </div>
     </div>
   );
 };

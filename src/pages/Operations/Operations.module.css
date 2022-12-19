@@ -16,3 +16,8 @@
 .operationsTestSlider > div {
   flex-direction: column;
 }
+
+.operationsRight {
+  display: flex;
+  flex-direction: column;
+}

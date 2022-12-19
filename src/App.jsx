@@ -19,6 +19,7 @@ function App() {
   const [images, setImages] = useState([]);
   const [balance, setBalance] = useState(0);
   const [expenses, setExpenses] = useState(0);
+  const [showEdit, setShowEdit] = useState();
 
   useEffect(() => {
     const fetchAPI = async (url) => {
@@ -202,16 +203,16 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" onClick={() => setShowEdit()}>
       <div className="wrapper">
         <div className="wrapper-top center">
           <Header />
           <Routes>
-            <Route path="/category" element={<Category images={images} balance={balance - expenses} addNewCategory={addNewCategory} />} />
+            <Route path="/category" element={<Category images={images} balance={balance - expenses} addNewCategory={addNewCategory} categoryList={categoryList} />} />
             <Route path="/" element={
                 <div className="operations">
                   <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} balance={balance - expenses} />
-                  <PaymentList paymentList={paymentList} categoryList={categoryList} editPayment={editPayment} deletePayment={deletePayment} />
+                  <PaymentList showEdit={showEdit} setShowEdit={setShowEdit} paymentList={paymentList} categoryList={categoryList} editPayment={editPayment} deletePayment={deletePayment} />
                 </div>
               }
             />

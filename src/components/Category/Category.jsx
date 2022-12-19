@@ -4,8 +4,9 @@ import { Balance } from "../Balance/Balance";
 import { SubmitButton } from "../SubmitButton/SubmitButton";
 import { Input } from "../Input/Input";
 import { IconCategoryMenu } from "../IconCategoryMenu/IconCategoryMenu";
+import SliderCenter from "../Slider/Slider";
 
-export const Category = ({ images, balance, addNewCategory }) => {
+export const Category = ({ images, balance, addNewCategory, categoryList }) => {
     const [categoryName, setCategoryName] = useState("");
     const [categoryImgId, setCategoryImgId] = useState("");
 
@@ -45,8 +46,7 @@ export const Category = ({ images, balance, addNewCategory }) => {
             </div>
             <div className={styles.changeCategory}>
                 <div className={styles.slider}>
-                    <div className={styles.sliderHeader}>Изменить категорию:</div>
-                    <img className={styles.categoriesImg} src="/images/categories.svg" alt="categories"/>
+                    <SliderCenter categoryList={categoryList} />
                     <div className={styles.categoryName}>Название: Интернет</div>
                 </div>
                 <div className={styles.changeArea}>

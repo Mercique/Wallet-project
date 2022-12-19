@@ -1,0 +1,19 @@
+.operations {
+  display: flex;
+  justify-content: space-between;
+}
+
+.operationsLeft {
+  display: flex;
+  align-items: center;
+}
+
+.operationsTestSlider {
+  width: 130px;
+  height: 588px;
+  margin-right: 12px;
+}
+
+.operationsTestSlider > div {
+  flex-direction: column;
+}

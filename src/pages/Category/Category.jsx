@@ -7,7 +7,8 @@ import { Input } from "../../components/Input/Input";
 import { IconCategoryMenu } from "../../components/IconCategoryMenu/IconCategoryMenu";
 import { addCategory, deleteCategory, putCategory } from "../../store/category/actions";
 import { apiCategory } from "../../utils/constants";
-import { selectCategory, selectCategoryError, selectCategoryErrorDelete } from "../../store/category/selectors";
+import { selectCategoryError, selectCategoryErrorDelete } from "../../store/category/selectors";
+import { TestSlider } from "../../components/TestSlider/TestSlider";
 
 export const Category = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -16,7 +17,6 @@ export const Category = () => {
   const [editName, setEditName] = useState("");
 
   const dispatch = useDispatch();
-  const categoryList = useSelector(selectCategory);
   const categoryError = useSelector(selectCategoryError);
   const categoryErrorDelete = useSelector(selectCategoryErrorDelete);
 
@@ -85,21 +85,7 @@ export const Category = () => {
           ) : (
             <>
               <h2 className={styles.sliderHeader}>Изменить категорию:</h2>
-              <div className={styles.categorySlider}>
-                {categoryList?.map((category, idx) => (
-                  <div
-                    className={category.img_id !== categoryEdit?.img_id ? styles.categorySliderItem : styles.categoryActive}
-                    onClick={() => handleActive(category)}
-                    key={idx}
-                  >
-                    <img
-                      className={styles.categoriesImg}
-                      src={`/images/icons/${category.img.img_name}`}
-                      alt="categoryImg"
-                    />
-                  </div>
-                ))}
-              </div>
+              <TestSlider className={styles.categoryTestSlider} categoryEdit={categoryEdit} handleActive={handleActive} />
               { !categoryErrorDelete ? (
                 <h3 className={styles.categoryName}>{!categoryEdit ? "Выберите категорию:" : `Название: ${categoryEdit.name}`}</h3>
               ) : (

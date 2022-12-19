@@ -1,6 +1,5 @@
 import styles from "./PaymentForm.module.css";
 import { useState } from "react";
-import { Balance } from "../Balance/Balance";
 import { CategoryMenu } from "../CategoryMenu/CategoryMenu";
 import { Input } from "../Input/Input";
 import { SubmitButton } from "../SubmitButton/SubmitButton";
@@ -66,7 +65,6 @@ export const PaymentForm = () => {
         </div>
         <SubmitButton className={styles.addExpensesButton} name="Добавить трату" disabled={!name | !value | !categoryId | paymentsError !== null} />
       </form>
-      <Balance />
     </div>
   );
 };

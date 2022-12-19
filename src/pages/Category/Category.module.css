@@ -65,31 +65,10 @@
     color: #FFFFFF;
   }
 
-  .categorySlider {
+  .categoryTestSlider {
     display: flex;
-    justify-content: center;
-    gap: 22px;
-  }
-
-  .categorySliderItem, .categoryActive {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-    border-radius: 30px;
-    background: #D9D9D9;
-    transition: background .3s ease;
-  }
-
-  .categorySliderItem:hover {
-    background: #BDB7B7;
-  }
-
-  .categoryActive {
-    background: #B99494;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    max-width: 832px;
+    height: 127px;
   }
 
   .categoryError {

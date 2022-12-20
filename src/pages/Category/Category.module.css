@@ -49,12 +49,6 @@
   align-items: center;
 }
 
-
-
-
-
-
-
 .actionArea {
   display: flex;
   gap: 10px;
@@ -88,7 +82,7 @@
 }
 
 .categoryError {
-  margin-bottom: 50px;
+  margin: 50px 0;
   font-weight: 300;
   font-size: 20px;
   line-height: 24px;

@@ -52,7 +52,7 @@ export const Operations = () => {
     labels: Object.keys(pieList).map((el) => el),
     datasets: [
       {
-        label: "Payments",
+        label: "Сумма расходов",
         data: Object.values(pieList).map((el) => el),
         borderColor: "transparent",
       },

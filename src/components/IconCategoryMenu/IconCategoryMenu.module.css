@@ -39,6 +39,7 @@
 }
 
 .iconCategoryDrop {
+  transition: all 1s ease;
   box-sizing: border-box;
   width: 480px;
   position: absolute;

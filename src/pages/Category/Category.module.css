@@ -1,151 +1,167 @@
-@media (min-width: 1200px) {
-  .categoryWrapper {
-    padding-left: 12px;
-  }
+.categoryWrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 12px;
+  padding-bottom: 56px;
+}
 
-  .addCategory {
-    display: flex;
-    margin-top: 25px;
-    margin-bottom: 50px;
-  }
+.categoryLeft {
+  display: flex;
+  flex-direction: column;
+  margin-top: 129px;
+}
 
-  .actionArea {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-  }
+.addCategoryForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 
-  .addCategoryForm {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
+.addCategoryBox {
+  display: flex;
+  gap: 19px;
+}
 
-  .addCategoryBox {
-    display: flex;
-    gap: 19px;
-  }
+.inputCategory {
+  width: 480px !important;
+  height: 71px !important;
+  font-weight: 300 !important;
+  font-size: 24px !important;
+  line-height: 38px !important;
+  border-color: #fff;
+  color: #fff;
+}
 
-  .inputCategory {
-    width: 480px !important;
-    height: 71px !important;
-    font-weight: 300 !important;
-    font-size: 24px !important;
-    line-height: 38px !important;
-    border-color: #fff;
-    color: #fff;
-  }
+.inputCategory::placeholder {
+  color: #cecece;
+}
 
-  .inputCategory::placeholder {
-    color: #CECECE;
-  }
+.addCategoryButton {
+  height: 77px;
+  font-size: 22px;
+  line-height: 35px;
+  border-radius: 19px;
+}
 
-  .addCategoryButton {
-    height: 77px;
-    font-size: 22px;
-    line-height: 35px;
-    border-radius: 19px;
-  }
+.editCategory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .changeCategory {
-    width: 1200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .sliderHeader {
-    font-family: 'Hind';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 32px;
-    line-height: 51px;
-    text-transform: uppercase;
-    color: #FFFFFF;
-  }
 
-  .categoryTestSlider {
-    display: flex;
-    max-width: 832px;
-    height: 127px;
-  }
 
-  .categoryError {
-    margin-bottom: 50px;
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: 0.1em;
-    text-align: center;
-    text-transform: uppercase;
-    user-select: none;
-    color: #b91c1c;
-  }
 
-  .categoryName, .categoryErrorDelete {
-    font-family: 'Hind';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 24px;
-    margin-top: 50px;
-    line-height: 38px;
-    color: #FFFFFF;
-    display: flex;
-    justify-content: center;
-  }
 
-  .categoryErrorDelete {
-    font-size: 20px;
-    line-height: 24px;
-    text-transform: uppercase;
-    user-select: none;
-    color: #b91c1c;
-  }
 
-  .changeArea {
-    display: flex;
-    flex-direction: column;
-  }
+.actionArea {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
 
-  .changeArea input {
-    font-family: 'Hind';
-    box-sizing: border-box;
-    width: 304px;
-    height: 55px;
-    border: 1px solid #FFFFFF;
-    padding: 0 21px;
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 32px;
-    color: #FFF;
-  }
+.changeCategory {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .changeArea input::placeholder {
-    color: #CECECE;
-  }
+.sliderHeader {
+  margin: 0;
+  padding: 43px 0 19px 55px;
+  font-family: "Hind";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 32px;
+  line-height: 51px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
 
-  .renameButton,
-  .deleteButton {
-    width: 304px;
-    height: 55px;
-    background: #B99494;
-    border: 1px solid #B99494;
-    border-radius: 13px;
-    font-family: 'Hind';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 26px;
-    text-transform: uppercase;
-    color: #FFFFFF;
-  }
+.categoryTestSlider {
+  display: flex;
+  max-width: 832px;
+  height: 127px;
+}
 
-  .renameButton {
-    margin-top: 17px !important;
-  }
+.categoryError {
+  margin-bottom: 50px;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+  user-select: none;
+  color: #b91c1c;
+}
 
-  .deleteButton {
-    margin-top: 10px !important;
-  }
+.categoryName,
+.categoryErrorDelete {
+  font-family: "Hind";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  margin-top: 50px;
+  line-height: 38px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+.categoryErrorDelete {
+  font-size: 20px;
+  line-height: 24px;
+  text-transform: uppercase;
+  user-select: none;
+  color: #b91c1c;
+}
+
+.changeArea {
+  display: flex;
+  flex-direction: column;
+}
+
+.changeArea input {
+  font-family: "Hind";
+  box-sizing: border-box;
+  width: 304px;
+  height: 55px;
+  border: 1px solid #ffffff;
+  padding: 0 21px;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 32px;
+  color: #fff;
+}
+
+.changeArea input::placeholder {
+  color: #cecece;
+}
+
+.renameButton,
+.deleteButton {
+  width: 304px;
+  height: 55px;
+  background: #b99494;
+  border: 1px solid #b99494;
+  border-radius: 13px;
+  font-family: "Hind";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.renameButton {
+  margin-top: 17px !important;
+}
+
+.deleteButton {
+  margin-top: 10px !important;
 }

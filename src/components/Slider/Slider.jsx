@@ -7,8 +7,6 @@ import styles from "./Slider.module.css";
 export default class SliderCenter extends Component {
     render() {
         const settings = {
-            className: "center",
-            centerMode: true,
             infinite: true,
             centerPadding: "60px",
             width: 800,
@@ -16,20 +14,27 @@ export default class SliderCenter extends Component {
             variableWidth: true,
             speed: 500
         };
-        const categoryList = this.props.categoryList;
-        console.log('slider categoryList', categoryList)
 
         return (
             <div className={styles.sliderWrapper}>
-                <div className={styles.sliderHeader}>Изменить категорию:</div>
                 <Slider {...settings}>
-                    { categoryList &&
-                    categoryList.map(category => (
-                        <div className={styles.iconWrapper} style={{ width: 200 }}>
-                            <img src={`/images/icons/${category.img.img_name}`} alt="icon" />
+                    { this.props.categoryList?.map((category, idx) => (
+                        <div
+                            style={{ width: 146 }}
+                            className={
+                            category.img_id !== this.props.categoryEdit?.img_id
+                                ? styles.iconWrapper
+                                : styles.iconWrapperActive
+                            }
+                            onClick={() => this.props.handleActive(category)}
+                            key={idx}
+                        >
+                            <img
+                                src={`/images/icons/${category.img.img_name}`}
+                                alt="icon"
+                            />
                         </div>
-                    ))
-                    }
+                    )) }
                 </Slider>
             </div>
         );

@@ -1,29 +1,26 @@
 .sliderWrapper {
-    max-width: 1200px;
+    max-width: 976px;
 }
 
-.sliderHeader {
-    font-family: 'Hind';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 32px;
-    line-height: 51px;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    margin-bottom: 30px;
-}
-
-.iconWrapper {
-    width: 100px !important;
-    height: 100px;
-    background-color: #FFFFFF;
-    border-radius: 20px;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
+.iconWrapper,
+.iconWrapperActive {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100px !important;
+  height: 100px;
+  cursor: pointer;
+  border-radius: 30px;
+  background: #d9d9d9;
+  transition: background 0.3s ease;
 }
 
 .iconWrapper:hover {
-    background-color: #B99494;
-    cursor: pointer;
+  background: #bdb7b7;
+}
+
+.iconWrapperActive {
+  background: #b99494;
+  border-color: #b99494;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }

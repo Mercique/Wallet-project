@@ -2,19 +2,21 @@ import styles from "./Operations.module.css";
 import { PaymentForm } from "../../components/PaymentForm/PaymentForm";
 import { Payment } from "../../components/Payment/Payment";
 import { TestSlider } from "../../components/TestSlider/TestSlider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Balance } from "../../components/Balance/Balance";
 import { useDispatch, useSelector } from "react-redux";
 import { sortPayments } from "../../store/payments/actions";
 import { apiPayments } from "../../utils/constants";
 import { PieChart } from "../../components/PieChart/PieChart";
 import { selectPayments } from "../../store/payments/selectors";
+import { selectShowModal } from "../../store/modal/selectors";
 
 export const Operations = () => {
   const [categoryEdit, setCategoryEdit] = useState("");
 
   const dispatch = useDispatch();
   const paymentList = useSelector(selectPayments);
+  const closeModal = useSelector(selectShowModal);
 
   const handleActive = (el) => {
     if (el.id !== categoryEdit?.id) {
@@ -26,7 +28,7 @@ export const Operations = () => {
     }
   };
 
-  const getPayments = (list) => {
+  const getSortPayments = (list) => {
     let arr = [];
     let uniqObj = {};
 
@@ -41,7 +43,7 @@ export const Operations = () => {
     return uniqObj;
   };
 
-  const pieList = getPayments(paymentList);
+  const pieList = getSortPayments(paymentList);
 
   const chartData = {
     labels: Object.keys(pieList).map((el) => el),
@@ -53,6 +55,12 @@ export const Operations = () => {
       },
     ],
   };
+
+  useEffect(() => {
+    if (!closeModal) {
+      setCategoryEdit("");
+    }
+  }, [closeModal]);
 
   return (
     <div className={styles.operations}>

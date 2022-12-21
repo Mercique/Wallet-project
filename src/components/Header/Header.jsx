@@ -22,7 +22,12 @@ export function Header() {
       route: '/registration',
       name: 'регистрация'
     },
+  {
+    route: '/profile',
+    name: 'Профиль'
+  }
   ];
+
 
   return (
     <NavbarBS className={styles.header}>

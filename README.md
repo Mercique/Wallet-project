@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+<p align="center">
+  <a href="https://reactjs.org/" target="_blank">
+    <img src="https://github.com/Mercique/Wallet-project/blob/develop/public/logo192.png" alt="React Logo">
+  </a>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## <img src="https://github.com/Mercique/Wallet-project/blob/develop/public/favicon.ico" alt="icon"> GB Wallet (Frontend)
+### Описание:
+Сайт для ведения расходов, чтобы можно было вводить расходы/доходы по категориям, и формировать различные графики с ними!
+### Общий стек:
+```
+- CSS-module
+- React.js (React-router-dom, Redux, Redux-middleware, Redux-thunk, React-bootstrap, React-slick)
+- PHP (Laravel)
+```
 
-## Available Scripts
+## Команда:
+### Designers:
+- Angelika Privalova
 
-In the project directory, you can run:
+### Frontend developers:
+- [Ilya Chvanov](https://github.com/Mercique)
+- [Danila Khartsii](https://github.com/DanilaKhartsii)
+- [Sergey Lobodanov](https://github.com/Parallitik)
+- [Kirill Makarov](https://github.com/ikir0806)
+- [Natalya](https://github.com/Star1515)
+- Julianna Sandler
 
-### `npm start`
+### Backend developers: ([Backend project](https://github.com/PanKoroban/wallet_back))
+- [Alexandr Tyshkevich](https://github.com/PanKoroban)
+- [Ackap Maemgenov](https://github.com/ackapga)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Запуск React:
+- ### `npm i`
+- ### `npm start`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Запускает приложение в режиме разработки.\
+Открыть [http://localhost:3000](http://localhost:3000) для отображения в браузере.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Для информации
+- Инструкция по установке Backend: https://docs.google.com/document/d/1ygq68Iru_KJoj1iviB5y81O6Dhi7iBElqWlSr2rl3dU/edit?usp=sharing

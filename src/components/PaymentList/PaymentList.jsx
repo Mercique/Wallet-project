@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import { Modal } from "../Modal/Modal";
 import styles from "./PaymentList.module.css";
 
-export const PaymentList = ({ paymentList, categoryList, editPayment, deletePayment }) => {
+export const PaymentList = ({ showEdit, setShowEdit, paymentList, categoryList, editPayment, deletePayment }) => {
   const [active, setActive] = useState(false);
   const [paymentInfo, setPaymentInfo] = useState();
-  const [showEdit, setShowEdit] = useState();
 
   const getDate = (date) => {
     const paymentDate = new Date(date);
@@ -35,6 +34,12 @@ export const PaymentList = ({ paymentList, categoryList, editPayment, deletePaym
     setShowEdit();
   };
 
+  // useEffect(() => {
+  //   if (showEdit) {
+  //     setShowEdit();
+  //   }
+  // }, [showEdit]);
+
   useEffect(() => {
     if (active) {
       document.body.style.overflowY = "hidden";
@@ -50,7 +55,7 @@ export const PaymentList = ({ paymentList, categoryList, editPayment, deletePaym
           <p className={styles.expensesError}>{paymentList.name}</p>
         </div>
       ) : (
-        <div className={styles.expenses} onClick={() => setShowEdit()}>
+        <div className={styles.expenses}>
           { paymentList?.map((payment, idx) => (
             <div className={styles.expItem} key={idx} >
               <div className={styles.expLeft}>

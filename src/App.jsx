@@ -206,12 +206,12 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" onClick={() => setShowEdit()}>
       <div className="wrapper">
         <div className="wrapper-top center">
           <Header />
           <Routes>
-            <Route path="/category" element={<Category images={images} balance={balance - expenses} addNewCategory={addNewCategory} />} />
+            <Route path="/category" element={<Category images={images} balance={balance - expenses} addNewCategory={addNewCategory} categoryList={categoryList} />} />
             <Route path="/" element={
               <div className="operations">
                 <PaymentForm addNewPayment={addNewPayment} paymentList={paymentList} categoryList={categoryList} balance={balance - expenses} />

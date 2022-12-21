@@ -9,6 +9,9 @@ import { Registration } from "./components/Registration/Registration";
 import { RegistrationAuth } from "./components/RegistrationAuth/RegistrationAuth";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
+import {Profile} from "./components/Profile/Profile";
+
+
 
 function App() {
   const urlCategory = "http://localhost:3000/db/categories.json"; // API категорий
@@ -219,6 +222,9 @@ function App() {
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/registration/auth" element={<RegistrationAuth />} />
+            <Route path="/profile" element={<Profile />} />
+            
+            
           </Routes>
         </div>
         <Footer />

@@ -14,36 +14,29 @@ import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { MainAuth } from "./pages/MainAuth/MainAuth";
 import { navListPrivate, navListPublic } from "./utils/constants";
-import { selectLoginSuccess, selectUserAuthed } from "./store/profile/selectors";
+import { selectLoginSuccess } from "./store/profile/selectors";
 import { getUser } from "./store/profile/actions";
-import { getIcons } from "./store/icons/actions";
 import { getCategory } from "./store/category/actions";
 import { getPayments } from "./store/payments/actions";
+import { getIcons } from "./store/icons/actions";
 
 function App() {
   const location = useLocation();
 
   const dispatch = useDispatch();
   const showEditId = useSelector(selectShowEditId);
-  const authed = useSelector(selectUserAuthed);
   const loginSuccess = useSelector(selectLoginSuccess);
 
   useEffect(() => {
-    if (loginSuccess) {
+    if (loginSuccess || document.cookie) {
       dispatch(getUser());
-      console.log("user status success");
-    } else if (document.cookie) {
-      dispatch(getUser());
+      setTimeout(() => {
+        dispatch(getCategory());
+        dispatch(getPayments());
+        dispatch(getIcons());
+      }, 250)
     }
-  }, [loginSuccess, dispatch]);
-
-  useEffect(() => {
-    if (authed && document.cookie) {
-      dispatch(getIcons());
-      dispatch(getCategory());
-      dispatch(getPayments());
-    }
-  }, [authed, dispatch]);
+  }, [dispatch, loginSuccess]);
 
   const closeModals = () => {
     if (showEditId) {

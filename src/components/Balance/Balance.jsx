@@ -8,7 +8,7 @@ export const Balance = () => {
   return (
     <div className={styles.balance}>
       <p className={styles.balanceLabel}>Баланс:</p>
-      {/* <p className={styles.balanceValue}>{user ? user.balance.toLocaleString() : 0} &#8381;</p> */}
+      <p className={styles.balanceValue}>{user?.balance?.toLocaleString()} &#8381;</p>
     </div>
   );
 };

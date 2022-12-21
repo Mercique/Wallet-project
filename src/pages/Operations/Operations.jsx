@@ -12,6 +12,7 @@ import { selectPayments } from "../../store/payments/selectors";
 
 export const Operations = () => {
   const [categoryEdit, setCategoryEdit] = useState("");
+
   const dispatch = useDispatch();
   const paymentList = useSelector(selectPayments);
 

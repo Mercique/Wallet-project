@@ -85,7 +85,11 @@ export const PaymentForm = () => {
             placeholder="Дата"
             onChange={(event) => setDate(event.target.value)} />
         </div>
-        <SubmitButton className={styles.addExpensesButton} name="Добавить трату" disabled={!name | !value | !categoryId | paymentsError !== null} />
+        <SubmitButton
+          className={styles.addExpensesButton}
+          name="Добавить трату"
+          disabled={!name | !value | !categoryId | paymentsError !== null}
+        />
       </form>
     </div>
   );

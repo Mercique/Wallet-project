@@ -1,5 +1,11 @@
 import { FETCH_STATUSES } from "../../utils/constants";
-import { AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_USER_REQUEST, AUTH_USER_SUCCESS, UNAUTH_USER_SUCCESS } from "./actions";
+import {
+  AUTH_LOGIN_FAILURE,
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGIN_SUCCESS,
+  AUTH_USER_REQUEST,
+  AUTH_USER_SUCCESS,
+} from "./actions";
 
 const initialState = {
   user: {},
@@ -45,15 +51,6 @@ export const profileReducer = (state = initialState, action) => {
         authed: true,
         loginError: null,
         userStatus: FETCH_STATUSES.SUCCESS,
-      };
-    }
-    case UNAUTH_USER_SUCCESS: {
-      return {
-        user: {},
-        authed: false,
-        loginError: null,
-        loginstatus: FETCH_STATUSES.IDLE,
-        userStatus: FETCH_STATUSES.IDLE,
       };
     }
     default: {

@@ -1,6 +1,8 @@
 import { FETCH_STATUSES } from "../../utils/constants";
 
+export const selectLoginLoading = (state) =>state.profile.loginStatus === FETCH_STATUSES.REQUEST;
+export const selectLoginSuccess = (state) =>state.profile.loginStatus === FETCH_STATUSES.SUCCESS;
+export const selectLoginError = (state) => state.profile.loginError;
+export const selectUserLoading = (state) =>state.profile.userStatus === FETCH_STATUSES.REQUEST;
 export const selectUser = (state) => state.profile.user;
-export const selectUserLoading = (state) =>state.profile.status === FETCH_STATUSES.REQUEST;
 export const selectUserAuthed = (state) => state.profile.authed;
-export const selectUserError = (state) => state.profile.error;

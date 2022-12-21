@@ -9,6 +9,7 @@ import { addCategory, deleteCategory, putCategory } from "../../store/category/a
 import { apiCategory } from "../../utils/constants";
 import { selectCategory, selectCategoryError, selectCategoryErrorDelete } from "../../store/category/selectors";
 import SliderCenter from "../../components/Slider/Slider";
+import { TestSlider } from "../../components/TestSlider/TestSlider";
 
 export const Category = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -84,7 +85,11 @@ export const Category = () => {
             ) : (
               <>
                 <h2 className={styles.sliderHeader}>Изменить категорию:</h2>
-                <SliderCenter categoryList={categoryList} categoryEdit={categoryEdit} handleActive={handleActive} />
+                { categoryList.length <= 7 ? (
+                  <TestSlider className={styles.categoryTestSlider} categoryEdit={categoryEdit} handleActive={handleActive} />
+                ) : (
+                  <SliderCenter categoryList={categoryList} categoryEdit={categoryEdit} handleActive={handleActive} />
+                ) }
                 { !categoryErrorDelete ? (
                   <h3 className={styles.categoryName}>{!categoryEdit ? "Выберите категорию:" : `Название: ${categoryEdit.name}`}</h3>
                 ) : (

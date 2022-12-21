@@ -1,20 +1,21 @@
 import styles from "./MainAuth.module.css";
 import { useState } from "react";
 import { AuthLink } from "../../components/AuthLink/AuthLink";
-import { authUser } from "../../store/profile/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { InputAuth } from "../../components/InputAuth/InputAuth";
 import { checkInputValues } from "../../utils/constants";
 import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
-import { selectUserError } from "../../store/profile/selectors";
+import { authLogin } from "../../store/profile/actions";
+import { selectLoginError } from "../../store/profile/selectors";
 
 export const MainAuth = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("test@test.ru");
   const [errorEmail, setErrorEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("123");
   const [errorPassword, setErrorPassword] = useState("");
+
   const dispatch = useDispatch();
-  const userAuthError = useSelector(selectUserError);
+  const authLoginError = useSelector(selectLoginError);
 
   const blurHandler = (e) => {
     switch (e.target.name) {
@@ -36,12 +37,7 @@ export const MainAuth = () => {
     e.preventDefault();
 
     if (!errorEmail && !errorPassword) {
-      dispatch(authUser({email,password}));
-
-      if (userAuthError) {
-        setEmail("");
-        setPassword("");
-      }
+      dispatch(authLogin({email,password}));
     } else {
       console.log("ERROR");
     }
@@ -86,7 +82,7 @@ export const MainAuth = () => {
             />
           </div>
           <div className={styles.btnArea}>
-            { userAuthError && <span className={styles.errorAuth}>{userAuthError}</span> }
+            { authLoginError && <span className={styles.errorAuth}>{authLoginError}</span> }
             <SubmitButton
               className={styles.enterBtn}
               name="Войти"

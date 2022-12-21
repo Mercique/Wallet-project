@@ -4,7 +4,7 @@ import { Nav, Navbar as NavbarBS } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
 
-export function Header({ authed, navList }) {
+export function Header({ cookie, navList }) {
   return (
     <NavbarBS className={styles.header}>
       <Logo />
@@ -12,7 +12,7 @@ export function Header({ authed, navList }) {
         { navList.map((navItem, idx) => (
           <Nav.Link
             style={({ isActive }) => ({ color: isActive ? "#FF5555" : "white" })}
-            className={authed ? styles.link : styles.authLink}
+            className={cookie ? styles.link : styles.authLink}
             to={navItem.route}
             as={NavLink}
             key={idx}

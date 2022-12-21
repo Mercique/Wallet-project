@@ -13,24 +13,35 @@ import { useEffect } from "react";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { MainAuth } from "./pages/MainAuth/MainAuth";
-import { getUser, unauthUserSuccess } from "./store/profile/actions";
-import cookie from "cookie";
 import { navListPrivate, navListPublic } from "./utils/constants";
-import { selectUserAuthed } from "./store/profile/selectors";
+import { selectLoginSuccess, selectUserAuthed } from "./store/profile/selectors";
+import { getUser } from "./store/profile/actions";
+import { getIcons } from "./store/icons/actions";
+import { getCategory } from "./store/category/actions";
+import { getPayments } from "./store/payments/actions";
 
 function App() {
+  const location = useLocation();
+
   const dispatch = useDispatch();
   const showEditId = useSelector(selectShowEditId);
-  const location = useLocation();
   const authed = useSelector(selectUserAuthed);
+  const loginSuccess = useSelector(selectLoginSuccess);
 
   useEffect(() => {
-    if (cookie.parse(document.cookie).hasOwnProperty("XSRF-TOKEN")) {
-      console.log("authorized");
-      dispatch(getUser({email: "dev@dev.ru", password: "123"}));
-    } else {
-      console.log("unauthorized");
-      dispatch(unauthUserSuccess());
+    if (loginSuccess) {
+      dispatch(getUser());
+      console.log("user status success");
+    } else if (document.cookie) {
+      dispatch(getUser());
+    }
+  }, [loginSuccess, dispatch]);
+
+  useEffect(() => {
+    if (authed && document.cookie) {
+      dispatch(getIcons());
+      dispatch(getCategory());
+      dispatch(getPayments());
     }
   }, [authed, dispatch]);
 
@@ -52,9 +63,10 @@ function App() {
     <div className="App" onClick={closeModals}>
       <div className="wrapper">
         <div className="wrapper-top center">
-          <Header authed={authed} navList={authed ? navListPrivate : navLocation() } />
+          <Header cookie={document.cookie} navList={document.cookie ? navListPrivate : navLocation() } />
           <Routes>
             <Route path="/" element={<PublicRoute />}>
+              <Route path="/loading" element={<p>Loading</p>} />
               <Route path="" element={<MainAuth />} />
               <Route path="/registration" element={<RegistrationAuth />} />
             </Route>

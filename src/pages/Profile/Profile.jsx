@@ -14,8 +14,10 @@ export const Profile = () => {
     <>
       <h1>Profile</h1>
       <div>
-        <p>{userAuth?.email}</p>
-        <p>{userAuth?.pass}</p>
+        <p>Id: <span style={{ color: "red" }}>{userAuth?.id}</span></p>
+        <p>Name: <span style={{ color: "red" }}>{userAuth?.name}</span></p>
+        <p>Surname: <span style={{ color: "red" }}>{userAuth?.surname}</span></p>
+        <p>E-mail: <span style={{ color: "red" }}>{userAuth?.email}</span></p>
       </div>
       <button type="button" onClick={onLogout}>Logout</button>
     </>

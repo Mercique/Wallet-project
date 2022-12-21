@@ -57,7 +57,7 @@ export const getPayments = () => (dispatch) => {
 export const sortPayments = (url) => (dispatch) => {
   getData(url)
     .then((result) => dispatch(sortPaymentsSuccess(result)))
-    .catch((err) => console.warn("Sort Error", err));
+    .catch((err) => console.warn("Sort", err));
 };
 
 export const addPayment = (url, method, body) => (dispatch) => {

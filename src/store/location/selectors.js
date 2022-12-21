@@ -1,1 +1,0 @@
-export const selectLocation = (state) => state.location.data;

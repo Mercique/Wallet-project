@@ -1,36 +1,43 @@
-import { apiLogin, apiLogout, apiToken } from "../../utils/constants";
+import { apiLogin, apiLogout, apiToken, apiUser } from "../../utils/constants";
+import { getData } from "../../utils/asyncActions";
 import cookie from "cookie";
+
+export const AUTH_LOGIN_REQUEST = "LOGIN::AUTH_LOGIN_REQUEST";
+export const AUTH_LOGIN_SUCCESS = "LOGIN::AUTH_LOGIN_SUCCESS";
+export const AUTH_LOGIN_FAILURE = "LOGIN::AUTH_LOGIN_FAILURE";
 
 export const AUTH_USER_REQUEST = "USER::AUTH_USER_REQUEST";
 export const AUTH_USER_SUCCESS = "USER::AUTH_USER_SUCCESS";
-export const AUTH_USER_FAILURE = "USER::AUTH_USER_FAILURE";
-export const GET_USER_SUCCESS = "USER::GET_USER_SUCCESS";
 export const UNAUTH_USER_SUCCESS = "USER::UNAUTH_USER_SUCCESS";
+
+export const authLoginRequest = () => ({
+  type: AUTH_LOGIN_REQUEST,
+});
+
+export const authLoginSuccess = () => ({
+  type: AUTH_LOGIN_SUCCESS,
+});
+
+export const authLoginFailure = (error) => ({
+  type: AUTH_LOGIN_FAILURE,
+  payload: error,
+});
 
 export const authUserRequest = () => ({
   type: AUTH_USER_REQUEST,
 });
 
-export const authUserSuccess = () => ({
+export const authUserSuccess = (user) => ({
   type: AUTH_USER_SUCCESS,
-});
-
-export const authUserFailure = (error) => ({
-  type: AUTH_USER_FAILURE,
-  payload: error,
-});
-
-export const unauthUserSuccess = () => ({
-  type: UNAUTH_USER_SUCCESS,
-});
-
-export const getUser = (user) => ({
-  type: GET_USER_SUCCESS,
   payload: user,
 });
 
-export const authUser = (login) => async (dispatch) => {
-  dispatch(authUserRequest());
+export const unAuthUserSuccess = () => ({
+  type: UNAUTH_USER_SUCCESS,
+});
+
+export const authLogin = (login) => async (dispatch) => {
+  dispatch(authLoginRequest());
   try {
     const tokenResponse = await fetch(apiToken, {
       credentials: "include",
@@ -59,13 +66,22 @@ export const authUser = (login) => async (dispatch) => {
       throw new Error(`Could not authorize ${apiToken}, received ${loginResponse.status}`);
     }
 
-    dispatch(authUserSuccess());
-    dispatch(getUser(login));
+    dispatch(authLoginSuccess());
   } catch (err) {
     console.warn(err);
     document.cookie = document.cookie + ";expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    dispatch(authUserFailure("Ошибка авторизации!"));
+    dispatch(authLoginFailure("Ошибка авторизации!"));
   }
+};
+
+export const getUser = () => async (dispatch) => {
+  dispatch(authUserRequest());
+  getData(apiUser)
+    .then((data) => dispatch(authUserSuccess(data)))
+    .catch((err) => {
+      document.cookie = document.cookie + ";expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      console.warn("Could not GET user", err);
+    });
 };
 
 export const unAuthUser= () => async (dispatch) => {
@@ -84,7 +100,7 @@ export const unAuthUser= () => async (dispatch) => {
     }
 
     document.cookie = document.cookie + ";expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    dispatch(unauthUserSuccess());
+    dispatch(unAuthUserSuccess());
   } catch (err) {
     console.warn(err);
   }

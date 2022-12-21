@@ -2,7 +2,7 @@ import styles from "./Operations.module.css";
 import { PaymentForm } from "../../components/PaymentForm/PaymentForm";
 import { Payment } from "../../components/Payment/Payment";
 import { TestSlider } from "../../components/TestSlider/TestSlider";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Balance } from "../../components/Balance/Balance";
 import { useDispatch, useSelector } from "react-redux";
 import { sortPayments } from "../../store/payments/actions";
@@ -24,12 +24,6 @@ export const Operations = () => {
       dispatch(sortPayments(apiPayments));
     }
   };
-
-  useEffect(() => {
-    if (!categoryEdit) {
-      dispatch(sortPayments(apiPayments));
-    }
-  }, [categoryEdit, dispatch]);
 
   const getPayments = (list) => {
     let arr = [];

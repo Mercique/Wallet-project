@@ -11,6 +11,7 @@ export const apiToken = "http://localhost/sanctum/csrf-cookie"; // API токе�
 export const apiLogin = "http://localhost/api/login"; // API вход пользователя
 export const apiLogout = "http://localhost/api/logout"; // API выход пользователя
 export const apiRegister = "http://localhost/api/register" // API регистрация
+export const apiUser = "http://localhost/api/user" // API информация о пользователе
 
 export const FETCH_STATUSES = {
   IDLE: 0, // запроса еще не было, дефолтное состояние

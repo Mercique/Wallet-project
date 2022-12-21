@@ -24,7 +24,7 @@
 - [Sergey Lobodanov](https://github.com/Parallitik)
 - [Kirill Makarov](https://github.com/ikir0806)
 - [Natalya](https://github.com/Star1515)
-- Julianna Sandler
+- [Julianna Sandler](https://github.com/mirakwon24)
 
 ### Backend developers: ([Backend project](https://github.com/PanKoroban/wallet_back))
 - [Alexandr Tyshkevich](https://github.com/PanKoroban)

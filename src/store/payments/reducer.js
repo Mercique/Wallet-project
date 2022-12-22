@@ -4,6 +4,7 @@ import {
   GET_PAYMENTS_FAILURE,
   GET_PAYMENTS_REQUEST,
   GET_PAYMENTS_SUCCESS,
+  POST_PAYMENTS_FAILURE,
   POST_PAYMENTS_SUCCESS,
   PUT_PAYMENTS_SUCCESS,
   SORT_PAYMENTS_SUCCESS,
@@ -12,6 +13,7 @@ import {
 const initialState = {
   data: {},
   error: null,
+  postError: null,
   status: FETCH_STATUSES.IDLE,
 };
 
@@ -55,6 +57,7 @@ export const paymentsReducer = (state = initialState, action) => {
       return {
         ...state,
         data: sortPaymentDate(action.payload),
+        postError: null,
         status: FETCH_STATUSES.SUCCESS,
       };
     }
@@ -76,7 +79,15 @@ export const paymentsReducer = (state = initialState, action) => {
       return {
         data: sortPaymentDate(action.payload),
         error: null,
+        postError: null,
         status: FETCH_STATUSES.SUCCESS,
+      };
+    }
+    case POST_PAYMENTS_FAILURE: {
+      return {
+        ...state,
+        postError: action.payload,
+        status: FETCH_STATUSES.FAILURE,
       };
     }
     case PUT_PAYMENTS_SUCCESS: {

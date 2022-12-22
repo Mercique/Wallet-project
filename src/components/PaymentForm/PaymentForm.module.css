@@ -4,10 +4,24 @@
 }
 
 .paymentInputForm {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding-top: 30px;
+}
+
+.postPaymentError {
+  width: 100%;
+  position: absolute;
+  bottom: -25px;
+  text-align: center;
+  font-family: "Hind";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 23px;
+  color: #cb2424;
 }
 
 .inputBox {
@@ -26,7 +40,7 @@
 }
 
 .expensesInputError {
-  border-color: #CB2424;
+  border-color: #cb2424;
 }
 
 .expensesInput::placeholder {

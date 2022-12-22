@@ -25,6 +25,11 @@
   background: #FFFFFF;
   border: 2px solid #787878;
   border-radius: 10px;
+  transition: background .2s ease;
+}
+
+.input:hover {
+  background: #DBDBDB;
 }
 
 .input::placeholder {

@@ -6,7 +6,7 @@ import { SubmitButton } from "../SubmitButton/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
 import { addPayment } from "../../store/payments/actions";
 import { apiPayments, checkInputValues, getDate } from "../../utils/constants";
-import { selectPaymentsError } from "../../store/payments/selectors";
+import { selectPaymentsError, selectPaymentsPostError } from "../../store/payments/selectors";
 
 export const PaymentForm = () => {
   const [name, setName] = useState("");
@@ -18,6 +18,7 @@ export const PaymentForm = () => {
 
   const dispatch = useDispatch();
   const paymentsError = useSelector(selectPaymentsError);
+  const postError = useSelector(selectPaymentsPostError);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,7 +75,8 @@ export const PaymentForm = () => {
             step="0.01"
             name="paymentValue"
             onBlur={blurHandler}
-            onChange={(event) => setValue(event.target.value)} />
+            onChange={(event) => setValue(event.target.value)}
+          />
         </div>
         <div className={styles.inputBox}>
           <CategoryMenu categoryId={categoryId} setCategoryId={setCategoryId} />
@@ -90,6 +92,7 @@ export const PaymentForm = () => {
           name="Добавить трату"
           disabled={!name | !value | !categoryId | paymentsError !== null}
         />
+        { postError && <span className={styles.postPaymentError}>Недостаточно средств!</span>}
       </form>
     </div>
   );

@@ -1,24 +1,64 @@
 import styles from "./Profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { unAuthUser } from "../../store/profile/actions";
-import { selectUser } from "../../store/profile/selectors";
-import { InputAuth } from "../../components/InputAuth/InputAuth";
+import { authEdit, unAuthUser } from "../../store/profile/actions";
+import { selectUser, selectUserCreateError } from "../../store/profile/selectors";
 import { useState } from "react";
 import { sendRequest } from "../../utils/asyncActions";
 import { getUser } from "../../store/profile/actions";
 import { Balance } from "../../components/Balance/Balance";
+import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
+import { checkInputValues } from "../../utils/constants";
+import { Input } from "../../components/Input/Input";
+import { InputAuth } from "../../components/InputAuth/InputAuth";
 
 export function Profile() {
   const [sum, setSum] = useState("");
+  const [errorSum, setErrorSum] = useState("");
+
+  const [name, setName] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [errorSurname, setErrorSurname] = useState("");
+  const [email, setEmail] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
 
   const dispatch = useDispatch();
   const userAuth = useSelector(selectUser);
+  const editError = useSelector(selectUserCreateError);
 
-  const onLogout = () => {
-    dispatch(unAuthUser());
+  const blurHandler = (e) => {
+    switch (e.target.name) {
+      case "addBalance": {
+        setErrorSum(checkInputValues("payment", sum));
+        break;
+      }
+      case "name": {
+        setErrorName(checkInputValues("text", name));
+        break;
+      }
+      case "surname": {
+        setErrorSurname(checkInputValues("text", surname));
+        break;
+      }
+      case "email": {
+        setErrorEmail(checkInputValues(e.target.name, email));
+        break;
+      }
+      case "password": {
+        setErrorPassword(checkInputValues(e.target.name, password));
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   };
 
-  const handleAddSum = () => {
+  const handleAddSum = (e) => {
+    e.preventDefault();
+
     const num = {
       balance: sum,
     };
@@ -30,89 +70,115 @@ export function Profile() {
     setSum("");
   };
 
+  const handleEditUser = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!errorName && !errorSurname && !errorEmail && !errorPassword) {
+      dispatch(authEdit(userAuth.id, { name, surname, email, password }));
+
+      setName("");
+      setSurname("");
+      setEmail("");
+      setPassword("");
+    } else {
+      console.log("ERROR");
+    }
+  }
+
+  const onLogout = () => {
+    dispatch(unAuthUser());
+  };
+
   return (
     <div className={styles.profiler}>
       <div className={styles.profBox}>
-        <h4 className={styles.prof_head}>
-          {userAuth?.surname} {userAuth?.name}
-        </h4>
-        <InputAuth
-          id="addSum"
-          labelName="ДОБАВИТЬ СУММУ:"
-          error={""}
-          name="value"
-          type="number"
-          value={sum}
-          step="0.01"
-          // onBlur={blurHandler}
-          onChange={(e) => setSum(e.target.value)}
-          placeholder="Введите сумму"
-        />
-        {/* <input
+        <form className={styles.profForm} onSubmit={handleAddSum}>
+          <h4 className={styles.profHead}>{userAuth?.surname} {userAuth?.name}</h4>
+          <p className={styles.profLabel}>Добавить сумму:</p>
+          <Input
             type="number"
-            name="number"
+            className={!errorSum ? styles.balanceInput : `${styles.balanceInput} ${styles.balanceInputError}`}
+            value={sum}
             placeholder="Введите сумму"
-            className={styles.prof_amount_input}
-          /> */}
-        <button
-          type="button"
-          className={styles.amount_btn}
-          onClick={handleAddSum}
-          disabled={!sum}
-        >
-          Отправить
-        </button>
+            step="0.01"
+            name="addBalance"
+            onBlur={blurHandler}
+            onChange={(event) => setSum(event.target.value)}
+          />
+          <SubmitButton 
+            className={styles.addBalanceButton}
+            name="Отправить"
+            disabled={!sum}
+          />
+        </form>
+        <div className={styles.balancePosition}>
+          <Balance />
+        </div>
       </div>
-      <Balance />
-      <hr className={styles.amount_line} />
-      <h3 className={styles.prof_input_tittle}>Редактировать профиль</h3>
-      <div className={styles.prof_input_block}>
-        <div className={styles.prof_input_top_area}>
-          <div className={styles.prof_form_group}>
-            <p className={styles.prof_input_heading}>Имя:</p>
-            <input
+      <div className={styles.profEditBlock}>
+        <form className={styles.profEditForm} onSubmit={handleEditUser}>
+          <h3 className={styles.profEditTitle}>Редактировать профиль</h3>
+          <div className={styles.profEditInputTop}>
+            <InputAuth
+              id="editName"
+              labelName="Имя:"
+              name="name"
               type="text"
-              name="firstname"
-              placeholder="Иван"
-              className={styles.input_element_left}
+              value={name}
+              error={errorName}
+              onBlur={blurHandler}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={userAuth?.name}
+            />
+            <InputAuth
+              id="editSurname"
+              labelName="Фамилия:"
+              name="surname"
+              type="text"
+              value={surname}
+              error={errorSurname}
+              onBlur={blurHandler}
+              onChange={(e) => setSurname(e.target.value)}
+              placeholder={userAuth?.surname}
             />
           </div>
-          <div className={styles.form_group}>
-            <p className={styles.prof_input_heading}>Email:</p>
-            <input
-              type="email"
+          <div className={styles.profEditInputBottom}>
+            <InputAuth
+              id="editEmail"
+              labelName="E-mail:"
               name="email"
-              placeholder="mail@mail.ru"
-              className={styles.input_element_left}
+              type="email"
+              value={email}
+              error={errorEmail}
+              onBlur={blurHandler}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={userAuth?.email}
             />
-          </div>
-        </div>
-        <div className={styles.input_bottom_area}>
-          <div className={styles.form_group}>
-            <p className={styles.prof_input_heading}>Фамилия:</p>
-            <input
-              type="text"
-              name="secondname"
-              placeholder="Иванов"
-              className={styles.input_element_right}
-            />
-          </div>
-          <div className={styles.form_group}>
-            <p className={styles.prof_input_heading}>Пароль:</p>
-            <input
-              type="password"
+            <InputAuth
+              id="editPassword"
+              labelName="Пароль:"
               name="password"
-              placeholder="••••••••••"
-              className={styles.input_element_right}
+              type="password"
+              value={password}
+              error={errorPassword}
+              onBlur={blurHandler}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Введите пароль"
             />
           </div>
-        </div>
-        <div className={styles.prof_btn_block}>
-          <button className={styles.prof_edit_btn_left}>Изменить</button>
-          <button className={styles.prof_out_btn} onClick={onLogout}>
-            Выход
-          </button>
-        </div>
+          <div className={styles.profEditButtons}>
+            <SubmitButton
+              className={styles.profEditInfo}
+              name="Изменить"
+              disabled={!name | !surname | !email | !password}
+            />
+            <button type="button" className={styles.profLogout} onClick={onLogout}>
+              Выход
+            </button>
+          </div>
+          { editError && <span className={styles.editError}>{editError}</span> }
+        </form>
       </div>
     </div>
   );

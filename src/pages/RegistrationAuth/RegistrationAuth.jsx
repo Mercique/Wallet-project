@@ -1,9 +1,12 @@
 import styles from "./RegistrationAuth.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
 import { AuthLink } from "../../components/AuthLink/AuthLink";
 import { InputAuth } from "../../components/InputAuth/InputAuth";
 import { checkInputValues } from "../../utils/constants";
+import { authRegister } from "../../store/profile/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserCreateError } from "../../store/profile/selectors";
 
 export const RegistrationAuth = () => {
   const [name, setName] = useState("");
@@ -15,6 +18,18 @@ export const RegistrationAuth = () => {
   const [password, setPassword] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
   const [checked, setChecked] = useState(false);
+
+  const dispatch = useDispatch();
+  const registerError = useSelector(selectUserCreateError);
+
+  useEffect(() => {
+    if (!registerError) {
+      setName("");
+      setSurname("");
+      setEmail("");
+      setPassword("");
+    }
+  }, [registerError]);
 
   const blurHandler = (e) => {
     switch (e.target.name) {
@@ -44,13 +59,7 @@ export const RegistrationAuth = () => {
     e.preventDefault();
 
     if (!errorName && !errorSurname && !errorEmail && !errorPassword) {
-      console.log({ name, surname, email, password, checked });
-
-      setName("");
-      setSurname("");
-      setEmail("");
-      setPassword("");
-      setChecked(false);
+      dispatch(authRegister({ name, surname, email, password }));
     } else {
       console.log("ERROR");
     }
@@ -131,6 +140,7 @@ export const RegistrationAuth = () => {
               disabled={!name | !surname | !email | !password}
             />
           </div>
+          { registerError && <span className={styles.registerError}>{registerError}</span> }
         </form>
       </div>
     </div>

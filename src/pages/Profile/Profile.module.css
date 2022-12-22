@@ -1,181 +1,180 @@
-.profiler {
-  /*display: flex;*/
-  justify-content: space-between;
-}
-.prof_head {
-  font-family: "Oswald";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 28px;
-  line-height: 16px;
-  color: #ff5555;
-  text-align: center;
-  margin: 53px 0 0 0;
-  text-transform: uppercase;
+.profBox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 66px;
+  border-bottom: 1px solid #ffffff;
 }
 
-.profBox {
+.profForm {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* .prof_amount {
+.profHead {
+  margin: 53px 0 13px 0;
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 41px;
+  text-transform: uppercase;
+  color: #ff5555;
+}
+
+.profLabel {
+  width: 304px;
+  margin: 0 0 3px 0;
   font-family: "Hind";
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 32px;
+  text-transform: uppercase;
   color: #ffffff;
-  text-align: left;
-} */
-
-.amount_line {
-  margin-top: 73px;
 }
 
-/*INPUT BLOCK*/
-.prof_amount_input {
+.balanceInput {
   width: 304px;
   height: 55px;
-  border: 1px solid #ffffff;
-  box-sizing: border-box;
-  padding: 12px;
-  background: transparent;
-  /*border: none;*/
+  padding: 0 21px;
+  font-family: "Hind";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 32px;
+  border-color: #fff;
+  color: #fff;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  display: none;
+.balanceInputError {
+  border-color: #cb2424;
 }
 
-.prof_amount_input::placeholder {
-  color: #cecece;
+.balanceInput::placeholder {
+  color: rgba(255, 255, 255, 0.27);
 }
 
-.prof_input_block {
-  display: flex;
-  flex-direction: column;
-  /*margin-bottom: 39px;*/
+.addBalanceButton {
+  width: 304px;
+  height: 60px;
+  margin-top: 22px;
+  font-family: "Hind";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 38px;
+  color: #ffffff;
+  border-radius: 13px;
 }
 
-.prof_input_top_area {
+.balancePosition {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.profEditBlock {
   display: flex;
   justify-content: center;
+  padding-top: 43px;
+  padding-bottom: 140px;
 }
 
-.input_bottom_area {
-  display: flex;
-  justify-content: center;
-}
-
-.prof_input_tittle {
+.profEditTitle {
+  margin: 0 0 15px 0;
+  text-align: center;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 300;
   font-size: 30px;
   line-height: 50px;
   color: #ffffff;
-  text-align: center;
-  margin-top: 39px;
 }
 
-.prof_input_heading {
-  width: 113px;
-  height: 16px;
-  left: 405px;
-  top: 580px;
-  font-family: "Roboto";
+.profEditInputTop,
+.profEditInputBottom,
+.profEditButtons {
+  display: flex;
+  gap: 29px;
+}
+
+.profEditInputTop {
+  margin-bottom: 17px;
+}
+
+.profEditButtons {
+  margin-top: 24px;
+}
+
+.profEditForm {
+  position: relative;
+}
+
+.editError {
+  width: 100%;
+  position: absolute;
+  bottom: -25px;
+  text-align: center;
+  font-family: "Hind";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 23px;
+  color: #cb2424;
+}
+
+.profEditForm label {
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
   line-height: 16px;
-  color: #ffffff;
-  margin-left: 29px;
+  color: #FFFFFF;
 }
 
-.input_element_left,
-.input_element_right {
+.profEditForm input {
   width: 299px;
   height: 60px;
-  background: #ffffff;
-  border: 2px solid #787878;
-  border-radius: 10px;
-  padding-left: 21px;
-}
-.input_element_right {
-  margin-left: 29px;
-}
-.input_element_left {
-  margin-left: 29px;
-}
-
-.input_element_left,
-.input_element_right::placeholder {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
   font-size: 20px;
-  line-height: 36px;
-  color: #b5b5b5;
 }
 
-/*BUTTON*/
-.amount_btn {
-  display: flex;
-  justify-content: center;
-  width: 304px;
-  height: 60px;
-  font-family: "Hind";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  color: #ffffff;
-  padding: 15px 73px 7px 83px;
-  background: #b99494;
-  border: 1px solid #b99494;
-  border-radius: 13px;
-}
-
-.amount_btn:active {
-  color: #978d8d;
-}
-
-.prof_btn_block {
-  display: flex;
-  justify-content: center;
-}
-
-.prof_edit_btn_left {
+.profEditInfo, .profLogout {
   width: 299px;
   height: 60px;
-  background: #3d6197;
-  border-radius: 10px;
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
-  color: #ffffff;
-  margin-top: 24px;
-}
-.prof_out_btn {
-  width: 299px;
-  height: 60px;
+  line-height: 16px;
+  color: #FFFFFF;
+  border-radius: 10px;
   background: #884545;
-  border-radius: 10px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  color: #ffffff;
-  margin-top: 24px;
-  margin-left: 29px;
-}
-.prof_edit_btn_left:active {
-  background: #978d8d;
 }
 
-.prof_out_btn:active {
-  background: #978d8d;
+.profLogout {
+  position: relative;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid #884545;
+  transition: all .2s ease;
+}
+
+.profLogout:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  border-color: #978D8D;
+  background: #978D8D;
+}
+
+.profLogout:not(:disabled):hover {
+  border-color: #9c2a2a;
+  background: #9c2a2a;
+}
+
+.profLogout:not(:disabled):active {
+  border-color: #642727;
+  background: #642727;
 }

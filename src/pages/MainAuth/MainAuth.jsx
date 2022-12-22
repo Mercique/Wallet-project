@@ -9,9 +9,9 @@ import { authLogin } from "../../store/profile/actions";
 import { selectLoginError } from "../../store/profile/selectors";
 
 export const MainAuth = () => {
-  const [email, setEmail] = useState("test@test.ru");
+  const [email, setEmail] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
-  const [password, setPassword] = useState("123");
+  const [password, setPassword] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
 
   const dispatch = useDispatch();

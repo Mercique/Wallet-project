@@ -14,11 +14,26 @@
 }
 
 .leftTextarea {
+  position: relative;
+  z-index: 10;
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin-top: 135px;
   margin-bottom: 30px;
+}
+
+.leftTextarea::before {
+  content: "";
+  width: 520px;
+  height: 250px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  margin: auto;
+  background: #B86E6E;
+  filter: blur(125px);
 }
 
 .regHeading {
@@ -50,6 +65,7 @@
 .leftImagearea {
   display: flex;
   justify-content: center;
+  z-index: 10;
 }
 
 .mainImg {

@@ -1,0 +1,9 @@
+[
+  {
+    "name": "User",
+    "surname": "Userovich",
+    "email": "user@user.ru",
+    "password": "123",
+    "balance": 0
+  }
+]

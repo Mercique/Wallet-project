@@ -28,14 +28,18 @@ function App() {
   const loginSuccess = useSelector(selectLoginSuccess);
 
   useEffect(() => {
-    if (loginSuccess || document.cookie) {
-      dispatch(getUser());
-      setTimeout(() => {
-        dispatch(getCategory());
-        dispatch(getPayments());
-        dispatch(getIcons());
-      }, 250)
-    }
+    dispatch(getUser());
+    dispatch(getCategory());
+    dispatch(getPayments());
+    dispatch(getIcons());
+    // if (loginSuccess || document.cookie) {
+    //   dispatch(getUser());
+    //   setTimeout(() => {
+    //     dispatch(getCategory());
+    //     dispatch(getPayments());
+    //     dispatch(getIcons());
+    //   }, 250)
+    // }
   }, [dispatch, loginSuccess]);
 
   const closeModals = () => {
@@ -56,7 +60,15 @@ function App() {
     <div className="App" onClick={closeModals}>
       <div className="wrapper">
         <div className="wrapper-top center">
-          <Header cookie={document.cookie} navList={document.cookie ? navListPrivate : navLocation() } />
+          <Header cookie={true} navList={[...navListPrivate, ...navListPublic]} />
+          <Routes>
+            <Route path="/category" element={<Category />} />
+            <Route path="/operations" element={<Operations />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/" element={<MainAuth />} />
+            <Route path="/registration" element={<RegistrationAuth />} />
+          </Routes>
+          {/* <Header cookie={document.cookie} navList={document.cookie ? navListPrivate : navLocation() } />
           <Routes>
             <Route path="/" element={<PublicRoute />}>
               <Route path="/loading" element={<p>Loading</p>} />
@@ -68,7 +80,7 @@ function App() {
               <Route path="/operations" element={<Operations />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
-          </Routes>
+          </Routes> */}
         </div>
         <Footer />
       </div>

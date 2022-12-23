@@ -5,7 +5,7 @@ import { Balance } from "../../components/Balance/Balance";
 import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
 import { Input } from "../../components/Input/Input";
 import { IconCategoryMenu } from "../../components/IconCategoryMenu/IconCategoryMenu";
-import { addCategory, deleteCategory, putCategory } from "../../store/category/actions";
+import { addCategory, deleteCategory, deleteCategoryFailure, putCategory } from "../../store/category/actions";
 import { apiCategory } from "../../utils/constants";
 import { selectCategory, selectCategoryError, selectCategoryErrorDelete } from "../../store/category/selectors";
 import SliderCenter from "../../components/Slider/Slider";
@@ -25,6 +25,7 @@ export const Category = () => {
   const handleActive = (el) => {
     if (el.id !== categoryEdit?.id) {
       setCategoryEdit({id: el.id, name: el.name, img_id: el.img_id});
+      dispatch(deleteCategoryFailure(null));
     } else {
       setCategoryEdit("");
     }

@@ -26,10 +26,6 @@ export const sendRequest = async (url, method, body = null) => {
     },
   });
 
-  if (!response.ok) {
-    throw new Error(`Could not send request ${url}, received ${response.status}`);
-  }
-
   const result = await response.json();
   return result;
 };

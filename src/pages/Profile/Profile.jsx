@@ -63,9 +63,7 @@ export function Profile() {
       balance: sum,
     };
 
-    sendRequest("http://localhost/api/balance", "POST", num).then((data) =>
-      dispatch(getUser())
-    );
+    sendRequest("http://localhost/api/balance", "POST", num).then((data) => dispatch(getUser()));
 
     setSum("");
   };
@@ -123,10 +121,10 @@ export function Profile() {
             <InputAuth
               id="editName"
               labelName="Имя:"
-              name="name"
-              type="text"
-              value={name}
               error={errorName}
+              type="text"
+              name="name"
+              value={name}
               onBlur={blurHandler}
               onChange={(e) => setName(e.target.value)}
               placeholder={userAuth?.name}
@@ -134,10 +132,10 @@ export function Profile() {
             <InputAuth
               id="editSurname"
               labelName="Фамилия:"
-              name="surname"
-              type="text"
-              value={surname}
               error={errorSurname}
+              type="text"
+              name="surname"
+              value={surname}
               onBlur={blurHandler}
               onChange={(e) => setSurname(e.target.value)}
               placeholder={userAuth?.surname}
@@ -147,10 +145,10 @@ export function Profile() {
             <InputAuth
               id="editEmail"
               labelName="E-mail:"
-              name="email"
-              type="email"
-              value={email}
               error={errorEmail}
+              type="email"
+              name="email"
+              value={email}
               onBlur={blurHandler}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={userAuth?.email}
@@ -158,13 +156,13 @@ export function Profile() {
             <InputAuth
               id="editPassword"
               labelName="Пароль:"
-              name="password"
-              type="password"
-              value={password}
               error={errorPassword}
+              type="password"
+              name="password"
+              value={password}
               onBlur={blurHandler}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Введите пароль"
+              placeholder="••••••••••"
             />
           </div>
           <div className={styles.profEditButtons}>

@@ -28,18 +28,22 @@ function App() {
   const loginSuccess = useSelector(selectLoginSuccess);
 
   useEffect(() => {
-    let timeout;
+    dispatch(getUser());
+    dispatch(getCategory());
+    dispatch(getPayments());
+    dispatch(getIcons());
+    // let timeout;
 
-    if (loginSuccess || document.cookie) {
-      dispatch(getUser());
-      timeout = setTimeout(() => {
-        dispatch(getCategory());
-        dispatch(getPayments());
-        dispatch(getIcons());
-      }, 100);
-    }
+    // if (loginSuccess || document.cookie) {
+    //   dispatch(getUser());
+    //   timeout = setTimeout(() => {
+    //     dispatch(getCategory());
+    //     dispatch(getPayments());
+    //     dispatch(getIcons());
+    //   }, 100);
+    // }
 
-    return () => clearTimeout(timeout);
+    // return () => clearTimeout(timeout);
   }, [dispatch, loginSuccess]);
 
   const closeModals = () => {
@@ -60,7 +64,15 @@ function App() {
     <div className="App" onClick={closeModals}>
       <div className="wrapper">
         <div className="wrapper-top center">
-          <Header cookie={document.cookie} navList={document.cookie ? navListPrivate : navLocation() } />
+          <Header cookie={true} navList={[...navListPrivate, ...navListPublic]} />
+          <Routes>
+            <Route path="/category" element={<Category />} />
+            <Route path="/operations" element={<Operations />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/" element={<MainAuth />} />
+            <Route path="/registration" element={<RegistrationAuth />} />
+          </Routes>
+          {/* <Header cookie={document.cookie} navList={document.cookie ? navListPrivate : navLocation() } />
           <Routes>
             <Route path="/" element={<PublicRoute />}>
               <Route path="/loading" element={<p>Loading</p>} />
@@ -72,7 +84,7 @@ function App() {
               <Route path="/operations" element={<Operations />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
-          </Routes>
+          </Routes> */}
         </div>
         <Footer />
       </div>

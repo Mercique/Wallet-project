@@ -1,18 +1,18 @@
 // local API
-// export const apiCategory = "http://localhost:3000/db/category.json"; // API категорий
-// export const apiPayments = "http://localhost:3000/db/payments.json"; // API расходов
-// export const apiIcons = "http://localhost:3000/db/icons.json"; // API картинок
-// export const apiUser = "http://localhost:3000/db/user.json"; // API пользователя
+export const apiCategory = "http://localhost:3000/db/category.json"; // API категорий
+export const apiPayments = "http://localhost:3000/db/payments.json"; // API расходов
+export const apiIcons = "http://localhost:3000/db/icons.json"; // API картинок
+export const apiUser = "http://localhost:3000/db/user.json"; // API пользователя
 
 // backend API
-export const apiCategory = "http://localhost/api/category"; // API категорий
-export const apiPayments = "http://localhost/api/spending"; // API расходов
-export const apiIcons = "http://localhost/api/categoryImg"; // API картинок
+// export const apiCategory = "http://localhost/api/category"; // API категорий
+// export const apiPayments = "http://localhost/api/spending"; // API расходов
+// export const apiIcons = "http://localhost/api/categoryImg"; // API картинок
 export const apiToken = "http://localhost/sanctum/csrf-cookie"; // API токен
 export const apiLogin = "http://localhost/api/login"; // API вход пользователя
 export const apiLogout = "http://localhost/api/logout"; // API выход пользователя
 export const apiRegister = "http://localhost/api/register" // API регистрация
-export const apiUser = "http://localhost/api/user" // API информация о пользователе
+// export const apiUser = "http://localhost/api/user" // API информация о пользователе
 
 export const FETCH_STATUSES = {
   IDLE: 0, // запроса еще не было, дефолтное состояние

@@ -59,6 +59,33 @@ export const getDate = (date) => {
   return `${editDate.year}-${editDate.month}-${editDate.day}`;
 };
 
+export const getMonthName = (date) => {
+  const months = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
+
+  const inputDate = {
+    day: date.slice(8, 10),
+    month: months[date.slice(5, 7) - 1],
+    year: date.slice(0, 4)
+  }
+
+  return `${inputDate.day} ${inputDate.month} ${inputDate.year}`;
+};
+
+export const sortPaymentDate = (paymentList) => {
+  const uniquePaymentDate = new Set(Array.from(paymentList, ({created_at}) => created_at.slice(0, 10)));
+
+  const payments = paymentList.reduce(acc => {
+
+    for (let date of uniquePaymentDate) {
+      acc[getMonthName(date)] = [...paymentList.filter((payment) => payment.created_at.slice(0, 10) === date)];
+    }
+
+    return acc;
+  }, {});
+
+  return payments;
+};
+
 export const checkInputValues = (inputName, inputValue) => {
   switch (inputName) {
     case "payment": {

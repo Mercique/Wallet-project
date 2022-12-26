@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { Balance } from "../../components/Balance/Balance";
 import { useDispatch, useSelector } from "react-redux";
 import { sortPayments } from "../../store/payments/actions";
-import { apiPayments } from "../../utils/constants";
-import { PieChart } from "../../components/PieChart/PieChart";
+import { apiPayments, getMonthName } from "../../utils/constants";
+import { ChartBox } from "../../components/ChartBox/ChartBox";
 import { selectPayments } from "../../store/payments/selectors";
 import { selectShowModal } from "../../store/modal/selectors";
 import { SortSlider } from "../../components/SortSlider/SortSlider";
@@ -30,13 +30,19 @@ export const Operations = () => {
     }
   };
 
-  const getSortPayments = (list) => {
+  const sortedPayments = (list) => {
     let arr = [];
-    let uniqObj = {};
 
     for (let key of Object.keys(list)) {
       arr.push(...list[key]);
     }
+
+    return arr;
+  };
+
+  const getSortPayments = (list) => {
+    let arr = sortedPayments(list);
+    let uniqObj = {};
 
     arr.forEach((el) => {
       uniqObj[el.categoryName] = (uniqObj[el.categoryName] || 0) + el.sum;
@@ -45,18 +51,19 @@ export const Operations = () => {
     return uniqObj;
   };
 
-  const pieList = getSortPayments(paymentList);
+  const getSortDateSum = (list) => {
+    let arr = sortedPayments(list);
+    let uniqObj = {};
 
-  const chartData = {
-    labels: Object.keys(pieList).map((el) => el),
-    datasets: [
-      {
-        label: "Сумма расходов",
-        data: Object.values(pieList).map((el) => el),
-        borderColor: "transparent",
-      },
-    ],
+    arr.reverse().forEach((el) => {
+      uniqObj[getMonthName(el.created_at)] = (uniqObj[getMonthName(el.created_at)] || 0) + el.sum;
+    });
+
+    return uniqObj;
   };
+
+  const doughnutList = getSortPayments(paymentList);
+  const barList = getSortDateSum(paymentList);
 
   useEffect(() => {
     if (!closeModal) {
@@ -79,7 +86,8 @@ export const Operations = () => {
       </div>
       <div className={styles.operationsRight}>
         <Balance />
-        <PieChart chartData={chartData} />
+        <ChartBox chart="Doughnut" list={doughnutList} />
+        <ChartBox chart="Bar" list={barList} />
       </div>
     </div>
   );

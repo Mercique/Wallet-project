@@ -14,6 +14,7 @@ import { InputAuth } from "../../components/InputAuth/InputAuth";
 export function Profile() {
   const [sum, setSum] = useState("");
   const [errorSum, setErrorSum] = useState("");
+  const [errorSumApi, setErrorSumApi] = useState("");
 
   const [name, setName] = useState("");
   const [errorName, setErrorName] = useState("");
@@ -59,11 +60,14 @@ export function Profile() {
   const handleAddSum = (e) => {
     e.preventDefault();
 
-    const num = {
-      balance: sum,
-    };
-
-    sendRequest("http://localhost/api/balance", "POST", num).then((data) => dispatch(getUser()));
+    sendRequest("http://localhost/api/balance", "POST", {balance: sum}).then((data) => {
+      if (typeof data[0] === "string") {
+        setErrorSumApi(data[0]);
+      } else {
+        setErrorSumApi("");
+        dispatch(getUser());
+      }
+    });
 
     setSum("");
   };
@@ -109,6 +113,7 @@ export function Profile() {
             name="Отправить"
             disabled={!sum}
           />
+          { errorSumApi && <span className={styles.editError}>{errorSumApi}</span> }
         </form>
         <div className={styles.balancePosition}>
           <Balance />

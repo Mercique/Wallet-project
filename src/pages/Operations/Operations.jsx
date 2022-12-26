@@ -9,12 +9,11 @@ import { apiPayments, getMonthName } from "../../utils/constants";
 import { ChartBox } from "../../components/ChartBox/ChartBox";
 import { selectPayments } from "../../store/payments/selectors";
 import { selectShowModal } from "../../store/modal/selectors";
-import { SortSlider } from "../../components/SortSlider/SortSlider";
+import { Slider } from "../../components/Slider/Slider";
 import { selectCategory } from "../../store/category/selectors";
 
 export const Operations = () => {
   const [categoryEdit, setCategoryEdit] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const categoryList = useSelector(selectCategory);
@@ -72,22 +71,16 @@ export const Operations = () => {
     }
   }, [closeModal]);
 
-  useEffect(() => {
-    let timeout;
-
-    if (!loading) {
-      timeout = setTimeout(() => {
-        setLoading(true);
-      }, 300);
-    }
-
-    return () => clearInterval(timeout);
-  });
-
   return (
     <div className={styles.operations}>
       <div className={styles.operationsLeft}>
-        <SortSlider
+        <Slider
+          idx={5}
+          wrapper={styles.sliderWrap}
+          sliderIconWrapper={styles.sliderIconWrapper}
+          leftArrow={styles.leftArrow}
+          rightArrow={styles.rightArrow}
+          sliderLine={styles.sliderLine}
           categoryList={categoryList}
           categoryEdit={categoryEdit}
           handleActive={handleActive}
@@ -99,7 +92,7 @@ export const Operations = () => {
       </div>
       <div className={styles.operationsRight}>
         <Balance />
-        { loading &&
+        { Object.keys(paymentList)?.length &&
           <>
             <ChartBox chart="Doughnut" list={doughnutList} />
             <ChartBox chart="Bar" list={barList} />

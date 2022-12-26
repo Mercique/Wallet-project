@@ -74,10 +74,8 @@ export const deleteCategory = (url, method, body) => (dispatch) => {
   sendRequest(url, method, body)
     .then((result) => {
       if (typeof result === "object") {
-        console.log("object");
         dispatch(deleteCategorySuccess(result));
       } else {
-        console.log("string");
         dispatch(deleteCategoryFailure(result));
       }
     })

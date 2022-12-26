@@ -8,7 +8,7 @@ import { IconCategoryMenu } from "../../components/IconCategoryMenu/IconCategory
 import { addCategory, deleteCategory, deleteCategoryFailure, putCategory } from "../../store/category/actions";
 import { apiCategory } from "../../utils/constants";
 import { selectCategory, selectCategoryError, selectCategoryErrorDelete } from "../../store/category/selectors";
-import SliderCenter from "../../components/Slider/Slider";
+import { Slider } from "../../components/Slider/Slider";
 
 export const Category = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -88,28 +88,17 @@ export const Category = () => {
               ) : (
                 <div className={styles.categorySuccess}>
                   <h2 className={styles.sliderHeader}>Изменить категорию:</h2>
-                  { categoryList.length <= 7 ? (
-                    <div className={styles.categoryIconWrapper}>
-                      {categoryList?.map((category, idx) => (
-                        <div
-                          className={
-                            category.img_id !== categoryEdit?.img_id
-                              ? styles.categoryIcon
-                              : styles.categoryIconActive
-                          }
-                          onClick={() => handleActive(category)}
-                          key={idx}
-                        >
-                          <img
-                            src={`/images/icons/${category.img.img_name}`}
-                            alt="categoryImg"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <SliderCenter categoryList={categoryList} categoryEdit={categoryEdit} handleActive={handleActive} />
-                  ) }
+                  <Slider
+                    idx={7}
+                    wrapper={styles.sliderWrap}
+                    sliderIconWrapper={styles.categoryIconWrapper}
+                    leftArrow={styles.leftArrow}
+                    rightArrow={styles.rightArrow}
+                    sliderLine={styles.sliderLine}
+                    categoryList={categoryList}
+                    categoryEdit={categoryEdit}
+                    handleActive={handleActive}
+                  />
                   { !categoryErrorDelete ? (
                     <h3 className={styles.categoryName}>{!categoryEdit ? "Выберите категорию:" : `Название: ${categoryEdit.name}`}</h3>
                   ) : (

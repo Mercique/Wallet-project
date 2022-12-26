@@ -78,19 +78,19 @@ export const authLogin = (login) => async (dispatch) => {
     });
 
     if (!loginResponse.ok) {
-      throw new Error(`Could not authorize ${apiToken}, received ${loginResponse.status}`);
+      const message = loginResponse.json();
+      message.then((err) => dispatch(authLoginFailure(err.message)));
+      throw new Error(`Could not authorize ${apiLogin}, received ${loginResponse.status}`);
     }
 
     dispatch(authLoginSuccess());
   } catch (err) {
     console.warn(err);
     document.cookie = document.cookie + ";expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    dispatch(authLoginFailure("Ошибка авторизации!"));
   }
 };
 
 export const authEdit = (id, user) => async (dispatch) => {
-  console.log(user);
   try {
     const editResponse = await fetch(`${apiUser}/${id}`, {
       method: "PUT",
@@ -103,6 +103,8 @@ export const authEdit = (id, user) => async (dispatch) => {
     });
 
     if (!editResponse.ok) {
+      const message = editResponse.json();
+      message.then((err) => dispatch(authEditFailure(err.message)));
       throw new Error(`Could not edit ${apiUser}, received ${editResponse.status}`);
     }
 
@@ -110,7 +112,6 @@ export const authEdit = (id, user) => async (dispatch) => {
     dispatch(getUser());
   } catch (err) {
     console.warn(err);
-    dispatch(authEditFailure("ОШИБКА изменения! Аккаунт уже существует!"));
   }
 };
 
@@ -140,6 +141,8 @@ export const authRegister = (user) => async (dispatch) => {
     });
 
     if (!registerResponse.ok) {
+      const message = registerResponse.json();
+      message.then((err) => dispatch(authEditFailure(err.message)));
       throw new Error(`Could not authorize ${apiRegister}, received ${registerResponse.status}`);
     }
 
@@ -147,7 +150,6 @@ export const authRegister = (user) => async (dispatch) => {
   } catch (err) {
     console.warn(err);
     document.cookie = document.cookie + ";expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    dispatch(authEditFailure("Ошибка регистрации! Аккаунт уже существует!"));
   }
 };
 

@@ -141,7 +141,7 @@
   font-size: 20px;
 }
 
-.profEditInfo, .profLogout {
+.profEditUser, .profLogout {
   width: 299px;
   height: 60px;
   font-family: 'Roboto';
@@ -154,27 +154,17 @@
   background: #884545;
 }
 
-.profLogout {
-  position: relative;
-  text-transform: uppercase;
-  cursor: pointer;
-  border: 1px solid #884545;
-  transition: all .2s ease;
+.profEditUser {
+  border-color: #3D6197;
+  background: #3D6197;
 }
 
-.profLogout:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-  border-color: #978D8D;
-  background: #978D8D;
+.profEditUser:not(:disabled):hover {
+  border-color: #65a1fb;
+  background: #65a1fb;
 }
 
-.profLogout:not(:disabled):hover {
-  border-color: #9c2a2a;
-  background: #9c2a2a;
-}
-
-.profLogout:not(:disabled):active {
-  border-color: #642727;
-  background: #642727;
+.profEditUser:not(:disabled):active {
+  border-color: #2d3b50;
+  background: #2d3b50;
 }

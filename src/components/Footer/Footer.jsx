@@ -5,7 +5,6 @@ export const Footer = () => {
         {id: 1, telegramm: 'https://t.me/tyshk41'},
         {id: 2, telegramm: 'https://t.me/ackapga'},
         {id: 3, telegramm: 'https://t.me/peshok_s_meskom'},
-        {id: 5, telegramm: 'https://t.me/alexomarov'},
         {id: 6, telegramm: 'https://t.me/Natalya_S15'},
         {id: 7, telegramm: 'https://t.me/Mercique'},
         {id: 8, telegramm: 'https://t.me/alco_peach'},

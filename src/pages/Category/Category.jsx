@@ -5,11 +5,10 @@ import { Balance } from "../../components/Balance/Balance";
 import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
 import { Input } from "../../components/Input/Input";
 import { IconCategoryMenu } from "../../components/IconCategoryMenu/IconCategoryMenu";
-import { addCategory, deleteCategory, putCategory } from "../../store/category/actions";
+import { addCategory, deleteCategory, deleteCategoryFailure, putCategory } from "../../store/category/actions";
 import { apiCategory } from "../../utils/constants";
 import { selectCategory, selectCategoryError, selectCategoryErrorDelete } from "../../store/category/selectors";
 import SliderCenter from "../../components/Slider/Slider";
-import { TestSlider } from "../../components/TestSlider/TestSlider";
 
 export const Category = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -25,6 +24,7 @@ export const Category = () => {
   const handleActive = (el) => {
     if (el.id !== categoryEdit?.id) {
       setCategoryEdit({id: el.id, name: el.name, img_id: el.img_id});
+      dispatch(deleteCategoryFailure(null));
     } else {
       setCategoryEdit("");
     }
@@ -89,7 +89,24 @@ export const Category = () => {
                 <>
                   <h2 className={styles.sliderHeader}>Изменить категорию:</h2>
                   { categoryList.length <= 7 ? (
-                    <TestSlider className={styles.categoryTestSlider} categoryEdit={categoryEdit} handleActive={handleActive} />
+                    <div className={styles.categoryIconWrapper}>
+                      {categoryList?.map((category, idx) => (
+                        <div
+                          className={
+                            category.img_id !== categoryEdit?.img_id
+                              ? styles.categoryIcon
+                              : styles.categoryIconActive
+                          }
+                          onClick={() => handleActive(category)}
+                          key={idx}
+                        >
+                          <img
+                            src={`/images/icons/${category.img.img_name}`}
+                            alt="categoryImg"
+                          />
+                        </div>
+                      ))}
+                    </div>
                   ) : (
                     <SliderCenter categoryList={categoryList} categoryEdit={categoryEdit} handleActive={handleActive} />
                   ) }
@@ -112,13 +129,13 @@ export const Category = () => {
               <SubmitButton
                 className={styles.renameButton}
                 name="Добавить изменение"
-                onClick={() => handleEditCategory()}
+                onClick={handleEditCategory}
                 disabled={!categoryEdit | !editName}
               />
               <SubmitButton
                 className={styles.deleteButton}
                 name="Удалить категорию"
-                onClick={() => handleDeleteCategory()}
+                onClick={handleDeleteCategory}
                 disabled={!categoryEdit}
               />
             </form>

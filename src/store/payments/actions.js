@@ -70,6 +70,7 @@ export const sortPayments = (url) => (dispatch) => {
 export const addPayment = (url, method, body) => (dispatch) => {
   sendRequest(url, method, body)
     .then((result) => {
+      console.log(result);
       dispatch(postPaymentsSuccess(result));
       dispatch(getUser());
     })

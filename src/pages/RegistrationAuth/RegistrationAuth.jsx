@@ -1,5 +1,5 @@
 import styles from "./RegistrationAuth.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
 import { AuthLink } from "../../components/AuthLink/AuthLink";
 import { InputAuth } from "../../components/InputAuth/InputAuth";
@@ -9,27 +9,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUserCreateError } from "../../store/profile/selectors";
 
 export const RegistrationAuth = () => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState("ilya");
   const [errorName, setErrorName] = useState("");
-  const [surname, setSurname] = useState("");
+  const [surname, setSurname] = useState("chvanov");
   const [errorSurname, setErrorSurname] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("test@test.ru");
   const [errorEmail, setErrorEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("123");
   const [errorPassword, setErrorPassword] = useState("");
   const [checked, setChecked] = useState(false);
 
   const dispatch = useDispatch();
   const registerError = useSelector(selectUserCreateError);
-
-  useEffect(() => {
-    if (!registerError) {
-      setName("");
-      setSurname("");
-      setEmail("");
-      setPassword("");
-    }
-  }, [registerError]);
 
   const blurHandler = (e) => {
     switch (e.target.name) {
@@ -60,6 +51,12 @@ export const RegistrationAuth = () => {
 
     if (!errorName && !errorSurname && !errorEmail && !errorPassword) {
       dispatch(authRegister({ name, surname, email, password }));
+
+      setName("");
+      setSurname("");
+      setEmail("");
+      setPassword("");
+      setChecked(false);
     } else {
       console.log("ERROR");
     }
@@ -77,10 +74,10 @@ export const RegistrationAuth = () => {
             <InputAuth
               id="regName"
               labelName="Имя:"
+              error={errorName}
               name="name"
               type="text"
               value={name}
-              error={errorName}
               onBlur={blurHandler}
               onChange={(e) => setName(e.target.value)}
               placeholder="Введите имя"
@@ -88,10 +85,10 @@ export const RegistrationAuth = () => {
             <InputAuth
               id="regSurname"
               labelName="Фамилия:"
-              name="surname"
-              type="text"
-              value={surname}
               error={errorSurname}
+              type="text"
+              name="surname"
+              value={surname}
               onBlur={blurHandler}
               onChange={(e) => setSurname(e.target.value)}
               placeholder="Введите фамилию"
@@ -101,10 +98,10 @@ export const RegistrationAuth = () => {
             <InputAuth
               id="regEmail"
               labelName="E-mail:"
-              name="email"
-              type="email"
-              value={email}
               error={errorEmail}
+              type="email"
+              name="email"
+              value={email}
               onBlur={blurHandler}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Введите e-mail"
@@ -112,10 +109,10 @@ export const RegistrationAuth = () => {
             <InputAuth
               id="regPassword"
               labelName="Пароль:"
-              name="password"
-              type="password"
-              value={password}
               error={errorPassword}
+              type="password"
+              name="password"
+              value={password}
               onBlur={blurHandler}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Введите пароль"

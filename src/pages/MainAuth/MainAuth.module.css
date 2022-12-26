@@ -133,10 +133,12 @@
 }
 
 .errorAuth {
+  width: 365px;
   position: absolute;
   top: 14px;
   left: auto;
   right: auto;
+  text-align: center;
   font-weight: 400;
   font-size: 14px;
   line-height: 13px;

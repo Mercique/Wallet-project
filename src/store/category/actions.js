@@ -72,9 +72,13 @@ export const putCategory = (url, method, body) => (dispatch) => {
 
 export const deleteCategory = (url, method, body) => (dispatch) => {
   sendRequest(url, method, body)
-    .then((result) => dispatch(deleteCategorySuccess(result)))
-    .catch((err) => {
-      console.warn(err);
-      dispatch(deleteCategoryFailure("Ошибка удаления! Возможно категория уже используется!"));
-    });
+    .then((result) => {
+      if (typeof result === "object") {
+        console.log("object");
+        dispatch(deleteCategorySuccess(result));
+      } else {
+        console.log("string");
+        dispatch(deleteCategoryFailure(result));
+      }
+    })
 };

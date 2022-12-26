@@ -39,7 +39,7 @@ export const MainAuth = () => {
     if (!errorEmail && !errorPassword) {
       dispatch(authLogin({email,password}));
     } else {
-      console.log("ERROR");
+      console.log("В авторизации не прошли проверку на регулярки емаил и пароль!");
     }
   };
 
@@ -61,10 +61,10 @@ export const MainAuth = () => {
             <InputAuth
               id="regEmail"
               labelName="E-mail:"
-              name="email"
-              type="email"
-              value={email}
               error={errorEmail}
+              type="email"
+              name="email"
+              value={email}
               onBlur={blurHandler}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Введите e-mail"
@@ -72,10 +72,10 @@ export const MainAuth = () => {
             <InputAuth
               id="regPassword"
               labelName="Пароль:"
-              name="password"
-              type="password"
-              value={password}
               error={errorPassword}
+              type="password"
+              name="password"
+              value={password}
               onBlur={blurHandler}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Введите пароль"

@@ -19,6 +19,7 @@
 
 .sortSliderArrow:disabled {
   opacity: .5;
+  cursor: default;
 }
 
 .sortSliderArrow:not(:disabled):hover svg path {

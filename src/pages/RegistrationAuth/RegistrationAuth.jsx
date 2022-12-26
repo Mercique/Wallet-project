@@ -9,13 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUserCreateError } from "../../store/profile/selectors";
 
 export const RegistrationAuth = () => {
-  const [name, setName] = useState("ilya");
+  const [name, setName] = useState("");
   const [errorName, setErrorName] = useState("");
-  const [surname, setSurname] = useState("chvanov");
+  const [surname, setSurname] = useState("");
   const [errorSurname, setErrorSurname] = useState("");
-  const [email, setEmail] = useState("test@test.ru");
+  const [email, setEmail] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
-  const [password, setPassword] = useState("123");
+  const [password, setPassword] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
   const [checked, setChecked] = useState(false);
 

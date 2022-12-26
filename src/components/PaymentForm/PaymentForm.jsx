@@ -7,13 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { addPayment } from "../../store/payments/actions";
 import { apiPayments, checkInputValues, getDate } from "../../utils/constants";
 import { selectPaymentsError, selectPaymentsPostError } from "../../store/payments/selectors";
+import { CalendarBox } from "../CalendarBox/CalendarBox";
 
 export const PaymentForm = () => {
   const [name, setName] = useState("");
   const [errorName, setErrorName] = useState(false);
   const [value, setValue] = useState("");
   const [errorValue, setErrorValue] = useState(false);
-  const [date, setDate] = useState(getDate(new Date()));
+  const [date, setDate] = useState(new Date());
   const [categoryId, setCategoryId] = useState("");
 
   const dispatch = useDispatch();
@@ -27,14 +28,14 @@ export const PaymentForm = () => {
       sum: +value,
       name,
       category_id: +categoryId,
-      created_at: `${date}T${new Date().toLocaleTimeString()}`
+      created_at: `${getDate(date)}T${new Date().toLocaleTimeString()}`
     };
     
     dispatch(addPayment(apiPayments, "POST", newPayment));
 
     setName("");
     setValue("");
-    setDate(getDate(new Date()));
+    setDate(new Date());
     setCategoryId("");
   }
 
@@ -80,12 +81,7 @@ export const PaymentForm = () => {
         </div>
         <div className={styles.inputBox}>
           <CategoryMenu categoryId={categoryId} setCategoryId={setCategoryId} />
-          <Input
-            type="date"
-            className={styles.expensesInput}
-            value={date}
-            placeholder="Дата"
-            onChange={(event) => setDate(event.target.value)} />
+          <CalendarBox className={styles.paymentFormCalendar} date={date} setDate={setDate} />
         </div>
         <SubmitButton
           className={styles.addExpensesButton}

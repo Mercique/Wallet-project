@@ -22,17 +22,17 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.modalInputForm summary {
-  border: 1px solid #605A5A;
+.modalInputForm summary, .modalFormCalendar {
+  border: 1px solid #605a5a;
 }
 
 .modalInput {
-    border-color: #605A5A;
-    color: #604B4B;
+  border-color: #605a5a;
+  color: #604b4b;
 }
 
 .modalInput::placeholder {
-    color: #A09696;
+  color: #a09696;
 }
 
 .editExpensesButton {

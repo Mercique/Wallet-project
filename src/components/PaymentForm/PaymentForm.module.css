@@ -47,10 +47,8 @@
   color: rgba(255, 255, 255, 0.27);
 }
 
-.expensesInput[type="date"] {
-  border-color: #d9d9d9;
-  color: #604b4b;
-  background: #d9d9d9;
+.paymentFormCalendar {
+  border: 1px solid #d9d9d9;
 }
 
 .addExpensesButton {

@@ -1,3 +1,4 @@
+import { Logo } from "../Logo/Logo";
 import styles from "./Footer.module.css";
 
 export const Footer = () => {
@@ -17,7 +18,7 @@ export const Footer = () => {
     <div className={styles.footer}>
       <div className={styles.contentWrapper}>
           <div className={styles.logoFooter}>
-              <a href="/"><img src="logo.svg" width={80} height={80} alt="logo"/></a>
+              <Logo width={80} height={80} />
               <div className={styles.copyright}>© 2022</div>
           </div>
           <div className={styles.participantsWrapper}>

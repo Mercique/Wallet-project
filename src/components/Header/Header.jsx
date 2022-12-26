@@ -7,7 +7,7 @@ import { Logo } from "../Logo/Logo";
 export function Header({ cookie, navList }) {
   return (
     <NavbarBS className={styles.header}>
-      <Logo />
+      <Logo width={50} height={50} />
       <Nav className={styles.wrp}>
         { navList.map((navItem, idx) => (
           <Nav.Link

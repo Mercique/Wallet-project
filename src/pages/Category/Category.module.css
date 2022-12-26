@@ -63,9 +63,16 @@
   align-items: center;
 }
 
+.categorySuccess {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .sliderHeader {
   margin: 0;
-  padding: 43px 0 19px 55px;
+  padding: 43px 0 19px;
   font-family: "Hind";
   font-style: normal;
   font-weight: 300;

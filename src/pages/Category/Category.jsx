@@ -86,7 +86,7 @@ export const Category = () => {
               { categoryError ? (
                 <div className={styles.categoryError}>{categoryError}</div>
               ) : (
-                <>
+                <div className={styles.categorySuccess}>
                   <h2 className={styles.sliderHeader}>Изменить категорию:</h2>
                   { categoryList.length <= 7 ? (
                     <div className={styles.categoryIconWrapper}>
@@ -115,7 +115,7 @@ export const Category = () => {
                   ) : (
                     <h3 className={styles.categoryErrorDelete}>{categoryErrorDelete}</h3>
                   ) }
-                </>
+                </div>
               ) }
             </div>
             <form className={styles.changeArea} onSubmit={(e) => e.preventDefault()}>

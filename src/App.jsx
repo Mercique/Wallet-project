@@ -32,14 +32,18 @@ function App() {
     dispatch(getCategory());
     dispatch(getPayments());
     dispatch(getIcons());
+    // let timeout;
+
     // if (loginSuccess || document.cookie) {
     //   dispatch(getUser());
-    //   setTimeout(() => {
+    //   timeout = setTimeout(() => {
     //     dispatch(getCategory());
     //     dispatch(getPayments());
     //     dispatch(getIcons());
-    //   }, 250)
+    //   }, 500)
     // }
+
+    // return () => clearTimeout(timeout);
   }, [dispatch, loginSuccess]);
 
   const closeModals = () => {

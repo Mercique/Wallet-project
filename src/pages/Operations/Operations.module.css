@@ -10,5 +10,4 @@
 .operationsRight {
   display: flex;
   flex-direction: column;
-  gap: 119px;
 }

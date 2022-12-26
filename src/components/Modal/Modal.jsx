@@ -9,13 +9,13 @@ import { editPayment } from "../../store/payments/actions";
 import { selectCategoryError } from "../../store/category/selectors";
 import { selectPaymentInfo } from "../../store/modal/selectors";
 import { hideModal } from "../../store/modal/actions";
+import { CalendarBox } from "../CalendarBox/CalendarBox";
 
 export const Modal = () => {
   const paymentInfo = useSelector(selectPaymentInfo);
-
   const [name, setName] = useState(paymentInfo.name);
   const [value, setValue] = useState(paymentInfo.sum);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(paymentInfo.created_at);
   const [categoryId, setCategoryId] = useState(paymentInfo.category_id);
 
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export const Modal = () => {
       name,
       sum: +value,
       category_id: +categoryId,
-      created_at: date ? `${date}T${new Date().toLocaleTimeString()}` : paymentInfo.created_at,
+      created_at: date ? `${getDate(date)}T${new Date().toLocaleTimeString()}` : paymentInfo.created_at,
     };
     
     dispatch(editPayment(`${apiPayments}/${paymentInfo.id}`, "PUT", putPayment));
@@ -58,14 +58,8 @@ export const Modal = () => {
           onChange={(event) => setValue(event.target.value)}
         />
         <CategoryMenu categoryId={categoryId} setCategoryId={setCategoryId} />
-        <Input
-          type="date"
-          className={styles.modalInput}
-          value={date || getDate(paymentInfo.created_at)}
-          placeholder="Дата"
-          onChange={(event) => setDate(event.target.value)}
-        />
-        <SubmitButton className={styles.editExpensesButton} name="Добавить изменение" disabled={!name | !value | categoryError !== null} />
+        <CalendarBox className={styles.modalFormCalendar} date={new Date(date)} setDate={setDate} />
+        <SubmitButton className={styles.editExpensesButton} name="Изменить" disabled={!name | !value | categoryError !== null} />
       </form>
     </div>
   );

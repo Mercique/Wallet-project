@@ -14,6 +14,7 @@ import { selectCategory } from "../../store/category/selectors";
 
 export const Operations = () => {
   const [categoryEdit, setCategoryEdit] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const categoryList = useSelector(selectCategory);
@@ -71,6 +72,18 @@ export const Operations = () => {
     }
   }, [closeModal]);
 
+  useEffect(() => {
+    let timeout;
+
+    if (!loading) {
+      timeout = setTimeout(() => {
+        setLoading(true);
+      }, 300);
+    }
+
+    return () => clearInterval(timeout);
+  });
+
   return (
     <div className={styles.operations}>
       <div className={styles.operationsLeft}>
@@ -86,8 +99,12 @@ export const Operations = () => {
       </div>
       <div className={styles.operationsRight}>
         <Balance />
-        <ChartBox chart="Doughnut" list={doughnutList} />
-        <ChartBox chart="Bar" list={barList} />
+        { loading &&
+          <>
+            <ChartBox chart="Doughnut" list={doughnutList} />
+            <ChartBox chart="Bar" list={barList} />
+          </>
+        }
       </div>
     </div>
   );

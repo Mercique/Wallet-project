@@ -36,7 +36,7 @@ function App() {
         dispatch(getCategory());
         dispatch(getPayments());
         dispatch(getIcons());
-      }, 500)
+      }, 100);
     }
 
     return () => clearTimeout(timeout);

@@ -1,4 +1,5 @@
 .operations {
+  height: 780px;
   display: flex;
   justify-content: space-between;
 }

@@ -7,16 +7,6 @@
   display: flex;
 }
 
-.operationsTestSlider {
-  width: 130px;
-  height: 588px;
-  margin: 66px 12px 63px 0;
-}
-
-.operationsTestSlider > div {
-  flex-direction: column;
-}
-
 .operationsRight {
   display: flex;
   flex-direction: column;

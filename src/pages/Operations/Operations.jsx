@@ -1,7 +1,6 @@
 import styles from "./Operations.module.css";
 import { PaymentForm } from "../../components/PaymentForm/PaymentForm";
 import { Payment } from "../../components/Payment/Payment";
-import { TestSlider } from "../../components/TestSlider/TestSlider";
 import { useEffect, useState } from "react";
 import { Balance } from "../../components/Balance/Balance";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,11 +9,14 @@ import { apiPayments } from "../../utils/constants";
 import { PieChart } from "../../components/PieChart/PieChart";
 import { selectPayments } from "../../store/payments/selectors";
 import { selectShowModal } from "../../store/modal/selectors";
+import { SortSlider } from "../../components/SortSlider/SortSlider";
+import { selectCategory } from "../../store/category/selectors";
 
 export const Operations = () => {
   const [categoryEdit, setCategoryEdit] = useState("");
 
   const dispatch = useDispatch();
+  const categoryList = useSelector(selectCategory);
   const paymentList = useSelector(selectPayments);
   const closeModal = useSelector(selectShowModal);
 
@@ -65,8 +67,8 @@ export const Operations = () => {
   return (
     <div className={styles.operations}>
       <div className={styles.operationsLeft}>
-        <TestSlider
-          className={styles.operationsTestSlider}
+        <SortSlider
+          categoryList={categoryList}
           categoryEdit={categoryEdit}
           handleActive={handleActive}
         />

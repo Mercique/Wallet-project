@@ -167,13 +167,16 @@ export function Profile() {
           </div>
           <div className={styles.profEditButtons}>
             <SubmitButton
-              className={styles.profEditInfo}
+              className={styles.profEditUser}
               name="Изменить"
               disabled={!name | !surname | !email | !password}
             />
-            <button type="button" className={styles.profLogout} onClick={onLogout}>
-              Выход
-            </button>
+            <SubmitButton
+              className={styles.profLogout}
+              name="Выход"
+              type="button"
+              onClick={onLogout}
+            />
           </div>
           { editError && <span className={styles.editError}>{editError}</span> }
         </form>

@@ -10,6 +10,7 @@ import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
 import { checkInputValues } from "../../utils/constants";
 import { Input } from "../../components/Input/Input";
 import { InputAuth } from "../../components/InputAuth/InputAuth";
+import ReactLoading from "react-loading";
 
 export function Profile() {
   const [sum, setSum] = useState("");
@@ -96,7 +97,13 @@ export function Profile() {
     <div className={styles.profiler}>
       <div className={styles.profBox}>
         <form className={styles.profForm} onSubmit={handleAddSum}>
-          <h4 className={styles.profHead}>{userAuth?.surname} {userAuth?.name}</h4>
+          { !Object.keys(userAuth)?.length ? (
+            <div className={styles.profHead}>
+              <ReactLoading type="bubbles" color="#fff" height={41} width={41} />
+            </div>
+          ) : (
+            <h4 className={styles.profHead}>{userAuth?.surname} {userAuth?.name}</h4>
+          ) }
           <p className={styles.profLabel}>Добавить сумму:</p>
           <Input
             type="number"

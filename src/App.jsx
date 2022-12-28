@@ -14,7 +14,7 @@ import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { MainAuth } from "./pages/MainAuth/MainAuth";
 import { navListPrivate, navListPublic } from "./utils/constants";
-import { selectLoginSuccess } from "./store/profile/selectors";
+import { selectLoginSuccess, selectUserLogout } from "./store/profile/selectors";
 import { getUser } from "./store/profile/actions";
 import { getCategory } from "./store/category/actions";
 import { getPayments } from "./store/payments/actions";
@@ -25,22 +25,23 @@ function App() {
 
   const dispatch = useDispatch();
   const showEditId = useSelector(selectShowEditId);
-  const loginSuccess = useSelector(selectLoginSuccess);
+  const login = useSelector(selectLoginSuccess);
+  const logout = useSelector(selectUserLogout);
 
   useEffect(() => {
     let timeout;
 
-    if (loginSuccess || document.cookie) {
+    if (login || document.cookie) {
       dispatch(getUser());
       timeout = setTimeout(() => {
         dispatch(getCategory());
         dispatch(getPayments());
         dispatch(getIcons());
-      }, 100);
+      }, 250);
     }
 
     return () => clearTimeout(timeout);
-  }, [dispatch, loginSuccess]);
+  }, [dispatch, login, logout]);
 
   const closeModals = () => {
     if (showEditId) {

@@ -8,14 +8,15 @@ import {
   AUTH_REGISTER_SUCCESS,
   AUTH_USER_REQUEST,
   AUTH_USER_SUCCESS,
+  UNAUTH_USER_SUCCESS,
 } from "./actions";
 
 const initialState = {
   user: {},
-  authed: false,
   createError: null,
   loginError: null,
   loginStatus: FETCH_STATUSES.IDLE,
+  logoutStatus: FETCH_STATUSES.IDLE,
   userStatus: FETCH_STATUSES.IDLE,
 };
 
@@ -72,9 +73,14 @@ export const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload[0],
-        authed: true,
         loginError: null,
         userStatus: FETCH_STATUSES.SUCCESS,
+      };
+    }
+    case UNAUTH_USER_SUCCESS: {
+      return {
+        ...state,
+        logoutStatus: FETCH_STATUSES.SUCCESS,
       };
     }
     default: {

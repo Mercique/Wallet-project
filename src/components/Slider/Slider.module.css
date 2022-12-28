@@ -26,14 +26,13 @@
 .sliderCategoryLine,
 .sliderOperationsLine {
   position: absolute;
-  left: 0;
   display: flex;
+  justify-content: center;
   gap: 22px;
   transition: all 0.3s ease;
 }
 
 .sliderOperationsLine {
-  top: 0;
   flex-direction: column;
 }
 

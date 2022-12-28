@@ -7,17 +7,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { sortPayments } from "../../store/payments/actions";
 import { apiPayments } from "../../utils/constants";
 import { ChartBox } from "../../components/ChartBox/ChartBox";
-import { selectPayments } from "../../store/payments/selectors";
+import { selectPayments, selectPaymentsError, selectPaymentsLoading } from "../../store/payments/selectors";
 import { selectShowModal } from "../../store/modal/selectors";
 import { Slider } from "../../components/Slider/Slider";
-import { selectCategory } from "../../store/category/selectors";
+import { selectCategory, selectCategoryError, selectCategoryLoading } from "../../store/category/selectors";
+import ReactLoading from "react-loading";
 
 export const Operations = () => {
   const [categoryEdit, setCategoryEdit] = useState("");
 
   const dispatch = useDispatch();
   const categoryList = useSelector(selectCategory);
+  const categoryLoading = useSelector(selectCategoryLoading);
+  const categoryError = useSelector(selectCategoryError);
   const paymentList = useSelector(selectPayments);
+  const paymentListLoading = useSelector(selectPaymentsLoading);
+  const paymentListError = useSelector(selectPaymentsError);
   const closeModal = useSelector(selectShowModal);
 
   const handleActive = (el) => {
@@ -74,25 +79,33 @@ export const Operations = () => {
   return (
     <div className={styles.operations}>
       <div className={styles.operationsLeft}>
-        <Slider
-          categoryList={categoryList}
-          categoryEdit={categoryEdit}
-          handleActive={handleActive}
-        />
+        { categoryLoading || categoryError ? (
+          <div style={{ width: "142px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <ReactLoading type="spin" color="#fff" height={60} width={60} />
+          </div>
+        ) : (
+          <Slider
+            categoryList={categoryList}
+            categoryEdit={categoryEdit}
+            handleActive={handleActive}
+          />
+        ) }
         <div className={styles.operationsMiddle}>
           <PaymentForm />
           <Payment />
         </div>
       </div>
-      <div className={styles.operationsRight}>
-        <Balance />
-        { Object.keys(paymentList)?.length &&
-          <>
-            <ChartBox chart="Doughnut" list={doughnutList} />
-            <ChartBox chart="Bar" list={barList} />
-          </>
-        }
-      </div>
+      { paymentListLoading || paymentListError ? (
+        <div style={{ width: "444px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <ReactLoading type="spin" color="#fff" height={100} width={100} />
+        </div>
+      ) : (
+        <div className={styles.operationsRight}>
+          <Balance />
+          <ChartBox chart="Doughnut" list={doughnutList} />
+          <ChartBox chart="Bar" list={barList} />
+        </div>
+      ) }
     </div>
   );
 };

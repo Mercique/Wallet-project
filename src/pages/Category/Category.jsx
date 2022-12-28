@@ -7,8 +7,9 @@ import { Input } from "../../components/Input/Input";
 import { IconCategoryMenu } from "../../components/IconCategoryMenu/IconCategoryMenu";
 import { addCategory, deleteCategory, deleteCategoryFailure, putCategory } from "../../store/category/actions";
 import { apiCategory } from "../../utils/constants";
-import { selectCategory, selectCategoryError, selectCategoryErrorDelete } from "../../store/category/selectors";
+import { selectCategory, selectCategoryError, selectCategoryErrorDelete, selectCategoryLoading } from "../../store/category/selectors";
 import { Slider } from "../../components/Slider/Slider";
+import ReactLoading from "react-loading";
 
 export const Category = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -18,6 +19,7 @@ export const Category = () => {
 
   const dispatch = useDispatch();
   const categoryList = useSelector(selectCategory);
+  const categoryLoading = useSelector(selectCategoryLoading);
   const categoryError = useSelector(selectCategoryError);
   const categoryErrorDelete = useSelector(selectCategoryErrorDelete);
 
@@ -78,52 +80,50 @@ export const Category = () => {
             disabled={!categoryName | !categoryImgId}
           />
         </form>
-        { !categoryList.length ? (
-          <div className={styles.editCategory}></div>
-        ) : (
-          <div className={styles.editCategory}>
-            <div className={styles.slider}>
-              { categoryError ? (
-                <div className={styles.categoryError}>{categoryError}</div>
-              ) : (
-                <div className={styles.categorySuccess}>
-                  <h2 className={styles.sliderHeader}>Изменить категорию:</h2>
-                  <Slider
-                    categoryList={categoryList}
-                    categoryEdit={categoryEdit}
-                    handleActive={handleActive}
-                  />
-                  { !categoryErrorDelete ? (
-                    <h3 className={styles.categoryName}>{!categoryEdit ? "Выберите категорию:" : `Название: ${categoryEdit.name}`}</h3>
-                  ) : (
-                    <h3 className={styles.categoryErrorDelete}>{categoryErrorDelete}</h3>
-                  ) }
-                </div>
-              ) }
-            </div>
-            <form className={styles.changeArea} onSubmit={(e) => e.preventDefault()}>
-              <Input
-                type="text"
-                className={styles.changeCategoryName}
-                value={editName}
-                placeholder="Изменить название"
-                onChange={(e) => setEditName(e.target.value)}
-              />
-              <SubmitButton
-                className={styles.renameButton}
-                name="Добавить изменение"
-                onClick={handleEditCategory}
-                disabled={!categoryEdit | !editName}
-              />
-              <SubmitButton
-                className={styles.deleteButton}
-                name="Удалить категорию"
-                onClick={handleDeleteCategory}
-                disabled={!categoryEdit}
-              />
-            </form>
+        <div className={styles.editCategory}>
+          <div className={styles.slider}>
+            { categoryLoading || categoryError ? (
+              <div className={styles.categoryLoad}>
+                <ReactLoading type="spin" color="#fff" height={100} width={100} />
+              </div>
+            ) : (
+              <div className={styles.categorySuccess}>
+                <h2 className={styles.sliderHeader}>Изменить категорию:</h2>
+                <Slider
+                  categoryList={categoryList}
+                  categoryEdit={categoryEdit}
+                  handleActive={handleActive}
+                />
+                { !categoryErrorDelete ? (
+                  <h3 className={styles.categoryName}>{!categoryEdit ? "Выберите категорию:" : `Название: ${categoryEdit.name}`}</h3>
+                ) : (
+                  <h3 className={styles.categoryErrorDelete}>{categoryErrorDelete}</h3>
+                ) }
+              </div>
+            ) }
           </div>
-        ) }
+          <form className={styles.changeArea} onSubmit={(e) => e.preventDefault()}>
+            <Input
+              type="text"
+              className={styles.changeCategoryName}
+              value={editName}
+              placeholder="Изменить название"
+              onChange={(e) => setEditName(e.target.value)}
+            />
+            <SubmitButton
+              className={styles.renameButton}
+              name="Добавить изменение"
+              onClick={handleEditCategory}
+              disabled={!categoryEdit | !editName}
+            />
+            <SubmitButton
+              className={styles.deleteButton}
+              name="Удалить категорию"
+              onClick={handleDeleteCategory}
+              disabled={!categoryEdit}
+            />
+          </form>
+        </div>
       </div>
       <Balance />
     </div>

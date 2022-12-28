@@ -5,5 +5,5 @@ export const selectLoginSuccess = (state) =>state.profile.loginStatus === FETCH_
 export const selectLoginError = (state) => state.profile.loginError;
 export const selectUserLoading = (state) =>state.profile.userStatus === FETCH_STATUSES.REQUEST;
 export const selectUser = (state) => state.profile.user;
-export const selectUserAuthed = (state) => state.profile.authed;
 export const selectUserCreateError = (state) => state.profile.createError;
+export const selectUserLogout = (state) => state.profile.logoutStatus === FETCH_STATUSES.SUCCESS;

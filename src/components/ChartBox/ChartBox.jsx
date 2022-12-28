@@ -27,11 +27,11 @@ export const ChartBox = ({ chart, list }) => {
 
   return (
     <div className={styles.chartBox}>
-      {chart === "Doughnut" ? (
+      { chart === "Doughnut" ? (
         <Doughnut data={chartData} options={options} />
       ) : (
-        <Bar data={chartData} options={{ backgroundColor: "#f76283" }} />
-      )}
+        <Bar style={{display: Object.keys(list).length === 0 && "none"}} data={chartData} options={{ backgroundColor: "#f76283" }} />
+      ) }
     </div>
   );
 };

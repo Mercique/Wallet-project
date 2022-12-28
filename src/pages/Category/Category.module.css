@@ -70,6 +70,13 @@
   justify-content: center;
 }
 
+.categoryLoad {
+  height: 325px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .sliderHeader {
   margin: 0;
   padding: 43px 0 19px;
@@ -80,6 +87,13 @@
   line-height: 51px;
   text-transform: uppercase;
   color: #ffffff;
+}
+
+.categoryEmpty {
+  height: 517px;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
 
 .categoryError {

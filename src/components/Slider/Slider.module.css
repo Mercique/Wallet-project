@@ -1,29 +1,44 @@
-.sliderArrow {
-  border: none;
-  cursor: pointer;
-  background: transparent;
+.sliderCategoryWrapper,
+.sliderOperationsWrapper {
+  display: flex;
+  gap: 11px;
 }
 
-.sliderArrow:not(:disabled):active {
-  transform: translateY(2px);
+.sliderOperationsWrapper {
+  flex-direction: column;
+  margin-top: 73px;
+  margin-right: 42px;
 }
 
-.sliderArrow:disabled {
-  opacity: .5;
-  cursor: default;
-}
-
-.sliderIconWrapper {
+.sliderCategoryHidden,
+.sliderOperationsHidden {
   position: relative;
+  width: 832px;
+  height: 100px;
   overflow: hidden;
 }
 
-.sliderIconLine {
-  position: absolute;
-  right: auto;
+.sliderOperationsHidden {
+  width: 100px;
+  height: 588px;
 }
 
-.categoryIcon, .categoryIconActive {
+.sliderCategoryLine,
+.sliderOperationsLine {
+  position: absolute;
+  left: 0;
+  display: flex;
+  gap: 22px;
+  transition: all 0.3s ease;
+}
+
+.sliderOperationsLine {
+  top: 0;
+  flex-direction: column;
+}
+
+.categoryIcon,
+.categoryIconActive {
   width: 100px;
   height: 100px;
   display: flex;
@@ -32,16 +47,39 @@
   cursor: pointer;
   border-radius: 30px;
   background: #d9d9d9;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .categoryIcon:hover {
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-  background: #BDB7B7;
+  background: #bdb7b7;
 }
 
 .categoryIconActive {
   border-radius: 30px;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-  background: #B99494;
+  background: #b99494;
+}
+
+.sliderArrow {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.sliderArrow svg path {
+  transition: fill 0.3s ease;
+}
+
+.sliderArrow:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.sliderArrow:not(:disabled):hover svg path {
+  fill: #b99494;
+}
+
+.sliderArrow:not(:disabled):active {
+  transform: translateY(2px);
 }

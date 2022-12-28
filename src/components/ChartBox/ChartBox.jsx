@@ -7,41 +7,31 @@ Chart.defaults.color = "#fff";
 
 export const ChartBox = ({ chart, list }) => {
   const chartData = {
-    labels: Object.keys(list).map((el) => el),
+    labels: Object.keys(list).map((key) => key),
     datasets: [
       {
-        label: "Сумма расходов",
-        data: Object.values(list).map((el) => el),
+        label: chart === "Doughnut" ? "Всего расходов" : "Сумма расходов в день",
+        data: Object.values(list).map((sum) => sum),
         borderColor: "transparent",
       },
     ],
   };
 
+  const options = {
+    plugins: {
+      colors: {
+        forceOverride: true,
+      },
+    },
+  };
+
   return (
     <div className={styles.chartBox}>
-      { chart === "Doughnut" ? (
-        <Doughnut
-          data={chartData}
-          options={{
-            plugins: {
-              colors: {
-                forceOverride: true,
-              },
-            },
-          }}
-        />
+      {chart === "Doughnut" ? (
+        <Doughnut data={chartData} options={options} />
       ) : (
-        <Bar
-          data={chartData}
-          options={{
-            plugins: {
-              colors: {
-                forceOverride: true,
-              },
-            },
-          }}
-        />
-      ) }
+        <Bar data={chartData} options={{ backgroundColor: "#f76283" }} />
+      )}
     </div>
   );
 };

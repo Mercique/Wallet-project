@@ -89,12 +89,6 @@ export const Category = () => {
                 <div className={styles.categorySuccess}>
                   <h2 className={styles.sliderHeader}>Изменить категорию:</h2>
                   <Slider
-                    idx={7}
-                    wrapper={styles.sliderWrap}
-                    sliderIconWrapper={styles.categoryIconWrapper}
-                    leftArrow={styles.leftArrow}
-                    rightArrow={styles.rightArrow}
-                    sliderLine={styles.sliderLine}
                     categoryList={categoryList}
                     categoryEdit={categoryEdit}
                     handleActive={handleActive}

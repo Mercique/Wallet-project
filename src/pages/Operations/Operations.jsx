@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Balance } from "../../components/Balance/Balance";
 import { useDispatch, useSelector } from "react-redux";
 import { sortPayments } from "../../store/payments/actions";
-import { apiPayments, getMonthName } from "../../utils/constants";
+import { apiPayments } from "../../utils/constants";
 import { ChartBox } from "../../components/ChartBox/ChartBox";
 import { selectPayments } from "../../store/payments/selectors";
 import { selectShowModal } from "../../store/modal/selectors";
@@ -30,10 +30,10 @@ export const Operations = () => {
     }
   };
 
-  const sortedPayments = (list) => {
+  const sortedArray = (list) => {
     let arr = [];
 
-    for (let key of Object.keys(list)) {
+    for (let key in list) {
       arr.push(...list[key]);
     }
 
@@ -41,29 +41,29 @@ export const Operations = () => {
   };
 
   const getSortPayments = (list) => {
-    let arr = sortedPayments(list);
-    let uniqObj = {};
+    let arr = sortedArray(list);
 
-    arr.forEach((el) => {
-      uniqObj[el.categoryName] = (uniqObj[el.categoryName] || 0) + el.sum;
-    });
+    let sortPayments = arr.reduce((acc, cur) => {
+      acc[`${cur.categoryName}`] = (acc[cur.categoryName] || 0) + cur.sum;
+      return acc;
+    }, {});
 
-    return uniqObj;
+    return sortPayments;
   };
 
-  const getSortDateSum = (list) => {
-    let arr = sortedPayments(list);
-    let uniqObj = {};
+  const getSortDate = (list) => {
+    let arr = sortedArray(list);
 
-    arr.reverse().forEach((el) => {
-      uniqObj[getMonthName(el.created_at)] = (uniqObj[getMonthName(el.created_at)] || 0) + el.sum;
-    });
+    let sortDate = arr.reverse().reduce((acc, cur) => {
+      acc[`${cur.created_at.slice(0, 10)}`] = (acc[cur.created_at.slice(0, 10)] || 0) + cur.sum;
+      return acc;
+    }, {});
 
-    return uniqObj;
+    return sortDate;
   };
 
   const doughnutList = getSortPayments(paymentList);
-  const barList = getSortDateSum(paymentList);
+  const barList = getSortDate(paymentList);
 
   useEffect(() => {
     if (!closeModal) {
@@ -75,12 +75,6 @@ export const Operations = () => {
     <div className={styles.operations}>
       <div className={styles.operationsLeft}>
         <Slider
-          idx={5}
-          wrapper={styles.sliderWrap}
-          sliderIconWrapper={styles.sliderIconWrapper}
-          leftArrow={styles.leftArrow}
-          rightArrow={styles.rightArrow}
-          sliderLine={styles.sliderLine}
           categoryList={categoryList}
           categoryEdit={categoryEdit}
           handleActive={handleActive}

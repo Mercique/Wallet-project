@@ -63,7 +63,6 @@ function App() {
           <Header cookie={document.cookie} navList={document.cookie ? navListPrivate : navLocation() } />
           <Routes>
             <Route path="/" element={<PublicRoute />}>
-              <Route path="/loading" element={<p>Loading</p>} />
               <Route path="" element={<MainAuth />} />
               <Route path="/registration" element={<RegistrationAuth />} />
             </Route>

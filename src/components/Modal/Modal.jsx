@@ -5,11 +5,12 @@ import { Input } from "../Input/Input";
 import { SubmitButton } from "../SubmitButton/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
 import { apiPayments, getDate } from "../../utils/constants";
-import { editPayment } from "../../store/payments/actions";
+import { editPayment, putPaymentsFailure } from "../../store/payments/actions";
 import { selectCategoryError } from "../../store/category/selectors";
 import { selectPaymentInfo } from "../../store/modal/selectors";
 import { hideModal } from "../../store/modal/actions";
 import { CalendarBox } from "../CalendarBox/CalendarBox";
+import { selectPaymentsPutError } from "../../store/payments/selectors";
 
 export const Modal = () => {
   const paymentInfo = useSelector(selectPaymentInfo);
@@ -20,6 +21,7 @@ export const Modal = () => {
 
   const dispatch = useDispatch();
   const categoryError = useSelector(selectCategoryError);
+  const paymentPutError = useSelector(selectPaymentsPutError);
 
   const handleEditPayment = (e) => {
     e.preventDefault();
@@ -31,11 +33,12 @@ export const Modal = () => {
       created_at: date ? `${getDate(date)}T${new Date().toLocaleTimeString()}` : paymentInfo.created_at,
     };
     
+    dispatch(putPaymentsFailure(""));
     dispatch(editPayment(`${apiPayments}/${paymentInfo.id}`, "PUT", putPayment));
-    dispatch(hideModal());
   };
 
   const closeModal = () => {
+    dispatch(putPaymentsFailure(""));
     dispatch(hideModal());
   };
 
@@ -52,6 +55,7 @@ export const Modal = () => {
         <Input
           type="number"
           className={styles.modalInput}
+          style={{borderColor: paymentPutError && "#f00" }}
           value={value}
           placeholder={`Сумма: "${paymentInfo.sum}"`}
           step="0.01"
@@ -59,7 +63,10 @@ export const Modal = () => {
         />
         <CategoryMenu categoryId={categoryId} setCategoryId={setCategoryId} />
         <CalendarBox className={styles.modalFormCalendar} date={new Date(date)} setDate={setDate} />
-        <SubmitButton className={styles.editExpensesButton} name="Изменить" disabled={!name | !value | categoryError !== null} />
+        <div className={styles.modalBtnBox}>
+          <span className={styles.paymentPutError}>{paymentPutError}</span>
+          <SubmitButton className={styles.editExpensesButton} name="Изменить" disabled={!name | !value | categoryError !== null} />
+        </div>
       </form>
     </div>
   );

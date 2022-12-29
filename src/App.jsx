@@ -17,14 +17,16 @@ import { navListPrivate, navListPublic } from "./utils/constants";
 import { selectLoginSuccess, selectUserLogout } from "./store/profile/selectors";
 import { getUser } from "./store/profile/actions";
 import { getCategory } from "./store/category/actions";
-import { getPayments } from "./store/payments/actions";
+import { getPayments, postPaymentsFailure } from "./store/payments/actions";
 import { getIcons } from "./store/icons/actions";
+import { selectPaymentsPostError } from "./store/payments/selectors";
 
 function App() {
   const location = useLocation();
 
   const dispatch = useDispatch();
   const showEditId = useSelector(selectShowEditId);
+  const postFailure = useSelector(selectPaymentsPostError);
   const login = useSelector(selectLoginSuccess);
   const logout = useSelector(selectUserLogout);
 
@@ -39,13 +41,15 @@ function App() {
         dispatch(getIcons());
       }, 250);
     }
-
+    console.log(true);
     return () => clearTimeout(timeout);
   }, [dispatch, login, logout]);
 
   const closeModals = () => {
     if (showEditId) {
       dispatch(hideEdit());
+    } else if (postFailure) {
+      dispatch(postPaymentsFailure(""));
     }
   };
 

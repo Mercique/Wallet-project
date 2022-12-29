@@ -4,7 +4,7 @@ import { CategoryMenu } from "../CategoryMenu/CategoryMenu";
 import { Input } from "../Input/Input";
 import { SubmitButton } from "../SubmitButton/SubmitButton";
 import { useDispatch, useSelector } from "react-redux";
-import { addPayment } from "../../store/payments/actions";
+import { addPayment, postPaymentsFailure } from "../../store/payments/actions";
 import { apiPayments, checkInputValues, getDate } from "../../utils/constants";
 import { selectPaymentsError, selectPaymentsPostError } from "../../store/payments/selectors";
 import { CalendarBox } from "../CalendarBox/CalendarBox";
@@ -31,6 +31,7 @@ export const PaymentForm = () => {
       created_at: `${getDate(date)}T${new Date().toLocaleTimeString()}`
     };
     
+    dispatch(postPaymentsFailure(""));
     dispatch(addPayment(apiPayments, "POST", newPayment));
 
     setName("");
@@ -71,6 +72,7 @@ export const PaymentForm = () => {
           <Input
             type="number"
             className={!errorValue ? styles.expensesInput : `${styles.expensesInput} ${styles.expensesInputError}`}
+            style={{borderColor: postError && "#f00" }}
             value={value}
             placeholder="Введите сумму"
             step="0.01"

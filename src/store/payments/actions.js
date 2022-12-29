@@ -83,6 +83,7 @@ export const editPayment = (url, method, body) => (dispatch) => {
   sendRequest(url, method, body)
     .then((result) => {
       dispatch(putPaymentsSuccess(result));
+      dispatch(getUser());
     })
     .catch((err) => console.warn("PUT err", err));
 };
@@ -91,6 +92,7 @@ export const deletePayment = (url, method, body) => (dispatch) => {
   sendRequest(url, method, body)
     .then((result) => {
       dispatch(deletePaymentsSuccess(result));
+      dispatch(getUser());
     })
     .catch((err) => console.warn("DELETE err", err));
 };

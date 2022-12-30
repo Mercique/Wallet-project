@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { Category } from "./pages/Category/Category";
@@ -13,7 +13,6 @@ import { useEffect } from "react";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { MainAuth } from "./pages/MainAuth/MainAuth";
-import { navListPrivate, navListPublic } from "./utils/constants";
 import { selectLoginSuccess, selectUserLogout } from "./store/profile/selectors";
 import { getUser } from "./store/profile/actions";
 import { getCategory } from "./store/category/actions";
@@ -22,8 +21,6 @@ import { getIcons } from "./store/icons/actions";
 import { selectPaymentsPostError } from "./store/payments/selectors";
 
 function App() {
-  const location = useLocation();
-
   const dispatch = useDispatch();
   const showEditId = useSelector(selectShowEditId);
   const postFailure = useSelector(selectPaymentsPostError);
@@ -41,7 +38,7 @@ function App() {
         dispatch(getIcons());
       }, 250);
     }
-    console.log(true);
+
     return () => clearTimeout(timeout);
   }, [dispatch, login, logout]);
 
@@ -53,19 +50,11 @@ function App() {
     }
   };
 
-  const navLocation = () => {
-    if (navListPublic[0].route === location.pathname) {
-      return [navListPublic[1]];
-    } else {
-      return [navListPublic[0]];
-    }
-  };
-
   return (
     <div className="App" onClick={closeModals}>
       <div className="wrapper">
         <div className="wrapper-top center">
-          <Header cookie={document.cookie} navList={document.cookie ? navListPrivate : navLocation() } />
+          <Header cookie={document.cookie} />
           <Routes>
             <Route path="/" element={<PublicRoute />}>
               <Route path="" element={<MainAuth />} />
@@ -76,6 +65,7 @@ function App() {
               <Route path="/operations" element={<Operations />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
+            <Route path="*" element={<p>Error 404</p>}></Route>
           </Routes>
         </div>
         <Footer />

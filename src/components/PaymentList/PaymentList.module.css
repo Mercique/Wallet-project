@@ -80,6 +80,16 @@
   right: 0;
   background: #D9D9D9;
   box-shadow: 0px 4px 4px 5px rgba(0, 0, 0, 0.25);
+  animation: openEdit .3s ease-out;
+}
+
+@keyframes openEdit {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .expShowEditDelete button {

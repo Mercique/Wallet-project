@@ -8,7 +8,7 @@ import { authRegister } from "../../store/profile/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserCreateError } from "../../store/profile/selectors";
 
-export const RegistrationAuth = () => {
+export const RegistrationAuth = ({ setAuthed }) => {
   const [name, setName] = useState("");
   const [errorName, setErrorName] = useState("");
   const [surname, setSurname] = useState("");
@@ -48,9 +48,14 @@ export const RegistrationAuth = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    let timeout;
 
     if (!errorName && !errorSurname && !errorEmail && !errorPassword) {
       dispatch(authRegister({ name, surname, email, password }));
+
+      timeout = setTimeout(() => {
+        setAuthed(true);
+      }, 500);
 
       setName("");
       setSurname("");
@@ -60,6 +65,8 @@ export const RegistrationAuth = () => {
     } else {
       console.log("ERROR");
     }
+
+    return () => clearTimeout(timeout);
   };
 
   return (

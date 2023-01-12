@@ -60,7 +60,7 @@ function App() {
           <Routes>
             <Route path="/" element={<PublicRoute authed={authed} />}>
               <Route path="" element={<MainAuth setAuthed={setAuthed} />} />
-              <Route path="/registration" element={<RegistrationAuth />} />
+              <Route path="/registration" element={<RegistrationAuth setAuthed={setAuthed} />} />
             </Route>
             <Route path="/" element={<PrivateRoute authed={authed} />}>
               <Route path="/category" element={<Category />} />

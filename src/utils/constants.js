@@ -34,12 +34,12 @@ export const navListPublic = [
 
 export const navListPrivate = [
   {
-    route: "/operations",
-    name: "Операции",
-  },
-  {
     route: "/category",
     name: "Категории",
+  },
+  {
+    route: "/operations",
+    name: "Операции",
   },
   {
     route: "/profile",

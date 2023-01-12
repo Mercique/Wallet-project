@@ -1,39 +1,28 @@
-.sliderCategoryWrapper,
-.sliderOperationsWrapper {
-  display: flex;
-  gap: 11px;
+.sliderArrow {
+  border: none;
+  cursor: pointer;
+  background: transparent;
 }
 
-.sliderOperationsWrapper {
-  flex-direction: column;
-  margin-top: 73px;
-  margin-right: 42px;
+.sliderArrow:not(:disabled):active {
+  transform: translateY(2px);
 }
 
-.sliderCategoryHidden,
-.sliderOperationsHidden {
+.sliderArrow:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.sliderIconWrapper {
   position: relative;
-  width: 832px;
-  height: 100px;
   overflow: hidden;
-}
-
-.sliderOperationsHidden {
-  width: 100px;
-  height: 588px;
-}
-
-.sliderCategoryLine,
-.sliderOperationsLine {
-  position: absolute;
   display: flex;
-  justify-content: center;
-  gap: 22px;
-  transition: all 0.3s ease;
+  align-items: center;
 }
 
-.sliderOperationsLine {
-  flex-direction: column;
+.sliderIconLine {
+  position: absolute;
+  right: auto;
 }
 
 .categoryIcon,
@@ -60,25 +49,18 @@
   background: #b99494;
 }
 
-.sliderArrow {
-  border: none;
-  cursor: pointer;
-  background: transparent;
+@media (max-width: 1200px) {
+  .categoryIcon,
+  .categoryIconActive {
+    width: 76px;
+    height: 76px;
+  }
 }
 
-.sliderArrow svg path {
-  transition: fill 0.3s ease;
-}
-
-.sliderArrow:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-
-.sliderArrow:not(:disabled):hover svg path {
-  fill: #b99494;
-}
-
-.sliderArrow:not(:disabled):active {
-  transform: translateY(2px);
+@media (max-width: 767px) {
+  .categoryIcon,
+  .categoryIconActive {
+    width: 63px;
+    height: 63px;
+  }
 }

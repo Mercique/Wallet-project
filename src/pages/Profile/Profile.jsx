@@ -123,7 +123,9 @@ export function Profile() {
           { errorSumApi && <span className={styles.editError}>{errorSumApi}</span> }
         </form>
         <div className={styles.balancePosition}>
-          <Balance />
+          <Balance
+              className={styles.profileBalance}
+          />
         </div>
       </div>
       <div className={styles.profEditBlock}>

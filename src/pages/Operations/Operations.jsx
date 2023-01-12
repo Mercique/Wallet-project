@@ -85,6 +85,12 @@ export const Operations = () => {
           </div>
         ) : (
           <Slider
+            idx={5}
+            wrapper={styles.sliderWrap}
+            sliderIconWrapper={styles.sliderIconWrapper}
+            leftArrow={styles.leftArrow}
+            rightArrow={styles.rightArrow}
+            sliderLine={styles.sliderLine}
             categoryList={categoryList}
             categoryEdit={categoryEdit}
             handleActive={handleActive}
@@ -101,7 +107,7 @@ export const Operations = () => {
         </div>
       ) : (
         <div className={styles.operationsRight}>
-          <Balance />
+          <Balance className={styles.operationsBalance}/>
           <ChartBox chart="Doughnut" list={doughnutList} />
           <ChartBox chart="Bar" list={barList} />
         </div>

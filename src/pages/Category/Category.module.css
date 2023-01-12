@@ -14,16 +14,18 @@
 .addCategoryForm {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 14px;
 }
 
 .addCategoryBox {
   display: flex;
   gap: 19px;
+  width: 95%;
 }
 
 .inputCategory {
-  width: 480px !important;
+  width: 48% !important;
   height: 71px !important;
   font-weight: 300 !important;
   font-size: 24px !important;
@@ -70,13 +72,6 @@
   justify-content: center;
 }
 
-.categoryLoad {
-  height: 325px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .sliderHeader {
   margin: 0;
   padding: 43px 0 19px;
@@ -89,11 +84,31 @@
   color: #ffffff;
 }
 
-.categoryEmpty {
-  height: 517px;
+.sliderWrap {
+  display: flex;
+  gap: 11px;
+}
+
+.categoryIconWrapper {
+  width: 832px;
+  height: 100px;
+}
+
+.leftArrow {
+  transform: rotate(-90deg);
+}
+
+.rightArrow {
+  transform: rotate(-90deg);
+}
+
+.sliderLine {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  gap: 22px;
+  position: absolute;
+  right: 0;
+  transition: left 0.3s ease-in-out;
 }
 
 .categoryError {
@@ -175,4 +190,61 @@
 
 .deleteButton {
   margin-top: 10px !important;
+}
+
+@media (max-width: 1200px) {
+  .categoryWrapper {
+    display: block;
+    position: relative;
+  }
+
+  .addCategoryButton {
+    width: 70% !important;
+    margin: 0 auto;
+  }
+
+  .inputCategory {
+    font-size: 20px !important;
+  }
+
+  .categoryIconWrapper {
+    width: 566px;
+    height: 76px;
+  }
+}
+
+@media (max-width: 767px) {
+  .categoryWrapper {
+    padding: 0;
+  }
+  .addCategoryBox {
+    flex-direction: column;
+    gap: 12px;
+    width: 80%;
+    align-items: center;
+  }
+
+  .inputCategory {
+    width: 304px !important;
+    height: 55px !important;
+  }
+
+  .addCategoryButton {
+    font-size: 18px;
+    height: 55px;
+    margin-top: 8px;
+  }
+
+  .sliderHeader {
+    padding-top: 30px;
+    font-size: 22px;
+  }
+
+  .categoryName {
+    margin-top: 30px;
+  }
+
+  .categoryIconWrapper {
+    width: 234px;
+  }
 }

@@ -70,7 +70,7 @@ export const RegistrationAuth = () => {
           <AuthLink path="/" name="У меня есть аккаунт" />
         </div>
         <form className={styles.inputBlock} onSubmit={handleRegister}>
-          <div className={styles.inputTopArea}>
+          <div className={styles.inputArea}>
             <InputAuth
               id="regName"
               labelName="Имя:"
@@ -94,7 +94,7 @@ export const RegistrationAuth = () => {
               placeholder="Введите фамилию"
             />
           </div>
-          <div className={styles.inputBottomArea}>
+          <div className={styles.inputArea}>
             <InputAuth
               id="regEmail"
               labelName="E-mail:"

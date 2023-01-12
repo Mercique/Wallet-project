@@ -1,5 +1,5 @@
 .operations {
-  height: 780px;
+  min-height: 780px;
   display: flex;
   justify-content: space-between;
 }
@@ -11,4 +11,96 @@
 .operationsRight {
   display: flex;
   flex-direction: column;
+}
+
+.sliderWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 70px;
+  margin-right: 42px;
+}
+
+.sliderIconWrapper {
+  width: 100px;
+  height: 588px;
+  justify-content: center;
+}
+
+.leftArrow {
+  transform: rotate(0);
+}
+
+.rightArrow {
+  transform: rotate(0);
+}
+
+.sliderLine {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 1200px) {
+  .operations {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .operationsRight {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .operationsLeft {
+    padding-top: 30px;
+  }
+  .sliderIconWrapper {
+    width: 76px;
+    height: 468px;
+  }
+  .sliderLine {
+    top: 0;
+  }
+  .operationsBalance {
+    margin: 0;
+    padding: 0;
+    top: 100px;
+    right: 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .operationsLeft {
+    position: relative;
+    flex-direction: column;
+    padding-top: 107px;
+  }
+  .sliderWrap {
+    flex-direction: row;
+    width: 380px;
+    position: absolute;
+    top: 345px;
+    left: 0;
+    right: 0;
+  }
+  .sliderIconWrapper {
+    width: 254px;
+    height: 63px;
+  }
+  .sliderLine {
+    flex-direction: row;
+    left: 0;
+  }
+  .operationsRight {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .leftArrow {
+    transform: rotate(-90deg);
+  }
+  .rightArrow {
+    transform: rotate(-90deg);
+  }
 }

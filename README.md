@@ -6,23 +6,24 @@
 
 ## <img src="https://github.com/Mercique/Wallet-project/blob/develop/public/favicon.ico" alt="icon"> GB Wallet (Frontend)
 ### Описание:
-Сайт для ведения расходов, чтобы можно было вводить расходы/доходы по категориям, и формировать различные графики с ними!
+GBWallet - это сервис для учёта личных расходов и ведения бюджета.
+Учёт расходов поможет понимать в каких категориях самые большие траты и оптимизировать их.
+Настройка категорий поможет пользователям изменить сервис под свои нужды и интересы. А возможность ввода названия расходов поможет найти конкретную трату при необходимости. Графики помогут в анализе расходов за все время и определенный период.
+Доступно добавление доходов и отображение баланса. Есть возможность изменения и удаления расходов.
 ### Общий стек:
 ```
 - CSS-module
-- React.js (React-router-dom, Redux, Redux-middleware, Redux-thunk, React-bootstrap, React-slick)
-- PHP (Laravel)
+- Back-end: PHP 8.0.2 (laravel 9.0, Sanctum 3.0, laravel ui 4.1, guzzle 7.2, MySQL 8.0)
+- Front-end: JavaScript + React 18.2.0 (cookie, chart.js, react-calendar, react-loading, react-redux, redux-thunk, react-bootstrap, react-router-dom)
 ```
 
 ## Команда:
 ### Designers:
-- Angelika Privalova
+- [Angelika Privalova](https://github.com/)
 
 ### Frontend developers:
 - [Ilya Chvanov](https://github.com/Mercique)
 - [Danila Khartsii](https://github.com/DanilaKhartsii)
-- [Sergey Lobodanov](https://github.com/Parallitik)
-- [Kirill Makarov](https://github.com/ikir0806)
 - [Natalya](https://github.com/Star1515)
 - [Julianna Sandler](https://github.com/mirakwon24)
 

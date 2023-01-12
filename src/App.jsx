@@ -56,7 +56,7 @@ function App() {
     <div className="App" onClick={closeModals}>
       <div className="wrapper">
         <div className="wrapper-top center">
-          <Header cookie={document.cookie} />
+          <Header authed={authed} />
           <Routes>
             <Route path="/" element={<PublicRoute authed={authed} />}>
               <Route path="" element={<MainAuth setAuthed={setAuthed} />} />

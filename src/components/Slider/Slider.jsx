@@ -6,17 +6,17 @@ export const Slider = ({ idx, wrapper, sliderIconWrapper, leftArrow, rightArrow,
   const [step, setStep] = useState(0);
 
   const handleUp = () => {
-    if (step !== 0) {
-      setSlide(prevTop => prevTop + 122);
-      setStep(prevTop => prevTop - 1);
-    }
+    const windowInnerWidth = window.innerWidth > 1200 ? 122 : (window.innerWidth > 767 ? 98 : 85);
+
+    setSlide(prevTop => prevTop + windowInnerWidth);
+    setStep(prevTop => prevTop - 1);
   };
 
   const handlebottom = () => {
-    if (step + 5 !== categoryList.length) {
-      setSlide(prevTop => prevTop - 122);
-      setStep(prevTop => prevTop + 1);
-    }
+    const windowInnerWidth = window.innerWidth > 1200 ? 122 : (window.innerWidth > 767 ? 98 : 85);
+
+    setSlide(prevTop => prevTop - windowInnerWidth);
+    setStep(prevTop => prevTop + 1);
   };
 
   return (
@@ -29,7 +29,7 @@ export const Slider = ({ idx, wrapper, sliderIconWrapper, leftArrow, rightArrow,
         </button>
       }
       <div className={`${styles.sliderIconWrapper} ${sliderIconWrapper}`}>
-        <div className={categoryList.length < idx ? sliderLine : `${styles.sliderIconLine} ${sliderLine}`} style={idx === 5 ? {top: `${slide}px`} : {left: `${slide}px`}}>
+        <div className={categoryList.length < idx ? sliderLine : `${styles.sliderIconLine} ${sliderLine}`} style={idx === 5 && window.innerWidth > 767 ? {top: `${slide}px`} : {left: `${slide}px`}}>
           { categoryList?.map((category, idx) => (
             <div
               className={
@@ -49,7 +49,7 @@ export const Slider = ({ idx, wrapper, sliderIconWrapper, leftArrow, rightArrow,
         </div>
       </div>
       { categoryList?.length > idx &&
-        <button type="button" className={styles.sliderArrow} onClick={handlebottom} disabled={step + idx === categoryList?.length}>
+        <button type="button" className={styles.sliderArrow} onClick={handlebottom} disabled={window.innerWidth > 1200 ? step + idx : (window.innerWidth > 767 ? step + 6 : step + 3) === categoryList?.length}>
           <svg className={rightArrow} width="50" height="30" viewBox="0 0 50 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M28.552 28.5875C28.8049 28.3352 29.0165 28.0577 29.2022 27.7685L48.5821 8.36348C50.4717 6.46958 50.4735 3.39929 48.5821 1.5045C46.6906 -0.387603 43.6252 -0.389398 41.732 1.5045L25.0435 18.2164L8.26622 1.42009C6.37478 -0.472913 3.30936 -0.473811 1.41702 1.42009C0.472642 2.36838 -0.00178862 3.60853 5.06696e-06 4.84868C-0.00178862 6.08972 0.472642 7.33077 1.41881 8.27547L20.883 27.7676C21.0687 28.0577 21.2821 28.3343 21.5368 28.5875C22.5036 29.5556 23.7754 30.0216 25.0435 29.9992C26.3098 30.0225 27.5852 29.5556 28.552 28.5875Z" fill="#D9D9D9"/>
           </svg>

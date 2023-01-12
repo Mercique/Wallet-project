@@ -23,7 +23,7 @@
 
 .sliderIconWrapper {
   width: 100px;
-  height: 565px;
+  height: 588px;
   justify-content: center;
 }
 
@@ -39,7 +39,7 @@
   display: flex;
   flex-direction: column;
   gap: 22px;
-  transition: top .3s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
 @media (max-width: 1200px) {
@@ -53,6 +53,13 @@
     justify-content: space-around;
     align-items: center;
   }
+  .sliderIconWrapper {
+    width: 76px;
+    height: 468px;
+  }
+  .sliderLine {
+    top: 0;
+  }
 }
 
 @media (max-width: 767px) {
@@ -65,11 +72,12 @@
     width: 95%;
   }
   .sliderIconWrapper {
-    width: 234px;
-    height: 70px;
+    width: 254px;
+    height: 63px;
   }
   .sliderLine {
     flex-direction: row;
+    left: 0;
   }
   .operationsRight {
     flex-direction: column;

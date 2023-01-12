@@ -49,14 +49,14 @@
 }
 
 @media (max-width: 1200px) {
-  .categoryIcon {
+  .categoryIcon, .categoryIconActive {
     width: 76px;
     height: 76px;
   }
 }
 
 @media (max-width: 767px) {
-  .categoryIcon {
+  .categoryIcon, .categoryIconActive {
     width: 63px;
     height: 63px;
   }

@@ -1,15 +1,91 @@
 .footer {
-  min-height: 230px;
   background-color: #556A8A;
-  display: flex;
-  justify-content: center;
   margin-top: 40px;
+  padding: 15px;
 }
 
-@media (min-width: 1200px) {
+.logoFooter {
+  display: none;
+}
+
+.contentWrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.participantsHeader {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin-bottom: 7px;
+}
+
+.participants {
+  display: grid;
+  row-gap: 2px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.participant {
+  font-style: normal;
+  font-weight: 200;
+  font-size: 8px;
+  line-height: 9px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.participant:active {
+  transform: translateY(1px);
+}
+
+.linkTG:active,
+.linkTG:hover,
+.linkTG:visited,
+.linkTG:link,
+.linkTG {
+  text-decoration: none;
+  color: inherit;
+}
+
+.contactsHeader {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.phone {
+  margin: 7px 0;
+}
+
+.phone,
+.email {
+  font-style: normal;
+  font-weight: 200;
+  font-size: 8px;
+  line-height: 9px;
+  color: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    min-height: 230px;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    padding: 0 15px;
+  }
+
+  .logoFooter {
+    display: block;
+  }
+
   .contentWrapper {
     width: 1200px;
-    display: flex;
     padding: 25px 0 0;
     box-sizing: border-box;
     justify-content: space-between;
@@ -25,49 +101,22 @@
   }
 
   .participantsHeader {
-    font-style: normal;
-    font-weight: 600;
     font-size: 20px;
     line-height: 23px;
-    text-transform: uppercase;
-    color: #FFFFFF;
     margin-bottom: 18px;
   }
 
   .participants {
-    display: grid;
     row-gap: 9px;
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .participant {
-    font-style: normal;
-    font-weight: 200;
     font-size: 15px;
     line-height: 19px;
-    color: #FFFFFF;
-    cursor: pointer;
-  }
-
-  .participant:active {
-    transform: translateY(1px);
-  }
-
-  .linkTG:active,
-  .linkTG:hover,
-  .linkTG:visited,
-  .linkTG:link,
-  .linkTG {
-    text-decoration: none;
-    color: inherit;
   }
 
   .contactsHeader {
-    font-style: normal;
-    font-weight: 600;
     font-size: 20px;
-    text-transform: uppercase;
-    color: #FFFFFF;
   }
 
   .phone {
@@ -76,10 +125,7 @@
 
   .phone,
   .email {
-    font-style: normal;
-    font-weight: 200;
     font-size: 18px;
     line-height: 21px;
-    color: #FFFFFF;
   }
 }

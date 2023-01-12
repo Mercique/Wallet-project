@@ -57,3 +57,15 @@
   line-height: 29px;
   border-radius: 21px;
 }
+
+@media (max-width: 767px) {
+  .contentWrapper {
+    justify-content: center;
+  }
+  .inputBox {
+    flex-direction: column;
+  }
+  .paymentInputForm {
+    padding-top: 0;
+  }
+}

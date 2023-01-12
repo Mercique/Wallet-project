@@ -38,3 +38,12 @@
     text-decoration: none;
     border: 1px solid #fff;
 }
+
+@media (max-width: 767px) {
+    .wrp {
+        column-gap: 5px;
+    }
+    .link {
+        font-size: 12px;
+    }
+}

@@ -1,5 +1,7 @@
 .iconCategoryDetails {
   position: relative;
+  width: 48%;
+  height: 71px;
 }
 
 .iconCategoryDetails[open] > summary svg {
@@ -8,8 +10,8 @@
 
 .iconCategorySummary, .iconsError, .iconsLoading, .iconsEmpty {
   box-sizing: border-box;
-  width: 480px;
-  height: 71px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -106,4 +108,29 @@
 
 .iconCategoryIcon:hover {
   background: #BDB7B7;
+}
+
+@media (max-width: 1200px) {
+  .iconCategoryDrop {
+    width: auto;
+  }
+
+  .iconCategorySummary {
+    font-size: 20px;
+  }
+
+  .iconCategoryIcon {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (max-width: 767px) {
+  .iconCategoryDetails {
+    width: 304px;
+    height: 55px;
+  }
+  .iconCategoryDrop {
+    top: 63px;
+  }
 }

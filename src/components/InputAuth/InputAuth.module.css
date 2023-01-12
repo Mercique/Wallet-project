@@ -55,3 +55,13 @@
   line-height: 16px;
   color: #CB2424;
 }
+
+@media (max-width: 767px) {
+  .label {
+    font-size: 16px;
+  }
+  .input {
+    max-width: 250px;
+    max-height: 36px;
+  }
+}

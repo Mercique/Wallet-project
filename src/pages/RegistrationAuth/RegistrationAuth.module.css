@@ -50,12 +50,12 @@
   color: #604b4b;
 }
 
-.inputTopArea, .inputBottomArea {
+.inputArea {
   display: flex;
   gap: 20px;
 }
 
-.inputTopArea {
+.inputArea {
   margin-top: 38px;
   margin-bottom: 23px;
 }
@@ -142,4 +142,34 @@
 .regBtn:not(:disabled):active {
   border-color: #2d3b50;
   background: #2d3b50;
+}
+
+@media (max-width: 767px) {
+  .regCard {
+    max-width: 298px;
+    height: auto;
+    margin: 20px 0 0 0;
+    padding: 8px 12px 16px;
+  }
+  .regTitle {
+    font-size: 29px;
+  }
+  .link {
+    font-size: 14px;
+  }
+  .inputBlock {
+    align-items: center;
+  }
+  .inputArea {
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0 0;
+  }
+  .mailsCheckbox + label {
+    margin: 20px 0 0;
+    font-size: 12px;
+  }
+  .regBtn {
+    font-size: 16px;
+  }
 }

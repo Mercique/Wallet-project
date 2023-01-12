@@ -1,189 +1,240 @@
 .registrationWrapper {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .columnLeft {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .columnRight {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .leftTextarea {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin-top: 135px;
-  margin-bottom: 30px;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 135px;
+    margin-bottom: 30px;
 }
 
 .leftTextarea::before {
-  content: "";
-  width: 520px;
-  height: 250px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  margin: auto;
-  background: #B86E6E;
-  filter: blur(125px);
+    content: "";
+    width: 520px;
+    height: 250px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    margin: auto;
+    background: #B86E6E;
+    filter: blur(125px);
 }
 
 .regHeading {
-  width: 613px;
-  height: 49px;
-  margin: 0 0 35px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 42px;
-  line-height: 49px;
-  text-align: center;
-  color: #ffffff;
+    width: 613px;
+    height: 49px;
+    margin: 0 0 35px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 49px;
+    text-align: center;
+    color: #ffffff;
 }
 
 .regText {
-  width: 621px;
-  height: 76px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 200;
-  font-size: 32px;
-  line-height: 38px;
-  text-align: center;
-  color: #ffffff;
-  margin-top: 0px;
+    width: 621px;
+    height: 76px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 200;
+    font-size: 32px;
+    line-height: 38px;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 0px;
 }
 
 .leftImagearea {
-  display: flex;
-  justify-content: center;
-  z-index: 10;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
 }
 
 .mainImg {
-  height: 400px;
+    height: 400px;
 }
 
 .columnRight {
-  margin-left: 40px;
+    margin-left: 40px;
 }
 
 .registrationForm {
-  box-sizing: border-box;
-  width: 433px;
-  height: 373px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 94px;
-  margin-right: 14px;
-  box-shadow: 0px 4px 40px 10px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  background: #f0f2f5;
+    box-sizing: border-box;
+    width: 433px;
+    height: 373px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 94px;
+    margin-right: 14px;
+    box-shadow: 0px 4px 40px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    background: #f0f2f5;
 }
 
 .registrationTitle {
-  margin: 0;
-  padding-top: 25px;
-  padding-bottom: 5px;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  color: #604b4b;
+    margin: 0;
+    padding-top: 25px;
+    padding-bottom: 5px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    color: #604b4b;
 }
 
 .formArea {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .formArea label {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 16px;
-  color: #604B4B;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px;
+    color: #604B4B;
 }
 
 .formArea input {
-  width: 365px;
-  height: 42px;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 36px;
+    width: 365px;
+    height: 42px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 36px;
 }
 
 .btnArea {
-  position: relative;
-  display: flex;
-  justify-content: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 .errorAuth {
-  width: 365px;
-  position: absolute;
-  top: 14px;
-  left: auto;
-  right: auto;
-  text-align: center;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 13px;
-  user-select: none;
-  color: #CB2424;
+    width: 365px;
+    position: absolute;
+    top: 14px;
+    left: auto;
+    right: auto;
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 13px;
+    user-select: none;
+    color: #CB2424;
 }
 
 .enterBtn {
-  width: 212px;
-  height: 55px;
-  margin-top: 34px;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 16px;
-  border-radius: 10px;
-  border-color: #3d6197;
-  background: #3d6197;
+    width: 212px;
+    height: 55px;
+    margin-top: 34px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 16px;
+    border-radius: 10px;
+    border-color: #3d6197;
+    background: #3d6197;
 }
 
 .enterBtn:not(:disabled):hover {
-  border-color: #65a1fb;
-  background: #65a1fb;
+    border-color: #65a1fb;
+    background: #65a1fb;
 }
 
 .enterBtn:not(:disabled):active {
-  border-color: #2d3b50;
-  background: #2d3b50;
+    border-color: #2d3b50;
+    background: #2d3b50;
 }
 
 .subtextArea {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 13px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 13px;
 }
 
 .subtextText {
-  margin: 0;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 16px;
-  color: #787878;
-  text-align: center;
-  text-decoration: none;
+    margin: 0;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #787878;
+    text-align: center;
+    text-decoration: none;
+}
+
+@media (max-width: 1100px) {
+    .registrationWrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 767px) {
+    .leftTextarea {
+        margin: 19px 0 0;
+    }
+
+    .leftImagearea {
+        display: none;
+    }
+
+    .regHeading {
+        font-family: 'Roboto';
+        font-weight: 400;
+        font-size: 16px;
+        color: #FFFFFF;
+        margin: 0 0 6px;
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        height: auto;
+        line-height: normal;
+        max-width: 212px;
+    }
+
+    .regText {
+        font-weight: 200;
+        font-size: 12px;
+        height: auto;
+        line-height: normal;
+        max-width: 212px;
+    }
+
+    .columnRight {
+        margin: 0 5px;
+    }
+
+    .registrationForm {
+        max-width: 264px;
+        margin: 0;
+    }
+
+    .enterBtn {
+        height: 36px;
+        width: 216px;
+    }
 }

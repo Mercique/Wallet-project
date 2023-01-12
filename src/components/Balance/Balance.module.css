@@ -15,10 +15,21 @@
 }
 
 .balanceValue {
+  min-width: 120px;
   font-weight: 400;
   font-size: 33px;
   margin: 0px;
   letter-spacing: -0.065em;
   text-transform: lowercase;
   color: #FFFFFF;
+}
+
+@media (max-width: 1200px) {
+  .balance {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: -100px 15px 0 0;
+  }
 }

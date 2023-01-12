@@ -56,3 +56,14 @@
   text-transform: lowercase;
   color: #604b4b;
 }
+
+@media (max-width: 767px) {
+  .expenses {
+    margin-top: 18px;
+    width: 360px;
+    align-items: center;
+  }
+  .expensesBoxDate {
+    padding-left: 6px;
+  }
+}

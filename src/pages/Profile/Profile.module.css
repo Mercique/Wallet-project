@@ -170,3 +170,46 @@
   border-color: #2d3b50;
   background: #2d3b50;
 }
+
+@media (max-width: 1023px) {
+  .profHead {
+    margin: 110px 0 13px;
+  }
+}
+
+@media (max-width: 767px) {
+  .profHead {
+    margin-top: 80px;
+  }
+  .profEditBlock {
+    padding: 30px 0 0;
+  }
+  .profBox {
+    padding: 30px 0;
+  }
+  .profEditInputTop,
+  .profEditInputBottom,
+  .profEditButtons {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .profEditForm input {
+    font-size: 14px;
+  }
+
+  .profileBalance {
+    margin-right: 10px !important;
+    padding-top: 20px !important;
+    margin: 0;
+  }
+
+  .addBalanceButton,
+  .profEditUser,
+  .profLogout {
+    height: 48px;
+    width: 268px;
+    font-size: 20px;
+  }
+}

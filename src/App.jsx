@@ -65,7 +65,7 @@ function App() {
             <Route path="/" element={<PrivateRoute authed={authed} />}>
               <Route path="/category" element={<Category />} />
               <Route path="/operations" element={<Operations />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile" element={<Profile setAuthed={setAuthed} />} />
             </Route>
             <Route path="*" element={<p>Error 404</p>}></Route>
           </Routes>

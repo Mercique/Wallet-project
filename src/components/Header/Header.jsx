@@ -6,9 +6,9 @@ import { Logo } from "../Logo/Logo";
 import { useEffect } from "react";
 import { navListPrivate, navListPublic } from "../../utils/constants";
 
-export function Header({ cookie }) {
+export function Header({ authed }) {
   const location = useLocation();
-  const navList = cookie ? navListPrivate : navLocation(navListPublic);
+  const navList = authed ? navListPrivate : navLocation(navListPublic);
 
   function navLocation(list) {
     const index = list.findIndex((el) => el.route === location.pathname);
@@ -39,7 +39,7 @@ export function Header({ cookie }) {
         { navList?.map((navItem, idx) => (
           <Nav.Link
             style={({ isActive }) => ({ color: isActive ? "#FF5555" : "white" })}
-            className={cookie ? styles.link : styles.authLink}
+            className={authed ? styles.link : styles.authLink}
             to={navItem.route}
             as={NavLink}
             key={idx}

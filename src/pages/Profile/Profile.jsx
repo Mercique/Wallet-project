@@ -12,7 +12,7 @@ import { Input } from "../../components/Input/Input";
 import { InputAuth } from "../../components/InputAuth/InputAuth";
 import ReactLoading from "react-loading";
 
-export function Profile() {
+export function Profile({ setAuthed }) {
   const [sum, setSum] = useState("");
   const [errorSum, setErrorSum] = useState("");
   const [errorSumApi, setErrorSumApi] = useState("");
@@ -91,6 +91,7 @@ export function Profile() {
 
   const onLogout = () => {
     dispatch(unAuthUser());
+    setAuthed(false);
   };
 
   return (

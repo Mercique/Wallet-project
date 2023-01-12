@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectShowEditId } from "./store/modal/selectors";
 import { hideEdit } from "./store/modal/actions";
 import { Profile } from "./pages/Profile/Profile";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { MainAuth } from "./pages/MainAuth/MainAuth";
@@ -27,10 +27,12 @@ function App() {
   const login = useSelector(selectLoginSuccess);
   const logout = useSelector(selectUserLogout);
 
+  const [authed, setAuthed] = useState(false);
+
   useEffect(() => {
     let timeout;
 
-    if (login || document.cookie) {
+    if (authed) {
       dispatch(getUser());
       timeout = setTimeout(() => {
         dispatch(getCategory());
@@ -40,7 +42,7 @@ function App() {
     }
 
     return () => clearTimeout(timeout);
-  }, [dispatch, login, logout]);
+  }, [authed, dispatch, login, logout]);
 
   const closeModals = () => {
     if (showEditId) {
@@ -56,11 +58,11 @@ function App() {
         <div className="wrapper-top center">
           <Header cookie={document.cookie} />
           <Routes>
-            <Route path="/" element={<PublicRoute />}>
-              <Route path="" element={<MainAuth />} />
+            <Route path="/" element={<PublicRoute authed={authed} />}>
+              <Route path="" element={<MainAuth setAuthed={setAuthed} />} />
               <Route path="/registration" element={<RegistrationAuth />} />
             </Route>
-            <Route path="/" element={<PrivateRoute />}>
+            <Route path="/" element={<PrivateRoute authed={authed} />}>
               <Route path="/category" element={<Category />} />
               <Route path="/operations" element={<Operations />} />
               <Route path="/profile" element={<Profile />} />

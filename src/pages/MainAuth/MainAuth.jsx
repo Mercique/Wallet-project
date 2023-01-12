@@ -8,7 +8,7 @@ import { SubmitButton } from "../../components/SubmitButton/SubmitButton";
 import { authLogin } from "../../store/profile/actions";
 import { selectLoginError } from "../../store/profile/selectors";
 
-export const MainAuth = () => {
+export const MainAuth = ({ setAuthed }) => {
   const [email, setEmail] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,12 +35,18 @@ export const MainAuth = () => {
 
   const handleAuth = (e) => {
     e.preventDefault();
+    let timeout;
 
     if (!errorEmail && !errorPassword) {
       dispatch(authLogin({email,password}));
+      timeout = setTimeout(() => {
+        setAuthed(true);
+      }, 500);
     } else {
       console.log("В авторизации не прошли проверку на регулярки емаил и пароль!");
     }
+
+    return () => clearTimeout(timeout);
   };
 
   return (

@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://reactjs.org/" target="_blank">
-    <img src="https://github.com/Mercique/Wallet-project/blob/develop/public/logo192.png" alt="React Logo">
+    <img src="https://github.com/Mercique/Wallet-project/blob/main/public/logo192.png" alt="React Logo">
   </a>
 </p>
 

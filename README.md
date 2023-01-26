@@ -18,10 +18,10 @@ GBWallet - это сервис для учёта личных расходов �
 ```
 
 ## Команда:
-### Designers:
+### Designers: ([Figma](https://www.figma.com/file/Tq11bpRCAAfqV1SX7QGz7i/Untitled?node-id=0%3A1&t=cr5B8Gp0qxOEvJOA-0))
 - [Angelika Privalova](https://github.com/)
 
-### Frontend developers:
+### Frontend developers: ([Frontend project](https://github.com/Mercique/Wallet-project))
 - [Ilya Chvanov](https://github.com/Mercique)
 - [Danila Khartsii](https://github.com/DanilaKhartsii)
 - [Natalya](https://github.com/Star1515)
@@ -41,4 +41,4 @@ GBWallet - это сервис для учёта личных расходов �
 Открыть [http://localhost:3000](http://localhost:3000) для отображения в браузере.
 
 ## Для информации
-- Инструкция по установке Backend: https://docs.google.com/document/d/1ygq68Iru_KJoj1iviB5y81O6Dhi7iBElqWlSr2rl3dU/edit?usp=sharing
+- Инструкция по запуску Backend (Запуск через OpenServer): https://docs.google.com/document/d/1ygq68Iru_KJoj1iviB5y81O6Dhi7iBElqWlSr2rl3dU/edit?usp=sharing
